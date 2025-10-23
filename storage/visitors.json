@@ -1,0 +1,22 @@
+[
+  {
+    "ip": "::1",
+    "ips": [
+      "::1"
+    ],
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-09T02:29:21.792Z"
+  },
+  {
+    "ip": "::1",
+    "ips": [
+      "::1"
+    ],
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-09T02:32:29.481Z"
+  }
+]

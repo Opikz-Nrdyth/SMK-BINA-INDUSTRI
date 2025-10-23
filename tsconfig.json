@@ -1,0 +1,10 @@
+{
+  "extends": "@adonisjs/tsconfig/tsconfig.app.json",
+  "compilerOptions": {
+    "rootDir": "./",
+    "outDir": "./build",
+    "lib": ["DOM", "DOM.Iterable", "ES2019"],
+    "types": ["@types/web"]
+  },
+  "exclude": ["./inertia/**/*", "node_modules", "build"]
+}

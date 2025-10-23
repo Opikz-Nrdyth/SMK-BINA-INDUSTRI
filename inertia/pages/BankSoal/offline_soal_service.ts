@@ -1,0 +1,243 @@
+class OfflineStorageService {
+  private dbName = 'SoalDB'
+  private version = 1
+  private isSupported: boolean = false
+
+  constructor() {
+    this.isSupported = typeof window !== 'undefined' && 'indexedDB' in window
+  }
+
+  async init(): Promise<IDBDatabase> {
+    if (!this.isSupported) {
+      throw new Error('IndexedDB is not supported in this environment')
+    }
+
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open(this.dbName, this.version)
+
+      request.onerror = () => reject(request.error)
+      request.onsuccess = () => resolve(request.result)
+
+      request.onupgradeneeded = (event: any) => {
+        const db = event.target.result
+
+        // Create object store tanpa index
+        if (!db.objectStoreNames.contains('soal')) {
+          db.createObjectStore('soal', {
+            keyPath: 'id',
+            autoIncrement: true,
+          })
+        }
+      }
+    })
+  }
+
+  async saveSoal(soal: any[]): Promise<void> {
+    if (!this.isSupported) {
+      console.warn('IndexedDB not supported, skipping offline storage')
+      return
+    }
+
+    try {
+      const db = await this.init()
+
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['soal'], 'readwrite')
+        const store = transaction.objectStore('soal')
+
+        soal.forEach((item) => {
+          const record = {
+            ...item,
+            syncStatus: 'pending',
+          }
+          store.add(record)
+        })
+
+        transaction.oncomplete = () => {
+          db.close()
+          resolve()
+        }
+        transaction.onerror = () => {
+          db.close()
+          reject(transaction.error)
+        }
+      })
+    } catch (error) {
+      console.error('Error saving to offline storage:', error)
+      throw error
+    }
+  }
+
+  async getPendingSoal(): Promise<any[]> {
+    if (!this.isSupported) return []
+
+    try {
+      const db = await this.init()
+
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['soal'], 'readonly')
+        const store = transaction.objectStore('soal')
+        const request = store.getAll()
+
+        request.onsuccess = () => {
+          const allRecords = request.result || []
+          const pendingRecords = allRecords.filter((record: any) => record.syncStatus === 'pending')
+          db.close()
+          resolve(pendingRecords)
+        }
+
+        request.onerror = () => {
+          db.close()
+          reject(request.error)
+        }
+      })
+    } catch (error) {
+      console.error('Error getting pending soal:', error)
+      return []
+    }
+  }
+
+  async markAsSynced(ids: number[]): Promise<void> {
+    if (!this.isSupported) return
+
+    try {
+      const db = await this.init()
+
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['soal'], 'readwrite')
+        const store = transaction.objectStore('soal')
+
+        let completed = 0
+        const total = ids.length
+
+        if (total === 0) {
+          db.close()
+          resolve()
+          return
+        }
+
+        const checkCompletion = () => {
+          completed++
+          if (completed === total) {
+            db.close()
+            resolve()
+          }
+        }
+
+        ids.forEach((id) => {
+          const getRequest = store.get(id)
+          getRequest.onsuccess = () => {
+            const record = getRequest.result
+            if (record) {
+              record.syncStatus = 'synced'
+              const putRequest = store.put(record)
+              putRequest.onsuccess = checkCompletion
+              putRequest.onerror = () => {
+                checkCompletion() // Continue even if error
+              }
+            } else {
+              checkCompletion()
+            }
+          }
+          getRequest.onerror = () => {
+            checkCompletion() // Continue even if error
+          }
+        })
+      })
+    } catch (error) {
+      console.error('Error marking as synced:', error)
+      throw error
+    }
+  }
+
+  async clearSyncedData(status: 'synced' | 'pending' | 'all'): Promise<void> {
+    if (!this.isSupported) return
+
+    try {
+      const db = await this.init()
+
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['soal'], 'readwrite')
+        const store = transaction.objectStore('soal')
+        const request = store.getAll()
+
+        request.onsuccess = () => {
+          const allRecords = request.result || []
+          let syncedRecords: any[] = []
+          if (status === 'all') {
+            syncedRecords = allRecords
+          } else {
+            syncedRecords = allRecords.filter((record: any) => record.syncStatus === status)
+          }
+          if (syncedRecords.length === 0) {
+            db.close()
+            resolve()
+            return
+          }
+
+          let deleted = 0
+          syncedRecords.forEach((record: any) => {
+            const deleteRequest = store.delete(record.id)
+            deleteRequest.onsuccess = () => {
+              deleted++
+              if (deleted === syncedRecords.length) {
+                db.close()
+                resolve()
+              }
+            }
+            deleteRequest.onerror = () => {
+              deleted++
+              if (deleted === syncedRecords.length) {
+                db.close()
+                resolve()
+              }
+            }
+          })
+
+          resolve()
+        }
+
+        request.onerror = () => {
+          db.close()
+          reject(request.error)
+        }
+      })
+    } catch (error) {
+      console.error('Error clearing synced data:', error)
+      throw error
+    }
+  }
+
+  async clearById(id: number): Promise<void> {
+    if (!this.isSupported) return
+
+    try {
+      const db = await this.init()
+
+      return new Promise((resolve, reject) => {
+        const transaction = db.transaction(['soal'], 'readwrite')
+        const store = transaction.objectStore('soal')
+        const request = store.delete(id)
+
+        request.onsuccess = () => {
+          db.close()
+          resolve()
+        }
+
+        request.onerror = () => {
+          db.close()
+          reject(request.error)
+        }
+      })
+    } catch (error) {
+      console.error('Error clearing soal by id:', error)
+      throw error
+    }
+  }
+
+  isStorageSupported(): boolean {
+    return this.isSupported
+  }
+}
+
+export const offlineStorage = new OfflineStorageService()
