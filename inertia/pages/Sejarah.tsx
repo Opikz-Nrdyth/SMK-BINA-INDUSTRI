@@ -6,7 +6,6 @@ export default function SchoolProfile({ dataWebsite }: any) {
   const misi = typeof dataWebsite.misi == 'string' ? JSON.parse(dataWebsite.misi) : dataWebsite.misi
   const { props } = usePage() as any
 
-  console.log(props)
 
   return (
     <>

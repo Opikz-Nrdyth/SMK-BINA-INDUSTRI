@@ -19,7 +19,7 @@ export default function Create({ defaultValues }: any) {
           router.visit(url)
         }
 
-        console.log(props);
+        
         
 
         props?.session?.error?.messages?.map((m: any) => notify(m.message, 'error'))

@@ -6,7 +6,6 @@ export default function QuillNativeDemo() {
   const [content, setContent] = useState('')
 
   const handleSave = () => {
-    console.log('Content saved:', content)
     alert('Content saved! Check console for details.')
   }
 

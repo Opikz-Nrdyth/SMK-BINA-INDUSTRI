@@ -85,8 +85,6 @@ export default function BankSoalForm({
     { value: '180', label: '180 menit' },
   ]
 
-  console.log(data)
-
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {/* Informasi Ujian */}

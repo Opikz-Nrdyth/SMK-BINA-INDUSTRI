@@ -388,8 +388,8 @@ export default function LandingPageManagement() {
                 label="Nama Kepala Sekolah"
                 value={props?.kepalaSekolah?.user?.fullName}
                 readonly
-                onChange={(value) => console.log('headmaster_name', value)}
-                placeholder="Contoh: Dr. Siti Aminah, M.Pd."
+                onChange={(value) => setData('headmaster_name', value)}
+                placeholder="Buka menu Tahun Ajaran dan pilih kepala sekolah"
                 required
               />
 
@@ -399,7 +399,7 @@ export default function LandingPageManagement() {
                 name="tahun_ajaran"
                 label="Tahun Ajaran"
                 value={props?.kepalaSekolah?.tahunAjaran}
-                onChange={(value) => console.log('headmaster_title', value)}
+                onChange={(value) => setData('headmaster_title', value)}
                 placeholder="Contoh: 2023/2024"
               />
             </div>

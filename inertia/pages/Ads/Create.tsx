@@ -22,6 +22,7 @@ export default function Create() {
         props.session.error.messages.map((m: any) => notify(m.message, 'error'))
       },
       onError: (error) => {
+        notify("Error Pada Sistem", "error")
         console.log(error)
       },
     })

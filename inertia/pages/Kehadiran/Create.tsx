@@ -20,8 +20,6 @@ export default function Ujian({ bankSoals }: { bankSoals: BankSoal[] }) {
     )
   }
 
-  console.log(bankSoals)
-
   return (
     <div className="max-w-6xl mx-auto lg:p-6">
       <Notification />

@@ -37,7 +37,6 @@ export default function Index({
 
     socket.on('new_message', (data: any) => {
       notify(`${data.message}`, 'info')
-      console.log(`💬 ${data.from}: ${data.message}`)
     })
 
     return () => {

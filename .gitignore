@@ -9,6 +9,9 @@ tmp
 .env.production.local
 .env.development.local
 
+#cache
+.wwebjs_cache
+
 # Frontend assets compiled code
 public/assets
 

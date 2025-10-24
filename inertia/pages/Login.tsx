@@ -16,11 +16,17 @@ export default function Login({ register }: any) {
       : router.post('/login', values)
   }
   const { props } = usePage() as any
-  console.log(props)
+  
 
   return (
     <section className="relative h-screen">
-      <Head title="Login" />
+      <Head title="Login" >
+        <meta name="description" content={props.description} />
+        <meta name="keywords" content={props.keywords} />
+        <link rel="icon" type="image/png" href={props.logo} />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
+      </Head>
       <div className="absolute top-0 left-0 w-full h-screen overflow-hidden -z-10">
         <div className="w-full h-full bg-black/50 absolute left-0 right-0"></div>
         <div

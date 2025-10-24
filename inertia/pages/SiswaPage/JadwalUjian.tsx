@@ -79,7 +79,6 @@ export default function JadwalUjian({ bankSoal }: { bankSoal: any[] }) {
   }, [bankSoal])
 
   useEffect(() => {
-    console.log(ujianSelected?.kode, localStorage.codeUjian)
     if (localStorage.getItem('codeUjian')) {
       setUjianCodeInput(localStorage.codeUjian)
       if (ujianSelected?.kode == localStorage.codeUjian) {

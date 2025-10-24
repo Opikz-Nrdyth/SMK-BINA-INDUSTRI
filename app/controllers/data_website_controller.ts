@@ -9,6 +9,8 @@ import { cuid } from '@adonisjs/core/helpers'
 import type { HttpContext } from '@adonisjs/core/http'
 import app from '@adonisjs/core/services/app'
 import { DateTime } from 'luxon'
+import fs from 'fs'
+import path from 'path'
 
 export default class LandingPageController {
   public async index({ inertia, session }: HttpContext) {
@@ -31,8 +33,21 @@ export default class LandingPageController {
   public async update({ request, response }: HttpContext) {
     const data = request.all()
 
-    console.log(data)
-
+    const base64String = data.school_logo
+    if (base64String && base64String.startsWith('data:image')) {
+      const matches = base64String.match(/^data:(image\/\w+);base64,(.+)$/)
+      if (!matches) return console.log('Invalid base64 image data')
+      const ext = matches[1].split('/')[1] 
+      const buffer = Buffer.from(matches[2], 'base64')
+      const iconDir = path.join(app.publicPath(), 'icons')
+      const filePath = path.join(iconDir, `icon-192x192.${ext}`)
+      if (!fs.existsSync(iconDir)) {
+        fs.mkdirSync(iconDir, { recursive: true })
+      }
+      fs.writeFileSync(filePath, buffer)
+      
+    }
+    
     try {
       for (const [key, value] of Object.entries(data)) {
         let storedValue = value

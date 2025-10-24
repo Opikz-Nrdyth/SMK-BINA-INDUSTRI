@@ -313,7 +313,6 @@ export default function Index({
                       onClick={() => {
                         setSelectedRow(row)
                         setShowPopup(true)
-                        console.log(row)
                       }}
                       className="text-green-600 hover:text-green-800 px-2 py-1 rounded-md flex items-center gap-1 transition-colors duration-200"
                     >

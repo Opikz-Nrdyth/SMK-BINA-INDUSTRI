@@ -193,7 +193,6 @@ export default function UserAccountIndex({ auth, user, profile }: any) {
 UserAccountIndex.layout = (page: any) => {
   const user = page.props.user
 
-  console.log(page.props.user)
 
   switch (user.role) {
     case 'Guru':

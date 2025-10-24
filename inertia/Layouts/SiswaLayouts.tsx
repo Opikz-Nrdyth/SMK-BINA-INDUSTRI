@@ -71,6 +71,8 @@ export default function SiswaLayout({ title, children, sideHide = false }: Siswa
         <meta name="description" content={props.description ?? ''} />
         <meta name="keywords" content={props.keywords} />
         <link rel="icon" type="image/png" href={props.logo} />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#000000" />
       </Head>
       <header
         className={`fixed bg-white shadow-sm no-print ${sideHide ? 'w-full lg:w-[calc(95%-20px)]' : 'w-full lg:w-[calc(80%-20px)]'} transition-all duration-150 ease-in-out right-0 h-[50px] items-center z-20 flex justify-between lg:justify-end px-5`}

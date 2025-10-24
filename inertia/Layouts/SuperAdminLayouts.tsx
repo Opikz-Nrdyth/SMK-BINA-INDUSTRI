@@ -191,7 +191,6 @@ export default function SuperAdminLayout({ title, children }: SuperAdminLayoutPr
         notify(session.message, 'error')
       }
     }
-    console.log(props)
   }, [props])
 
   const userName = props?.auth?.fullName || props?.user?.fullName

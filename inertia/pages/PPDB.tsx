@@ -215,7 +215,6 @@ export default function PPDBForm({ errors, jurusanOptions }: PPDBFormProps) {
     if (!hasLoaded) return
     const timeout = setTimeout(() => {
       offlineStorage.save(data)
-      console.log(data)
     }, 1000)
 
     return () => clearTimeout(timeout)

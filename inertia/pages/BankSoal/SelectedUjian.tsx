@@ -4,6 +4,7 @@ import Layout from '@/Layouts/Layout'
 import { useState } from 'react'
 import StafLayout from '~/Layouts/StafLayouts'
 import SuperAdminLayout from '~/Layouts/SuperAdminLayouts'
+import { useNotification } from '~/Components/NotificationAlert'
 
 interface SoalItem {
   id: string
@@ -50,6 +51,8 @@ export default function SelectedUjian({ bankSoal, soalContent }: Props) {
     setSoals((prevSoals) => prevSoals.map((soal) => ({ ...soal, selected: true })))
   }
 
+  const {notify}=useNotification()
+
   const unselectAll = () => {
     setSoals((prevSoals) => prevSoals.map((soal) => ({ ...soal, selected: false })))
   }
@@ -70,6 +73,7 @@ export default function SelectedUjian({ bankSoal, soalContent }: Props) {
         }
       )
     } catch (error) {
+      notify("Error Pada Sistem", "error")
       console.log(error)
     }
   }

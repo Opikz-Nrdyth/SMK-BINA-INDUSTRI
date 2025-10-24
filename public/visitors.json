@@ -5,913 +5,6 @@
       "::1"
     ],
     "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:09:32.930Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:09:37.188Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:09:40.140Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:11:52.934Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:11:55.279Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:11:56.630Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:12:00.315Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:12:25.084Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T16:12:27.124Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "POST",
-    "visited_at": "2025-10-16T16:12:30.668Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:12:38.857Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T16:13:01.921Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:34:09.550Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "POST",
-    "visited_at": "2025-10-16T16:34:12.540Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:34:22.698Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T16:35:43.210Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:36:05.244Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:36:10.356Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/storage/ads/1760613197249_images%20(2).jpeg",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:36:11.819Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/storage/ads/1760613229886_back-to-school-banner-design-template-faa4e84430a99d66f0082e8ecd98573a_screen.jpg",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:36:13.186Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:40:52.197Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/storage/ads/1760613197249_images%20(2).jpeg",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:40:53.884Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/storage/ads/1760613229886_back-to-school-banner-design-template-faa4e84430a99d66f0082e8ecd98573a_screen.jpg",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:40:55.161Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:08.490Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/login",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:08.812Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:09.824Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/storage/ads/1760613197249_images%20(2).jpeg",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:11.745Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/login",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:12.704Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/storage/ads/1760613229886_back-to-school-banner-design-template-faa4e84430a99d66f0082e8ecd98573a_screen.jpg",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:13.141Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:13.168Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:17.236Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:44:24.734Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:46:47.511Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:52:06.423Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:53:50.871Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:55:03.182Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:55:08.139Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:56:06.472Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:56:09.715Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:56:10.470Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/inertia/pages/Informasi/Form.tsx",
-    "method": "GET",
-    "visited_at": "2025-10-16T16:57:00.051Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/inertia/pages/Informasi/Form.tsx",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:00:12.520Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:01:55.581Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:01:56.311Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:04:49.600Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:04:51.856Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:06:12.243Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:06:12.826Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:07:21.220Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:07:21.802Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:10:46.062Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:10:46.835Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/inertia/pages/Informasi/Form.tsx",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:14:06.533Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:21:06.915Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:21:07.507Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:32:54.914Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:42:22.286Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:43:27.925Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:43:37.008Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:43:38.791Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:46:18.447Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:46:43.050Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:46:43.742Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:50:38.191Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:50:38.814Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/inertia/pages/Informasi/Form.tsx",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:51:16.155Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:51:24.800Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:51:25.401Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:51:50.939Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:51:51.529Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:52:20.526Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:52:21.126Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:52:21.607Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:52:22.179Z"
-  },
-  {
-    "ips": [
-      null
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:52:41.519Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:52:41.530Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/create",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:52:41.940Z"
-  },
-  {
-    "ips": [
-      null
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:52:49.852Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:52:49.864Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:52:50.268Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:52:50.932Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:00.994Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:03.219Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/a2cebd20-4199-43b6-8383-9e466001e60a/edit",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:05.174Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/initialize",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:54:10.031Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/a2cebd20-4199-43b6-8383-9e466001e60a/edit",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:18.292Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/a2cebd20-4199-43b6-8383-9e466001e60a/edit",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:20.373Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/.well-known/appspecific/com.chrome.devtools.json",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:21.457Z"
-  },
-  {
-    "ips": [
-      null
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/api/whatsapp/bulk-send",
-    "method": "POST",
-    "visited_at": "2025-10-16T17:54:36.778Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi/a2cebd20-4199-43b6-8383-9e466001e60a",
-    "method": "PUT",
-    "visited_at": "2025-10-16T17:54:36.815Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    "path": "/SuperAdmin/manajemen-informasi",
-    "method": "GET",
-    "visited_at": "2025-10-16T17:54:37.334Z"
-  },
-  {
-    "ip": "::1",
-    "ips": [
-      "::1"
-    ],
-    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
     "path": "/SuperAdmin/manajemen-informasi",
     "method": "GET",
     "visited_at": "2025-10-16T17:54:37.796Z"
@@ -9995,5 +9088,914 @@
     "path": "/.well-known/appspecific/com.chrome.devtools.json",
     "method": "GET",
     "visited_at": "2025-10-23T09:17:52.677Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:16:19.709Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:16:19.709Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:16:23.580Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/undefined",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:16:23.627Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:16:23.831Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:17:41.895Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:17:43.333Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:17:45.511Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:17:45.563Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:17:53.225Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:17:53.238Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:18:01.272Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:26:11.117Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:26:11.313Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/favicon.ico",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:26:12.707Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/register",
+    "method": "POST",
+    "visited_at": "2025-10-24T14:26:46.804Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:26:46.933Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:26:47.487Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:26:47.773Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:27:16.430Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:27:16.595Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:27:18.794Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:27:18.883Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:28:17.834Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:28:19.547Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:28:21.040Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:28:21.140Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:28:54.103Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:29:00.751Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:29:01.808Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:12.092Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:12.866Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:13.409Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:15.415Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:43.957Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:45.071Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:30:46.417Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:00.158Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:00.214Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:00.504Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:02.158Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:02.244Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:03.371Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:27.446Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:39.270Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:41.999Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/.well-known/appspecific/com.chrome.devtools.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:42.208Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:43.116Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:44.107Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-512x512.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:48.676Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:31:48.686Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:33:41.405Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:33:41.795Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:33:57.310Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/undefined",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:33:58.402Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page/settings",
+    "method": "POST",
+    "visited_at": "2025-10-24T14:36:07.239Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:36:07.765Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:36:53.904Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page/settings",
+    "method": "POST",
+    "visited_at": "2025-10-24T14:37:06.424Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:37:06.696Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:40:36.021Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page/settings",
+    "method": "POST",
+    "visited_at": "2025-10-24T14:40:51.255Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:40:51.417Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:41:34.230Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:42:04.180Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page/settings",
+    "method": "POST",
+    "visited_at": "2025-10-24T14:42:16.040Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:42:16.159Z"
+  },
+  {
+    "ips": [
+      null
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:42:51.661Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/SuperAdmin/landing-page",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:42:53.010Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/logout",
+    "method": "DELETE",
+    "visited_at": "2025-10-24T14:43:05.941Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:43:05.986Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:43:22.109Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:43:25.733Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:43:25.813Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-512x512.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:43:28.381Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/icons/icon-192x192.png",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:43:28.389Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:44:14.417Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:44:16.465Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:44:19.330Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:44:20.949Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:44:48.875Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:45:31.145Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:45:42.884Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:45:45.445Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:46:03.085Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:46:14.984Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:46:36.450Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:46:37.937Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:47:31.933Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/manifest.json",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:47:33.596Z"
+  },
+  {
+    "ip": "127.0.0.1",
+    "ips": [
+      "127.0.0.1"
+    ],
+    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "path": "/login",
+    "method": "GET",
+    "visited_at": "2025-10-24T14:47:48.031Z"
   }
 ]

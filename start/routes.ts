@@ -27,6 +27,7 @@ import LandingPageController from '#controllers/data_website_controller'
 import SuperAdminController from '#controllers/data_super_admin'
 import WhatsAppController from '#controllers/whats_apps_controller'
 import DataSiswaPraRegistsController from '#controllers/data_siswa_pra_regists_controller'
+import ManifestController from '#controllers/manifest_controller'
 
 router
   .group(() => {
@@ -42,6 +43,7 @@ router
     router.get('/ppdb', [DataSiswasController, 'ppdbForm'])
   })
   .middleware([middleware.webData()])
+  router.get('/manifest.json',[ManifestController,"show"])
 router.post('/ppdb/register', [DataSiswasController, 'ppdbRegister'])
 router.get('/ppdb/success', [DataSiswasController, 'ppdbSuccess'])
 
