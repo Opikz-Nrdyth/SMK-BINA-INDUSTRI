@@ -1,9 +1,10 @@
 import { Head, router, usePage } from '@inertiajs/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNotification } from '~/Components/NotificationAlert'
 
-export default function Login({ register }: any) {
+export default function Login({ register, session }: any) {
   const [showPassword, setShowPassword] = useState(false)
-  const [values, setValues] = useState({ fullName: '', email: '', password: '' })
+  const [values, setValues] = useState({ fullName: '', email: '', password: '', role: '' })
 
   function submit(e: React.FormEvent) {
     e.preventDefault()
@@ -16,11 +17,15 @@ export default function Login({ register }: any) {
       : router.post('/login', values)
   }
   const { props } = usePage() as any
-  
 
+  const { notify } = useNotification()
+
+  useEffect(() => {
+    notify(session.message, 'info')
+  }, [session])
   return (
     <section className="relative h-screen">
-      <Head title="Login" >
+      <Head title="Login">
         <meta name="description" content={props.description} />
         <meta name="keywords" content={props.keywords} />
         <link rel="icon" type="image/png" href={props.logo} />
@@ -155,6 +160,46 @@ export default function Login({ register }: any) {
           </div>
         </div>
       </form>
+
+      {session.roleInput && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white/20 border border-white/30 backdrop-blur-md shadow-xl rounded-xl p-8 w-[90%] max-w-md text-center">
+            <h2 className="text-2xl font-bold text-white mb-6">Pilih Role Login</h2>
+            <p className="text-gray-200 mb-8">
+              Anda terdaftar sebagai <b>Guru</b> dan <b>Staf</b>. Silakan pilih peran untuk masuk ke
+              dashboard yang sesuai.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => {
+                  const payload = {
+                    ...values,
+                    role: 'Guru',
+                  }
+                  router.post('/login', payload)
+                }}
+                className="w-full sm:w-1/2 py-3 rounded-md bg-gradient-to-r from-purple-500 to-purple-700 text-white font-semibold hover:from-purple-600 hover:to-purple-800 transition"
+              >
+                Masuk sebagai Guru
+              </button>
+
+              <button
+                onClick={() => {
+                  const payload = {
+                    ...values,
+                    role: 'Staf',
+                  }
+                  router.post('/login', payload)
+                }}
+                className="w-full sm:w-1/2 py-3 rounded-md bg-gradient-to-r from-pink-500 to-pink-700 text-white font-semibold hover:from-pink-600 hover:to-pink-800 transition"
+              >
+                Masuk sebagai Staf
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   )
 }

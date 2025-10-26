@@ -1,9 +1,10 @@
-import React from 'react'
-import { useForm } from '@inertiajs/react'
+import React, { useState } from 'react'
+import { router, useForm, usePage } from '@inertiajs/react'
 import UniversalInput from '~/Components/UniversalInput'
 import SuperAdminLayout from '~/Layouts/SuperAdminLayouts'
 import { FormInputDateFormat } from '~/Components/FormatWaktu'
 import { GuruFormData } from './types'
+import { useNotification } from '~/Components/NotificationAlert'
 
 interface Props {
   initialValues?: GuruFormData
@@ -31,6 +32,11 @@ export default function Form({ initialValues, onSubmit, submitLabel, dark = fals
     }
   )
 
+  const [dualAccount, setDualAcoount] = useState(false)
+
+  const { props } = usePage() as any
+  const { notify } = useNotification()
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const formatToDateTime = (date: string) => {
@@ -46,6 +52,50 @@ export default function Form({ initialValues, onSubmit, submitLabel, dark = fals
       },
     }
     onSubmit(formattedData)
+  }
+
+  const cekUser = async () => {
+    const pattern = props.pattern.split('/').filter((route: any) => route !== '')
+    const url = `${pattern[0]}/${pattern[1]}`
+
+    if (data.user.email) {
+      try {
+        const res = await fetch(`/${url}/${data.user.email}/cekGuru`)
+        if (!res.ok) throw new Error('Gagal fetch data')
+        const result = await res.json()
+        if (result.status == 'ready') {
+          console.log(result.data)
+          const resultData = result.data
+          setDualAcoount(true)
+          notify('Data Di Temukan', 'success')
+          setData({
+            user: {
+              fullName: resultData?.fullName,
+              email: resultData?.email,
+              role: 'Guru',
+              password: 'Bukan Password Asli',
+              password_confirmation: 'Bukan Password Asli',
+            },
+            guru: {
+              agama: resultData?.dataStaf?.agama,
+              alamat: resultData?.dataStaf?.alamat,
+              gelarBelakang: resultData?.dataStaf?.gelarBelakang,
+              gelarDepan: resultData?.dataStaf?.gelarDepan,
+              jenisKelamin: resultData?.dataStaf?.jenisKelamin,
+              nip: resultData?.dataStaf?.nip,
+              noTelepon: resultData?.dataStaf?.noTelepon,
+              tanggalLahir: resultData?.dataStaf?.tanggalLahir,
+              tempatLahir: resultData?.dataStaf?.tempatLahir,
+              fileFoto: resultData?.dataStaf?.fileFoto,
+            },
+          })
+        } else {
+          notify(result.message, 'error')
+        }
+      } catch (err) {
+        notify('Data Tidak Di Temukan', 'error')
+      }
+    }
   }
 
   const agamaOptions = [
@@ -68,26 +118,36 @@ export default function Form({ initialValues, onSubmit, submitLabel, dark = fals
         <UniversalInput
           type="text"
           name="fullName"
+          disabled={dualAccount}
           label="Nama Lengkap"
           value={data.user.fullName}
           onChange={(v: any) => setData('user', { ...data.user, fullName: v })}
           required
           dark={dark}
         />
-        <UniversalInput
-          type="email"
-          name="email"
-          label="Email"
-          value={data.user.email}
-          onChange={(v: any) => setData('user', { ...data.user, email: v })}
-          required
-          dark={dark}
-        />
+        <div>
+          <UniversalInput
+            type="email"
+            name="email"
+            disabled={dualAccount}
+            label="Email"
+            value={data.user.email}
+            onChange={(v: any) => setData('user', { ...data.user, email: v })}
+            required
+            dark={dark}
+          />
+          {data.user.email && (
+            <button onClick={cekUser} type="button" className="text-purple-400 font-bold mt-1">
+              Buat Data Guru dari Staf
+            </button>
+          )}
+        </div>
         {!initialValues && (
           <>
             <UniversalInput
               type="password"
               name="password"
+              disabled={dualAccount}
               label="Password"
               value={data.user.password}
               onChange={(v: any) => setData('user', { ...data.user, password: v })}
@@ -97,6 +157,7 @@ export default function Form({ initialValues, onSubmit, submitLabel, dark = fals
             <UniversalInput
               type="password"
               name="password_confirmation"
+              disabled={dualAccount}
               label="Konfirmasi Password"
               value={data.user.password_confirmation}
               onChange={(v: any) => setData('user', { ...data.user, password_confirmation: v })}

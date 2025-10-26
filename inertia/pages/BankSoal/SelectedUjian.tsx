@@ -51,7 +51,7 @@ export default function SelectedUjian({ bankSoal, soalContent }: Props) {
     setSoals((prevSoals) => prevSoals.map((soal) => ({ ...soal, selected: true })))
   }
 
-  const {notify}=useNotification()
+  const { notify } = useNotification()
 
   const unselectAll = () => {
     setSoals((prevSoals) => prevSoals.map((soal) => ({ ...soal, selected: false })))
@@ -73,7 +73,7 @@ export default function SelectedUjian({ bankSoal, soalContent }: Props) {
         }
       )
     } catch (error) {
-      notify("Error Pada Sistem", "error")
+      notify('Error Pada Sistem', 'error')
       console.log(error)
     }
   }
@@ -483,7 +483,8 @@ export default function SelectedUjian({ bankSoal, soalContent }: Props) {
 }
 
 SelectedUjian.layout = (page: any) => {
-  if (page.props.user.role == 'Staf') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole == 'Staf') {
     return <StafLayout>{page}</StafLayout>
   }
 

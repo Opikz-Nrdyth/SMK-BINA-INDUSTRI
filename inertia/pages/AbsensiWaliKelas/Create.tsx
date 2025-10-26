@@ -46,7 +46,8 @@ export default function Create({ accessibleKelas, today, flashMessages }: any) {
 }
 
 Create.layout = (page: any) => {
-  if (page.props.user.role == 'Guru') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole == 'Guru') {
     return <GuruLayout>{page}</GuruLayout>
   }
 

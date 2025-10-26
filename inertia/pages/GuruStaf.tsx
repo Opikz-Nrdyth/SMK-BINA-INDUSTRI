@@ -205,6 +205,7 @@ export default function Teachers({
                               ? `Guru ${subjects[0]}`
                               : 'Guru'
                             : 'Staf')}
+                            
                       </span>
                     </div>
                   </div>
@@ -214,9 +215,9 @@ export default function Teachers({
                     <h3 className="font-bold text-lg mb-1 text-gray-800 dark:text-white group-hover:text-purple-600 transition-colors">
                       {name}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                    {/* <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
                       {subtitle}
-                    </p>
+                    </p> */}
 
                     {/* Hover actions (kept from design) */}
                     <div className="mt-4 opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">

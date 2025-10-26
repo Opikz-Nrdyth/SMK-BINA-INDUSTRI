@@ -111,7 +111,7 @@ export default function Index({
       <DataTable
         data={data}
         columns={[
-          { header: 'NIP', accessor: 'nip' as const },
+          { header: 'NIY', accessor: 'nip' as const },
           { header: 'Nama', accessor: 'fullName' as const },
           { header: 'Email', accessor: 'email' as const },
           { header: 'Jenis Kelamin', accessor: 'jenisKelamin' as const },

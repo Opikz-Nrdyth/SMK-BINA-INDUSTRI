@@ -129,9 +129,11 @@ export default function Index({
   )
 }
 
-Index.layout = (page: any) =>
-  page.props.user.role === 'Staf' ? (
+Index.layout = (page: any) => {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  return activeRole === 'Staf' ? (
     <StafLayout>{page}</StafLayout>
   ) : (
     <SuperAdminLayout>{page}</SuperAdminLayout>
   )
+}

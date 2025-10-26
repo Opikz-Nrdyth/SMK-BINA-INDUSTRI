@@ -15,6 +15,7 @@ export default function GuestLayout({ title, children }: LayoutProps) {
   const [now, setNow] = useState(() => new Date())
   const { notify } = useNotification()
   const [splash, setSplas] = useState(false)
+  
 
   useEffect(() => {
     const id = setInterval(() => setNow(new Date()), 1000)

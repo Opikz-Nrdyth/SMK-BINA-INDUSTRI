@@ -22,7 +22,7 @@ export default function Create() {
         props.session.error.messages.map((m: any) => notify(m.message, 'error'))
       },
       onError: (error) => {
-        notify("Error Pada Sistem", "error")
+        notify('Error Pada Sistem', 'error')
         console.log(error)
       },
     })
@@ -37,9 +37,11 @@ export default function Create() {
   )
 }
 
-Create.layout = (page: any) =>
-  page.props.user.role === 'Staf' ? (
+Create.layout = (page: any) => {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  return activeRole === 'Staf' ? (
     <StafLayout>{page}</StafLayout>
   ) : (
     <SuperAdminLayout>{page}</SuperAdminLayout>
   )
+}

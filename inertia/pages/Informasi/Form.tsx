@@ -224,7 +224,8 @@ export default function Form({
 }
 
 Form.layout = (page: any) => {
-  if (page.props.user.role == 'Staf') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole == 'Staf') {
     return <StafLayout>{page}</StafLayout>
   }
 

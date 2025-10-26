@@ -108,15 +108,21 @@ export default function Index({
             action: (row: any) => (
               <div>
                 {row.status === 'praregist' ? (
-                  <button onClick={()=>{
-                    router.post(`${props.pattern}/${row.nisn}/daftarulang`)
-                  }} className="px-2 text-nowrap py-1 text-xs text-blue-500 font-bold hover:text-blue-600">
+                  <button
+                    onClick={() => {
+                      router.post(`${props.pattern}/${row.nisn}/daftarulang`)
+                    }}
+                    className="px-2 text-nowrap py-1 text-xs text-blue-500 font-bold hover:text-blue-600"
+                  >
                     Daftar Ulang
                   </button>
-                ) : row.status === 'status' ? (
-                  <button onClick={()=>{
-                    router.post(`${props.pattern}/${row.nisn}/daftarulang`)
-                  }}  className="px-2 py-1 text-xs text-green-500 font-bold hover:text-green-600">
+                ) : row.status === 'daftarulang' ? (
+                  <button
+                    onClick={() => {
+                      router.post(`${props.pattern}/${row.nisn}/status`)
+                    }}
+                    className="px-2 py-1 text-xs text-green-500 font-bold hover:text-green-600"
+                  >
                     Aktifkan
                   </button>
                 ) : null}
@@ -152,7 +158,8 @@ export default function Index({
 }
 
 Index.layout = (page: any) => {
-  if (page.props.user.role == 'Staf') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole == 'Staf') {
     return <StafLayout>{page}</StafLayout>
   }
 

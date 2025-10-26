@@ -1,6 +1,7 @@
 import DataGuru from '#models/data_guru'
 import DataKelas from '#models/data_kelas'
 import DataStaf from '#models/data_staf'
+import User from '#models/user'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class RoleManajemenMiddleware {
@@ -12,8 +13,10 @@ export default class RoleManajemenMiddleware {
       return ctx.response.redirect('/login')
     }
 
+    const activeRole = ctx.session.get('role') || user.role
+
     let isWaliKelas = false
-    if (user.role === 'Guru') {
+    if (activeRole === 'Guru') {
       try {
         const guru = await DataGuru.query().where('userId', user.id).first()
         if (guru) {
@@ -26,8 +29,16 @@ export default class RoleManajemenMiddleware {
       }
     }
 
+    const userData = await User.query()
+      .where('id', user.id)
+      .preload('dataGuru')
+      .preload('dataStaf')
+      .firstOrFail()
+
+    const isMultipleAccount = !!(userData.dataGuru && userData.dataStaf)
+
     let dataStaf
-    if (user.role == 'Staf') {
+    if (activeRole == 'Staf') {
       dataStaf = await DataStaf.query().where('user_id', user?.id).first()
     }
 
@@ -39,11 +50,13 @@ export default class RoleManajemenMiddleware {
       pattern: pattern || '',
       isWaliKelas,
       departement: dataStaf?.departemen || '',
+      activeRole,
+      isMultipleAccount,
     })
 
     // Kalau bukan role yang sesuai → redirect ke dashboard role user
-    if (!allowedRoles.includes(user.role)) {
-      switch (user.role) {
+    if (!allowedRoles.includes(activeRole)) {
+      switch (activeRole) {
         case 'SuperAdmin':
           return ctx.response.redirect('/SuperAdmin')
         case 'Guru':

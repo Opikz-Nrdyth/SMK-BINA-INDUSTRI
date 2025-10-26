@@ -70,9 +70,11 @@ export default function Edit({ ad }: any) {
   )
 }
 
-Edit.layout = (page: any) =>
-  page.props.user.role === 'Staf' ? (
+Edit.layout = (page: any) => {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  return activeRole === 'Staf' ? (
     <StafLayout>{page}</StafLayout>
   ) : (
     <SuperAdminLayout>{page}</SuperAdminLayout>
   )
+}

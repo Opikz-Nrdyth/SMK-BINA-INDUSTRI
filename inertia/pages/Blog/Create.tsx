@@ -19,9 +19,6 @@ export default function Create({ defaultValues }: any) {
           router.visit(url)
         }
 
-        
-        
-
         props?.session?.error?.messages?.map((m: any) => notify(m.message, 'error'))
       },
     })
@@ -42,7 +39,8 @@ export default function Create({ defaultValues }: any) {
 }
 
 Create.layout = (page: any) => {
-  if (page.props.user.role === 'Staf') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole === 'Staf') {
     return <StafLayout>{page}</StafLayout>
   }
   return <SuperAdminLayout>{page}</SuperAdminLayout>

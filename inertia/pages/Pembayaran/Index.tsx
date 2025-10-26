@@ -353,11 +353,12 @@ export default function Index({
 }
 
 Index.layout = (page: any) => {
-  if (page.props.user.role == 'Guru') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole == 'Guru') {
     return <GuruLayout>{page}</GuruLayout>
   }
 
-  if (page.props.user.role == 'Staf') {
+  if (activeRole == 'Staf') {
     return <StafLayout>{page}</StafLayout>
   }
 

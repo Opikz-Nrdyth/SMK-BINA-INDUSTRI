@@ -43,9 +43,9 @@ export default function StafLayout({ title, children }: StafLayoutProps) {
             path: '/staf/manajemen-siswa',
           },
           {
-          name: 'Siswa Pra Regist',
-          path: '/SuperAdmin/manajemen-siswa/praregist',
-        },
+            name: 'Siswa Pra Regist',
+            path: '/SuperAdmin/manajemen-siswa/praregist',
+          },
           {
             name: 'Manajemen Guru',
             path: '/staf/manajemen-guru',
@@ -301,6 +301,16 @@ export default function StafLayout({ title, children }: StafLayoutProps) {
         >
           Profile
         </Link>
+        {props.isMultipleAccount && (
+          <button
+            onClick={() => {
+              router.post('/switch/Guru')
+            }}
+            className="text-center py-2 text-sm rounded-lg border border-yellow-300 text-yellow-700 hover:bg-yellow-600 hover:text-white hover:border-yellow-600 transition"
+          >
+            Switch Ke Guru
+          </button>
+        )}
         <button
           onClick={() => {
             setProfileOpen(false)

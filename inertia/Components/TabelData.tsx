@@ -17,6 +17,7 @@ export type TableColumn<T> = {
   isTime?: timeFormat
   badge?: 'green' | 'red' | 'yellow' | 'blue' | 'grey'
   action?: (row: T) => ReactNode | null
+  sort?: keyof T
 }
 
 type DataTableProps<T> = {
@@ -73,6 +74,7 @@ export default function DataTable<T extends Record<string, unknown>>({
   const [search, setSearch] = useState(serverSearch?.value || '')
   const [page, setPage] = useState(serverPagination?.currentPage || 1)
   const [deleteId, setDeleteId] = useState<any | null>(null)
+  const [paginated, setPaginate] = useState<any[]>([])
 
   useEffect(() => {
     if (serverSearch) {
@@ -98,11 +100,16 @@ export default function DataTable<T extends Record<string, unknown>>({
       ? data.length
       : Math.ceil(filtered.length / pageSize)
 
-  const paginated = useMemo(() => {
+  const paginatedMemo = useMemo(() => {
     if (serverPagination) return data
     const start = (page - 1) * pageSize
     return filtered?.slice(start, start + pageSize)
   }, [filtered, page, pageSize, serverPagination, data])
+
+  useEffect(()=>{
+    setPaginate(paginatedMemo)
+  },[paginatedMemo])
+  
 
   const handlePageChange = (newPage: number) => {
     if (serverPagination) {
@@ -131,6 +138,41 @@ export default function DataTable<T extends Record<string, unknown>>({
   const canView = (row: T) => {
     return disableConfig?.canView ? disableConfig.canView(row) : true
   }
+
+  const canSort = (namaSort: keyof T) => {
+  setPaginate((prev) => {
+    const sorted = [...prev].sort((a, b) => {
+      const valA = a[namaSort]
+      const valB = b[namaSort]
+
+      // Null or undefined → dipindah ke akhir
+      if (valA == null && valB == null) return 0
+      if (valA == null) return 1
+      if (valB == null) return -1
+
+      // Angka
+      if (!isNaN(Number(valA)) && !isNaN(Number(valB))) {
+        return Number(valA) - Number(valB)
+      }
+
+      // Tanggal
+      if (!isNaN(Date.parse(String(valA))) && !isNaN(Date.parse(String(valB)))) {
+        return new Date(String(valA)).getTime() - new Date(String(valB)).getTime()
+      }
+
+      // Boolean
+      if (typeof valA === 'boolean' && typeof valB === 'boolean') {
+        return valA === valB ? 0 : valA ? -1 : 1
+      }
+
+      // Default: String
+      return String(valA).localeCompare(String(valB), 'id', { sensitivity: 'base' })
+    })
+
+    return sorted
+  })
+}
+
 
   // Reset page ke 1 bila search berubah
   useEffect(() => {
@@ -170,14 +212,20 @@ export default function DataTable<T extends Record<string, unknown>>({
               {columns.map((col, i) =>
                 !col.action ? (
                   <th
+                  onClick={()=>{
+                    if(col.sort){
+                      canSort(col.sort)
+                    }
+                  }}
                     key={i}
                     className={[
                       'px-4 py-3 text-nowrap text-left text-xs font-medium uppercase tracking-wider text-gray-600 dark:text-gray-400',
                       col.hideMobile ? 'hidden sm:table-cell' : '',
                       col.className || '',
+                      col.sort?"cursor-pointer":""
                     ].join(' ')}
                   >
-                    {col.header}
+                    {col.sort&&<i className="fa-solid fa-sort"></i>} {col.header}
                   </th>
                 ) : null
               )}

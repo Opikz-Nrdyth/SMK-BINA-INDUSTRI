@@ -59,6 +59,33 @@ export default class DataStafsController {
     return inertia.render('Staf/Create', { session: session.flashMessages.all() })
   }
 
+  public async cekUser({ params, response }: HttpContext) {
+    const trx = await db.transaction()
+    const email = params.id
+    let user = await User.query({ client: trx })
+      .preload('dataGuru')
+      .preload('dataStaf')
+      .where('email', email)
+      .first()
+    let dataStaf = user?.dataStaf
+    if (dataStaf) {
+      response.json({
+        status: 'notReady',
+        message: 'Tidak Bisa Membuat Lebih 1 Data Dengan Guru Yang Sama',
+      })
+    } else if (user) {
+      response.json({
+        status: 'ready',
+        data: user,
+      })
+    } else {
+      response.json({
+        status: 'notReady',
+        message: 'Tidak ada data! Buat data Baru',
+      })
+    }
+  }
+
   public async store({ request, response, session }: HttpContext) {
     const trx = await db.transaction()
 
@@ -68,7 +95,11 @@ export default class DataStafsController {
         ? await this.uploadFile(request.file('staf.fileFoto'), String(payload.staf.nip))
         : null
 
-      const user = await User.create({ ...payload.user, role: 'Staf' }, { client: trx })
+      let user = await User.query({ client: trx }).where('email', payload.user.email).first()
+      if (!user) {
+        user = await User.create({ ...payload.user, role: 'Staf' }, { client: trx })
+      }
+
       await DataStaf.create(
         { ...(payload.staf as any), userId: user.id, fileFoto: fileFoto },
         { client: trx }
@@ -149,10 +180,16 @@ export default class DataStafsController {
     try {
       const { id } = params
       const staf = await DataStaf.findOrFail(id)
-      const user = await User.findByOrFail('id', staf.userId)
+      const user = await User.query()
+        .where('id', staf.userId)
+        .preload('dataGuru')
+        .preload('dataStaf')
+        .firstOrFail()
       await this.deleteFile(staf.fileFoto)
       await staf.delete()
-      await user.delete()
+      if (!user.dataGuru) {
+        await user.delete()
+      }
 
       session.flash({
         status: 'success',

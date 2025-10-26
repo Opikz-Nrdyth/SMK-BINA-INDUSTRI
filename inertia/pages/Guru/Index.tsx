@@ -103,7 +103,7 @@ export default function Index({
   }
 
   const columns = [
-    { header: 'NIP', accessor: 'nip' as const },
+    { header: 'NIY', accessor: 'nip' as const },
     { header: 'Nama', accessor: 'fullName' as const },
     { header: 'Email', accessor: 'email' as const },
     { header: 'Jenis Kelamin', accessor: 'jenisKelamin' as const },
@@ -241,6 +241,7 @@ export default function Index({
 }
 
 Index.layout = (page: any) => {
-  if (page.props.user.role === 'Staf') return <StafLayout>{page}</StafLayout>
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole === 'Staf') return <StafLayout>{page}</StafLayout>
   return <SuperAdminLayout>{page}</SuperAdminLayout>
 }

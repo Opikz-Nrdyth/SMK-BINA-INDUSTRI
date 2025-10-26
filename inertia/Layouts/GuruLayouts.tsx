@@ -236,6 +236,16 @@ export default function GuruLayout({ title, children }: LayoutProps) {
         >
           Profile
         </Link>
+        {props.isMultipleAccount && (
+          <button
+            onClick={() => {
+              router.post('/switch/Staf')
+            }}
+            className="text-center py-2 text-sm rounded-lg border border-yellow-300 text-yellow-700 hover:bg-yellow-600 hover:text-white hover:border-yellow-600 transition"
+          >
+            Switch Ke Staf
+          </button>
+        )}
         <button
           onClick={() => {
             setProfileOpen(false)

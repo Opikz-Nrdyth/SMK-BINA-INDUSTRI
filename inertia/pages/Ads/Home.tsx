@@ -134,9 +134,11 @@ export default function Home({ ads, adsPaginate, searchQuery = '', filterTipe = 
   )
 }
 
-Home.layout = (page: any) =>
-  page.props.user.role === 'Staf' ? (
+Home.layout = (page: any) => {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  return activeRole === 'Staf' ? (
     <StafLayout>{page}</StafLayout>
   ) : (
     <SuperAdminLayout>{page}</SuperAdminLayout>
   )
+}

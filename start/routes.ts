@@ -43,7 +43,7 @@ router
     router.get('/ppdb', [DataSiswasController, 'ppdbForm'])
   })
   .middleware([middleware.webData()])
-  router.get('/manifest.json',[ManifestController,"show"])
+router.get('/manifest.json', [ManifestController, 'show'])
 router.post('/ppdb/register', [DataSiswasController, 'ppdbRegister'])
 router.get('/ppdb/success', [DataSiswasController, 'ppdbSuccess'])
 
@@ -74,6 +74,34 @@ router
   .prefix('/api/whatsapp')
   .use([middleware.auth()])
 
+router.post('/switch/:role', async ({ params, session, response }) => {
+  const role = params.role
+
+  const allowedRoles = ['Guru', 'Staf']
+  if (!allowedRoles.includes(role)) {
+    session.flash({
+      status: 'error',
+      message: `Role Tidak Valid`,
+    })
+    return response.redirect().back()
+  }
+
+  session.put('role', role)
+
+  session.flash({
+    status: 'success',
+    message: `Berhasil beralih ke role ${role}`,
+  })
+
+  switch (role) {
+    case 'Guru':
+      return response.redirect('/guru')
+    case 'Staf':
+      return response.redirect('/staf')
+    default:
+      return response.redirect().back()
+  }
+})
 router
   .group(() => {
     router.get('/', [DashboardSasController, 'SuperAdmin']).as('superadmin.index')
@@ -91,12 +119,18 @@ router
       .get('/manajemen-siswa/praregist', [DataSiswaPraRegistsController, 'index'])
       .as('superadmin.siswa.praregist')
 
-      router
-      .get('/manajemen-siswa/praregist/:nisn/status', [DataSiswaPraRegistsController, 'updateStatus'])
+    router
+      .post('/manajemen-siswa/praregist/:nisn/status', [
+        DataSiswaPraRegistsController,
+        'updateStatus',
+      ])
       .as('superadmin.siswa.praregist.status')
 
-      router
-      .get('/manajemen-siswa/praregist/:nisn/daftarulang', [DataSiswaPraRegistsController, 'updateToDaftarUlang'])
+    router
+      .post('/manajemen-siswa/praregist/:nisn/daftarulang', [
+        DataSiswaPraRegistsController,
+        'updateToDaftarUlang',
+      ])
       .as('superadmin.siswa.praregist.daftarulang')
 
     router
@@ -112,6 +146,10 @@ router
       .as('superadmin.guru')
 
     router
+      .get('/manajemen-guru/:id/cekGuru/', [DataGurusController, 'cekUser'])
+      .as('superadmin.guru.cekguru')
+
+    router
       .get('/manajemen-guru/export', [DataGurusController, 'exportExcel'])
       .as('superadmin.guru.export')
     router
@@ -122,6 +160,10 @@ router
       .resource('/manajemen-staf', DataStafsController)
       .only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
       .as('superadmin.staf')
+
+    router
+      .get('/manajemen-staf/:id/cekStaf/', [DataStafsController, 'cekUser'])
+      .as('superadmin.staf.cekguru')
 
     router
       .get('/manajemen-staf/export', [DataStafsController, 'exportExcel'])
@@ -394,17 +436,23 @@ router
         .only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
         .as('staf.siswa')
 
-        router
-      .get('/manajemen-siswa/praregist', [DataSiswaPraRegistsController, 'index'])
-      .as('staf.siswa.praregist')
+      router
+        .get('/manajemen-siswa/praregist', [DataSiswaPraRegistsController, 'index'])
+        .as('staf.siswa.praregist')
 
       router
-      .get('/manajemen-siswa/praregist/:nisn/status', [DataSiswaPraRegistsController, 'updateStatus'])
-      .as('staf.siswa.praregist.status')
+        .get('/manajemen-siswa/praregist/:nisn/status', [
+          DataSiswaPraRegistsController,
+          'updateStatus',
+        ])
+        .as('staf.siswa.praregist.status')
 
       router
-      .get('/manajemen-siswa/praregist/:nisn/daftarulang', [DataSiswaPraRegistsController, 'updateToDaftarUlang'])
-      .as('staf.siswa.praregist.daftarulang')
+        .get('/manajemen-siswa/praregist/:nisn/daftarulang', [
+          DataSiswaPraRegistsController,
+          'updateToDaftarUlang',
+        ])
+        .as('staf.siswa.praregist.daftarulang')
 
       router
         .get('/manajemen-siswa/kelas', [DataSiswasController, 'indexPerKelas'])

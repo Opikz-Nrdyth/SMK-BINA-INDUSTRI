@@ -81,7 +81,7 @@ export default function Index({
         data={data}
         columns={[
           { header: 'Nama Mata Pelajaran', accessor: 'namaMataPelajaran' as const },
-          { header: 'Jenjang', accessor: 'jenjang' as const },
+          { header: 'Jenjang', accessor: 'jenjang' as const, sort: 'jenjang' },
           { header: 'Guru Pengampu', accessor: 'guruAmpu' as const },
         ]}
         editable={String(props.pattern)}
@@ -112,7 +112,8 @@ export default function Index({
 }
 
 Index.layout = (page: any) => {
-  if (page.props.user.role == 'Staf') {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  if (activeRole == 'Staf') {
     return <StafLayout>{page}</StafLayout>
   }
 

@@ -33,9 +33,11 @@ export default function Create() {
   )
 }
 
-Create.layout = (page: any) =>
-  page.props.user.role === 'Staf' ? (
+Create.layout = (page: any) => {
+  const activeRole = page.props.activeRole ?? page.props.user.role
+  return activeRole === 'Staf' ? (
     <StafLayout>{page}</StafLayout>
   ) : (
     <SuperAdminLayout>{page}</SuperAdminLayout>
   )
+}
