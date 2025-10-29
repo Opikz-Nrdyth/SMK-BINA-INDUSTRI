@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title inertia>
+      SMK BINA INDUSTRI
+    </title>
+
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=instrument-sans:400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com">
+
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <meta name="csrf-token" content="{{ csrfToken }}" />
+
+  </script>
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: [ "Instrument Sans", "sans-serif" ]
+          },
+          colors: {
+            primary: {
+              DEFAULT: "#5A45FF"
+            },
+            sand: {
+              1: "var(--sand-1)",
+              2: "var(--sand-2)",
+              3: "var(--sand-3)",
+              4: "var(--sand-4)",
+              5: "var(--sand-5)",
+              6: "var(--sand-6)",
+              7: "var(--sand-7)",
+              8: "var(--sand-8)",
+              9: "v and import it herear(--sand-9)",
+              10: "var(--sand-10)",
+              11: "var(--sand-11)",
+              12: "var(--sand-12)"
+            }
+          }
+        }
+      },
+      plugins: [ function({
+        addUtilities
+      }) {
+        addUtilities({
+          ".scrollbar-thin": {
+            "scrollbar-width": "thin"
+          },
+          ".scrollbar-thumb-purple": {
+            "scrollbar-color": "#5A45FF #E5E7EB"
+          },
+          ".scrollbar-thumb-dark": {
+            "scrollbar-color": "#2b214f #1c1c1f"
+          }
+        });
+      } ]
+    };
+  </script>
+
+  @stack('dumper')
+  @viteReactRefresh()
+  @inertiaHead()
+  @vite(['inertia/app/app.tsx', `inertia/pages/${page.component}.tsx`])
+</head>
+
+<body class="font-sans">
+  @inertia()
+</body>
+
+</html>

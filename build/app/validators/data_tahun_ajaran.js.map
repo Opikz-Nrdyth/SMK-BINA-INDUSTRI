@@ -1,0 +1,1 @@
+{"version":3,"file":"data_tahun_ajaran.js","sourceRoot":"","sources":["../../../app/validators/data_tahun_ajaran.ts"],"names":[],"mappings":"AAAA,OAAO,IAAI,MAAM,cAAc,CAAA;AAE/B,MAAM,CAAC,MAAM,oBAAoB,GAAG,IAAI,CAAC,OAAO,CAC9C,IAAI,CAAC,MAAM,CAAC;IACV,MAAM,EAAE,IAAI,CAAC,MAAM,EAAE;IACrB,WAAW,EAAE,IAAI,CAAC,MAAM,EAAE;IAC1B,aAAa,EAAE,IAAI,CAAC,MAAM,EAAE;CAC7B,CAAC,CACH,CAAA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"inertia.js","sourceRoot":"","sources":["../../config/inertia.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,YAAY,EAAE,MAAM,mBAAmB,CAAA;AAGhD,MAAM,aAAa,GAAG,YAAY,CAAC;IAIjC,QAAQ,EAAE,gBAAgB;IAK1B,UAAU,EAAE,EAEX;IAKD,GAAG,EAAE;QACH,OAAO,EAAE,KAAK;QACd,UAAU,EAAE,qBAAqB;KAClC;CACF,CAAC,CAAA;AAEF,eAAe,aAAa,CAAA"}
