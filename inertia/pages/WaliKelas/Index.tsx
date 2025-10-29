@@ -94,7 +94,7 @@ export default function Index({
           { header: 'Nama', accessor: 'fullName' as const },
           { header: 'Email', accessor: 'email' as const },
           { header: 'Jenis Kelamin', accessor: 'jenisKelamin' as const },
-          { header: 'Kelas Ampu', accessor: 'namaKelas' as const },
+          { header: 'Wali Kelas', accessor: 'namaKelas' as const },
         ]}
         pageSize={15}
         placeholder="Cari wali kelas berdasarkan NIP, nama, email, jenis kelamin, atau kelas..."

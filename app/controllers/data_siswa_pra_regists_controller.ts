@@ -145,7 +145,7 @@ export default class DataSiswaPraRegistsController {
         return response.redirect().back()
       }
 
-      siswa.status = 'daftarulang'
+      siswa.status = 'siswa'
       await siswa.save()
 
       session.flash('success', `Status siswa ${siswa.nisn} berhasil diubah menjadi daftarulang`)

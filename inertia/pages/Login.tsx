@@ -21,8 +21,11 @@ export default function Login({ register, session }: any) {
   const { notify } = useNotification()
 
   useEffect(() => {
-    notify(session.message, 'info')
+    if(session && session?.status){
+      notify(session?.message, session?.status)
+    }
   }, [session])
+  
   return (
     <section className="relative h-screen">
       <Head title="Login">
@@ -48,7 +51,7 @@ export default function Login({ register, session }: any) {
         >
           <div className="text-center ml-10 hidden lg:block">
             <h1 className="font-extrabold text-white text-4xl">WELCOME</h1>
-            <p className="text-white mt-3">{props.description}</p>
+            <p className="text-white mt-3l" dangerouslySetInnerHTML={{__html:props.login}}></p>
           </div>
         </div>
         <div
@@ -75,7 +78,7 @@ export default function Login({ register, session }: any) {
         <div>
           <div className="w-full flex flex-col -mt-3 mb-4 justify-center items-center">
             <img src={props.logo} className="w-[75px]" alt="logo" />
-            <h1 className="font-extrabold text-white text-2xl">SMK BINA INDUSTRI</h1>
+            <h1 className="font-extrabold text-white text-2xl">{props.website_name}</h1>
           </div>
 
           <p className="text-white mb-4 ml-2">

@@ -80,8 +80,8 @@ export default function Index({
       <DataTable
         data={data}
         columns={[
-          { header: 'Nama Mata Pelajaran', accessor: 'namaMataPelajaran' as const },
           { header: 'Jenjang', accessor: 'jenjang' as const, sort: 'jenjang' },
+          { header: 'Nama Mata Pelajaran', accessor: 'namaMataPelajaran' as const },
           { header: 'Guru Pengampu', accessor: 'guruAmpu' as const },
         ]}
         editable={String(props.pattern)}

@@ -172,6 +172,7 @@ export default function GuruLayout({ title, children }: LayoutProps) {
         ))}
     </div>
   )
+  
 
   return (
     <section>

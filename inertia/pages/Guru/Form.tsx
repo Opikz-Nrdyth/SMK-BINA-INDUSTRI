@@ -173,7 +173,7 @@ export default function Form({ initialValues, onSubmit, submitLabel, dark = fals
         <UniversalInput
           type="text"
           name="nip"
-          label="NIP"
+          label="NIY"
           value={data.guru.nip}
           onChange={(v: any) => setData('guru', { ...data.guru, nip: v })}
           required

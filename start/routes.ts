@@ -425,7 +425,7 @@ router
     })
   })
   .prefix('guru')
-  .use([middleware.auth(), middleware.roleManajemen(['Guru'])])
+  .use([middleware.auth(), middleware.roleManajemen(['Guru']), middleware.webData()])
 
 router
   .group(() => {
@@ -611,7 +611,7 @@ router
     router.put('/account/update', [UserAccountController, 'update']).as('staf.account.update')
   })
   .prefix('staf')
-  .use([middleware.auth(), middleware.roleManajemen(['Staf'])])
+  .use([middleware.auth(), middleware.roleManajemen(['Staf']), middleware.webData()])
 
 router
   .group(() => {
@@ -631,4 +631,4 @@ router
     router.get('/:month?', [DashboardSasController, 'Siswa'])
   })
   .prefix('siswa')
-  .use([middleware.auth(), middleware.roleManajemen(['Siswa'])])
+  .use([middleware.auth(), middleware.roleManajemen(['Siswa']), middleware.webData()])

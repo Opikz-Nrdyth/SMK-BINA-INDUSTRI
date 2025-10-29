@@ -23,7 +23,7 @@ export default class DataMapelsController {
     }
 
     const mapelPaginate = await query
-      .orderBy('created_at', 'desc')
+      .orderBy('jenjang', 'asc')
       .paginate(page, search ? Number(totalMapel?.$extras.total) || 1 : 15)
 
     const mapels = mapelPaginate.all().map((item) => item.toJSON())

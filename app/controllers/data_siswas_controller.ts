@@ -35,7 +35,7 @@ export default class DataSiswasController {
       DataSiswa.query().where('status', 'siswa').count('* as total').first(),
     ])
 
-    const query = DataSiswa.query().where('status', 'siswa').preload('user').preload('dataWalis')
+    const query = DataSiswa.query().where('status', 'siswa').preload('user', (user)=>user.orderBy("full_name", "asc")).preload('dataWalis')
 
     if (search) {
       query.where((builder) => {
@@ -51,16 +51,20 @@ export default class DataSiswasController {
       })
     }
 
+    const perPage = search ? Number(totalSiswa?.$extras.total) || 1 : 15
+    const startNumber = (page - 1) * perPage + 1
+
     const siswaPaginate = await query
-      .orderBy('created_at', 'desc')
       .paginate(page, search ? Number(totalSiswa?.$extras.total) || 1 : 15)
 
-    const siswas = siswaPaginate.all().map((siswa) => {
+    const siswas = siswaPaginate.all().map((siswa, index) => {
       const raw = siswa.toJSON()
       const namaKelas = mapNisnToKelas.get(siswa.nisn) || '-'
 
       // Susun ulang properti
       const sorted: Record<string, any> = {}
+
+      sorted.nomor = startNumber + index
 
       // User data
       if (raw.user) sorted.user = raw.user
@@ -81,6 +85,7 @@ export default class DataSiswasController {
           sorted[key] = value
         }
       }
+      
 
       return sorted
     })
@@ -144,7 +149,7 @@ export default class DataSiswasController {
     })
 
     // 3️⃣ Query semua siswa
-    let query = DataSiswa.query().where('status', 'siswa').preload('user').preload('dataWalis')
+    let query = DataSiswa.query().where('status', 'siswa').preload('user', (user)=>user.orderBy("full_name", "asc")).preload('dataWalis')
 
     // Filter per kelas
     if (selectedKelas) {
@@ -173,7 +178,7 @@ export default class DataSiswasController {
 
     // 5️⃣ Pagination
     const perPage = 15
-    const siswaPaginate = await query.orderBy('created_at', 'desc').paginate(page, perPage)
+    const siswaPaginate = await query.paginate(page, perPage)
     const startNumber = (page - 1) * perPage + 1
 
     // 6️⃣ Tambahkan info kelas dan nomor absen
@@ -294,7 +299,7 @@ export default class DataSiswasController {
 
     // BUILD QUERY - semua siswa dari kelas yang bisa diakses
     let query = DataSiswa.query()
-      .preload('user')
+      .preload('user', (user)=>user.orderBy("full_name", "asc"))
       .where('status', 'siswa')
       .preload('dataWalis')
       .whereIn('nisn', Array.from(nisnDiampu.keys()))
@@ -324,7 +329,7 @@ export default class DataSiswasController {
 
     // PAGINATION
     const perPage = 15
-    const siswaPaginate = await query.orderBy('created_at', 'desc').paginate(page, perPage)
+    const siswaPaginate = await query.paginate(page, perPage)
 
     // Hitung nomor absen yang benar (berdasarkan page)
     const startNumber = (page - 1) * perPage + 1
@@ -999,7 +1004,7 @@ export default class DataSiswasController {
 
       for (let i = 2; i <= worksheet.rowCount; i++) {
         const row = worksheet.getRow(i)
-
+        
         try {
           const nisn = row.getCell(1).value?.toString().trim()
           if (!nisn) {
@@ -1017,7 +1022,13 @@ export default class DataSiswasController {
           }
 
           // Email
-          const email = row.getCell(3).value?.toString().trim() || `${nisn}@siswa.school`
+          let email = row.getCell(3).value as any
+          if(typeof email == "object"){
+            email= email.text.toString().trim() || `${nisn}@siswa.school`
+          }else{
+            email = email?.toString().trim() || `${nisn}@siswa.school`
+          }
+          
           const existingUser = await User.findBy('email', email, { client: trx })
           if (existingUser) {
             errorCount++
@@ -1044,6 +1055,7 @@ export default class DataSiswasController {
               nik: row.getCell(4).value?.toString(),
               noAktaLahir: row.getCell(5).value?.toString(),
               noKk: row.getCell(6).value?.toString(),
+              status:"siswa",
               jenisKelamin:
                 normalize(row.getCell(7).value) === 'laki-laki' ? 'Laki-laki' : 'Perempuan',
               tempatLahir: normalizeCase(row.getCell(8).value),
@@ -1152,6 +1164,9 @@ export default class DataSiswasController {
         message: `Import selesai. Berhasil: ${successCount}, Gagal: ${errorCount}`,
         errors: errors.slice(0, 10),
       })
+
+      console.log(errors);
+      
 
       return response.redirect().back()
     } catch (error) {

@@ -377,7 +377,6 @@ export default function Index({
             columns={[
               { header: 'NISN', accessor: 'nisn' as const },
               { header: 'Nama Siswa', accessor: 'namaSiswa' as const },
-              { header: 'Email', accessor: 'email' as const },
               {
                 header: 'Total Ujian',
                 accessor: 'totalUjian' as const,

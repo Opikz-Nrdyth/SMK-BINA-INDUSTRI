@@ -22,6 +22,7 @@ export default class WebDataMiddleware {
       editProfile: dataWeb.editProfile,
       sejarah: dataWeb.school_description,
       address: dataWeb.school_address,
+      login: dataWeb.text_login,
       hero_background:
         dataWeb.hero_background_image ?? 'https://placehold.co/400x400?text=No+Image',
     })

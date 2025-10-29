@@ -322,9 +322,13 @@ export default class DataGurusController {
       if (!namaLengkap) continue
 
       try {
+        let emailUser = email.toLowerCase().trim()
+        if(typeof email == "object"){
+          emailUser = email.text.toLowerCase().trim()
+        }
         // Cek apakah user sudah ada berdasarkan email atau nip
         const existingUser = await User.query()
-          .where('email', String(email ?? '').toLowerCase())
+          .where('email', emailUser)
           .orWhereHas('dataStaf', (stafQuery) => {
             stafQuery.where('nip', String(nip ?? ''))
           })
@@ -339,7 +343,7 @@ export default class DataGurusController {
         // Buat user baru
         const user = await User.create({
           fullName: String(namaLengkap ?? ''),
-          email: String(email ?? '').toLowerCase(),
+          email: emailUser,
           password: '12345678',
         })
 

@@ -203,8 +203,6 @@ export default function EditSoal({ bankSoal, soalContent }: EditSoalProps) {
         notify(
           `Data absensi berhasil disimpan secara offline (${soalRecords?.length} record). Data akan disinkronisasi otomatis saat online.`
         )
-
-        router.visit(window.location.pathname, { replace: true })
       }
     } catch (error) {
       console.error(error)
@@ -393,6 +391,9 @@ export default function EditSoal({ bankSoal, soalContent }: EditSoalProps) {
     }
   }
 
+  console.log(quickSoal);
+  
+
   return (
     <div className="max-w-7xl mx-auto lg:p-6">
       <Notification />
@@ -490,12 +491,11 @@ export default function EditSoal({ bankSoal, soalContent }: EditSoalProps) {
                 Kunci Jawaban
               </label>
               <select
-                value={quickSoal.kunci}
-                onChange={(e) => setQuickSoal((prev) => ({ ...prev, kunci: e as 'A' }))}
+                onChange={(e) => setQuickSoal((prev) => ({ ...prev, kunci: e.target.value as any }))}
                 className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500 dark:bg-gray-700 dark:text-white"
               >
                 {['A', 'B', 'C', 'D', 'E'].map((opsi) => (
-                  <option key={opsi} value={opsi}>
+                  <option key={opsi} selected={opsi == quickSoal.kunci} value={opsi}>
                     Opsi {opsi}
                   </option>
                 ))}

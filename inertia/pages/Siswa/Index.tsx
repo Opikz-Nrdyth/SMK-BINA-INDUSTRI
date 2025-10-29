@@ -72,6 +72,7 @@ export default function Index({
   const handleImport = async (file: File) => {
     const formData = new FormData()
     formData.append('excel_file', file)
+    
 
     router.post(`${String(props.pattern)}/import`, formData, {
       onSuccess: () => {
@@ -119,8 +120,9 @@ export default function Index({
         data={data}
         tabelName="Siswa"
         columns={[
+          {header:"No", accessor:"nomor" as const},
           { header: 'NISN', accessor: 'nisn' as const },
-          { header: 'Nama', accessor: 'fullName' as const },
+          { header: 'Nama', accessor: 'fullName' as const, sort:"fullName" },
           { header: 'Email', accessor: 'email' as const },
           { header: 'Jenis Kelamin', accessor: 'jenisKelamin' as const },
           {

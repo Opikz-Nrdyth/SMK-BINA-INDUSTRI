@@ -70,6 +70,8 @@ export default function Index({
     setCurrentPage(1)
   }
 
+  console.log(data);
+  
   return (
     <div className="max-w-7xl mx-auto lg:p-6">
       <Notification />

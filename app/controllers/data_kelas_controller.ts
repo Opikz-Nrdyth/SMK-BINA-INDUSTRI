@@ -34,7 +34,7 @@ export default class DataKelasController {
     }
 
     const kelasPaginate = await query
-      .orderBy('created_at', 'desc')
+      .orderBy('jenjang', 'desc')
       .paginate(page, search ? Number(totalKelas?.$extras.total) || 1 : 15)
 
     const kelas = kelasPaginate.all().map((item) => item.toJSON())
@@ -147,9 +147,15 @@ export default class DataKelasController {
       .where('status', 'siswa')
       .preload('user', (user) => user.select(['fullName']))
 
+    const dataKelas = await DataKelas.query().select('siswa')
+
+    const siswaTerdaftar = dataKelas.flatMap((k) => k.siswa)
+
+    const siswaBelumTerdaftar = dataSiswa.filter((siswa) => !siswaTerdaftar.includes(siswa.nisn))
+
     return inertia.render('Kelas/Create', {
       guruWithMapel,
-      dataSiswa,
+      dataSiswa:siswaBelumTerdaftar,
       session: session.flashMessages.all(),
     })
   }

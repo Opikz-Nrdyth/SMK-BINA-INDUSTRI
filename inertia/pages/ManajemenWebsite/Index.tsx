@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Head, useForm, usePage } from '@inertiajs/react'
+import { useForm, usePage } from '@inertiajs/react'
 import SuperAdminLayout from '~/Layouts/SuperAdminLayouts'
-import UniversalInput, { InputType, Option } from '~/Components/UniversalInput'
+import UniversalInput from '~/Components/UniversalInput'
 import SplitText from '~/Components/SplitText'
 import AOS from 'aos'
 import { useNotification } from '~/Components/NotificationAlert'
@@ -21,6 +21,7 @@ interface WebsiteSettings {
   yayasan: string
   lat: string
   long: string
+  text_login:string
 
   // Sambutan Kepala Sekolah
   headmaster_name: string
@@ -72,7 +73,7 @@ export default function LandingPageManagement() {
   const [previewHeroImage, setPreviewHeroImage] = useState('')
   const { notify } = useNotification()
 
-  const { data, setData, post, processing, errors, reset } = useForm<WebsiteSettings>({
+  const { data, setData, post, processing, reset } = useForm<WebsiteSettings>({
     // Informasi Sekolah
     yayasan: '',
     school_name: '',
@@ -87,6 +88,7 @@ export default function LandingPageManagement() {
     alumni: '',
     lat: '',
     long: '',
+    text_login:"",
 
     // Sambutan Kepala Sekolah
     headmaster_name: '',
@@ -266,6 +268,15 @@ export default function LandingPageManagement() {
               value={data?.school_description}
               onChange={(value) => setData('school_description', value)}
               placeholder="Deskripsi singkat tentang sekolah..."
+            />
+
+            <UniversalInput
+              type="richtext"
+              name="text_login"
+              label="Sambutan Login"
+              value={data?.text_login}
+              onChange={(value) => setData('text_login', value)}
+              placeholder="Sambutan Singkat Untuk Halaman Login...."
             />
 
             <UniversalInput
