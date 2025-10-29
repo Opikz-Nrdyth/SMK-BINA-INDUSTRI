@@ -8,7 +8,6 @@ tmp
 .env.local
 .env.production.local
 .env.development.local
-.git-production
 
 #cache
 .wwebjs_cache
