@@ -21,12 +21,12 @@ export default class LandingPageController {
       .orderBy('created_at', 'desc')
       .first()
 
-      if(!kepalaSekolah){
-        session.flash({
+    if (!kepalaSekolah) {
+      session.flash({
         status: 'error',
         message: 'Tambahkan Dahulu Kepala Sekolah',
       })
-      }
+    }
     return inertia.render('ManajemenWebsite/Index', { settings, kepalaSekolah })
   }
 
@@ -37,17 +37,16 @@ export default class LandingPageController {
     if (base64String && base64String.startsWith('data:image')) {
       const matches = base64String.match(/^data:(image\/\w+);base64,(.+)$/)
       if (!matches) return console.log('Invalid base64 image data')
-      const ext = matches[1].split('/')[1] 
+      const ext = matches[1].split('/')[1]
       const buffer = Buffer.from(matches[2], 'base64')
-      const iconDir = path.join(app.publicPath(), 'icons')
+      const iconDir = path.join(app?.publicPath(), 'icons')
       const filePath = path.join(iconDir, `icon-192x192.${ext}`)
       if (!fs.existsSync(iconDir)) {
         fs.mkdirSync(iconDir, { recursive: true })
       }
       fs.writeFileSync(filePath, buffer)
-      
     }
-    
+
     try {
       for (const [key, value] of Object.entries(data)) {
         let storedValue = value
@@ -60,7 +59,7 @@ export default class LandingPageController {
         await DataWebsite.updateSetting(key, storedValue)
       }
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       console.error('Error update settings:', error)
       return response.status(500).json({
@@ -83,7 +82,7 @@ export default class LandingPageController {
 
     try {
       const fileName = `${cuid()}.${file.extname}`
-      await file.move(app.makePath('storage/fasilitas'), { name: fileName })
+      await file.move(app?.makePath('storage/fasilitas'), { name: fileName })
 
       return response.json({
         success: true,
@@ -112,7 +111,7 @@ export default class LandingPageController {
       .orderBy('created_at', 'desc')
       .first()
 
-    const aktivitas = await DataAktivita.query().where("jenis", "prestasi")
+    const aktivitas = await DataAktivita.query().where('jenis', 'prestasi')
     const news = await Blog.query()
     const guruList = await User.query().where('role', 'Guru').preload('dataGuru')
     const semuaMapel = await DataMapel.all()
@@ -120,7 +119,7 @@ export default class LandingPageController {
       const nipGuru = guru.dataGuru?.nip
 
       // cari mapel yang guruAmpu-nya berisi NIP ini
-      const mapelAmpu = semuaMapel.filter(
+      const mapelAmpu = semuaMapel?.filter(
         (mapel) => mapel.getGuruAmpuArray().length > 0 && mapel.getGuruAmpuArray().includes(nipGuru)
       )
 
@@ -129,18 +128,18 @@ export default class LandingPageController {
         ...guru.serialize(),
         jabatan: mapelPertama ? `Guru ${mapelPertama.namaMataPelajaran}` : 'Guru',
         role: 'Guru',
-        fileFoto: guru.dataGuru.fileFoto,
+        fileFoto: guru?.dataGuru?.fileFoto,
       }
     })
 
     const stafList = await User.query().where('role', 'Staf').preload('dataStaf')
 
     // format staf
-    const stafDenganJabatan = stafList.map((staf) => ({
-      id: staf.id,
-      fullName: staf.fullName,
-      jabatan: `Staf ${staf.dataStaf?.departemen}` || null,
-      fileFoto: staf.dataStaf.fileFoto,
+    const stafDenganJabatan = stafList?.map((staf) => ({
+      id: staf?.id,
+      fullName: staf?.fullName,
+      jabatan: `Staf ${staf?.dataStaf?.departemen}` || null,
+      fileFoto: staf?.dataStaf?.fileFoto,
       role: 'Staf',
     }))
 
@@ -199,32 +198,32 @@ export default class LandingPageController {
     const guruDenganMapel = guruList
       .filter((guru) => {
         const nipGuru = guru.dataGuru?.nip
-        const mapelAmpu = semuaMapel.filter((mapel) => mapel.getGuruAmpuArray().includes(nipGuru))
+        const mapelAmpu = semuaMapel?.filter((mapel) => mapel.getGuruAmpuArray().includes(nipGuru))
         return mapelAmpu.length > 0
       })
       .map((guru) => {
         const nipGuru = guru.dataGuru?.nip
-        const mapelAmpu = semuaMapel.filter((mapel) => mapel.getGuruAmpuArray().includes(nipGuru))
+        const mapelAmpu = semuaMapel?.filter((mapel) => mapel.getGuruAmpuArray().includes(nipGuru))
         const mapelPertama = mapelAmpu[0]
 
         return {
           id: guru.id,
           fullName: guru.fullName,
           role: 'Guru',
-          fileFoto: guru.dataGuru.fileFoto,
-          jabatan: mapelPertama ? `Guru ${mapelPertama.namaMataPelajaran}` : 'Guru',
-          mapelPertama: mapelPertama ? mapelPertama.namaMataPelajaran : null,
-          semuaMapelAmpu: mapelAmpu.map((m) => m.namaMataPelajaran),
+          fileFoto: guru?.dataGuru?.fileFoto,
+          jabatan: mapelPertama ? `Guru ${mapelPertama?.namaMataPelajaran}` : 'Guru',
+          mapelPertama: mapelPertama ? mapelPertama?.namaMataPelajaran : null,
+          semuaMapelAmpu: mapelAmpu.map((m) => m?.namaMataPelajaran),
         }
       })
 
     // ======== STAF =========
-    const stafDenganJabatan = stafList.map((staf) => ({
-      id: staf.id,
-      fullName: staf.fullName,
+    const stafDenganJabatan = stafList?.map((staf) => ({
+      id: staf?.id,
+      fullName: staf?.fullName,
       role: 'Staf',
-      fileFoto: staf.dataStaf.fileFoto,
-      jabatan: staf.dataStaf?.departemen ? `Staf ${staf.dataStaf?.departemen}` : 'Staf',
+      fileFoto: staf?.dataStaf?.fileFoto,
+      jabatan: staf?.dataStaf?.departemen ? `Staf ${staf?.dataStaf?.departemen}` : 'Staf',
     }))
 
     // ======== GABUNG =========
@@ -233,8 +232,8 @@ export default class LandingPageController {
     // ======== FILTER / SEARCH =========
     if (search || filter) {
       semuaPegawai = semuaPegawai.filter((p) => {
-        const nama = (p.fullName ?? '').toLowerCase()
-        const jabatan = p.jabatan.toLowerCase()
+        const nama = (p?.fullName ?? '').toLowerCase()
+        const jabatan = p?.jabatan.toLowerCase()
 
         const cocokSearch = search ? nama.includes(search) : true
         const cocokFilter = filter ? jabatan.includes(filter) : true
@@ -429,7 +428,7 @@ export default class LandingPageController {
         activity: activity,
       })
     } catch (error) {
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 }

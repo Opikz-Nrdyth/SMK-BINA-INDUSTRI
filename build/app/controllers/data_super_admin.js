@@ -31,7 +31,7 @@ export default class SuperAdminController {
                 status: 'success',
                 message: 'Super Admin berhasil ditambahkan.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, 'Gagal menyimpan data Super Admin baru');
@@ -40,7 +40,7 @@ export default class SuperAdminController {
                 message: 'Gagal menyimpan data Super Admin',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ params, response, auth, session }) {
@@ -53,7 +53,7 @@ export default class SuperAdminController {
                     status: 'error',
                     message: 'Super admin utama tidak dapat dihapus',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             await user.delete();
             session.flash({
@@ -69,7 +69,7 @@ export default class SuperAdminController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
 }
 //# sourceMappingURL=data_super_admin.js.map

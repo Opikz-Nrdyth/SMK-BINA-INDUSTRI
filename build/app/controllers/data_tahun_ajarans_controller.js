@@ -78,7 +78,7 @@ export default class DataTahunAjaransController {
                 message: 'Gagal menyimpan data tahun ajaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -115,7 +115,7 @@ export default class DataTahunAjaransController {
                 message: 'Gagal memperbarui data tahun ajaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -137,7 +137,7 @@ export default class DataTahunAjaransController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
 }
 //# sourceMappingURL=data_tahun_ajarans_controller.js.map

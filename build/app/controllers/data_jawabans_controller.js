@@ -408,7 +408,7 @@ export default class DataJawabansController {
             })
                 .firstOrFail();
             if (!kehadiran.jawabanFile) {
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const jawabanFilePath = join(app.makePath('storage/jawaban'), kehadiran.jawabanFile);
             const encryptedJawabanContent = await readFile(jawabanFilePath, 'utf-8');
@@ -442,7 +442,7 @@ export default class DataJawabansController {
         }
         catch (error) {
             logger.error({ err: error }, `Gagal memuat jawaban siswa`);
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     formatJawabanData(soalData, jawabanSiswa) {
@@ -488,7 +488,7 @@ export default class DataJawabansController {
                     status: 'error',
                     message: 'Anda sudah mengikuti ujian ini.',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const bankSoal = await BankSoal.findOrFail(ujianId);
             const soalFilePath = bankSoal.soalFile;
@@ -529,7 +529,7 @@ export default class DataJawabansController {
                 status: 'success',
                 message: 'Ujian berhasil dimulai!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, 'Gagal memulai ujian');
@@ -538,7 +538,7 @@ export default class DataJawabansController {
                 message: 'Gagal memulai ujian',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async submitJawaban({ request, response, session, auth, params }) {
@@ -576,7 +576,7 @@ export default class DataJawabansController {
                 status: 'success',
                 message: 'Jawaban berhasil disimpan!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, 'Gagal menyimpan jawaban');
@@ -585,7 +585,7 @@ export default class DataJawabansController {
                 message: 'Gagal menyimpan jawaban',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async getFileContent({ request, response }) {

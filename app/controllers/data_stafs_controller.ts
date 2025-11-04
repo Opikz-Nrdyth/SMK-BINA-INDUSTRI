@@ -16,7 +16,7 @@ export default class DataStafsController {
 
     const [totalStaf] = await Promise.all([DataStaf.query().count('* as total').first()])
 
-    const query = DataStaf.query().preload('user')
+    const query = DataStaf.query().preload('user', (user) => user.orderBy('fullName', 'asc'))
 
     if (search) {
       query.where((builder) => {
@@ -33,9 +33,18 @@ export default class DataStafsController {
       })
     }
 
-    const stafPaginate = await query
-      .orderBy('createdAt', 'desc')
-      .paginate(page, search ? Number(totalStaf?.$extras.total) || 1 : 15)
+    const stafPaginate = await query.paginate(
+      page,
+      search ? Number(totalStaf?.$extras.total) || 1 : 15
+    )
+
+    const sortedGuru = stafPaginate.all().sort((a, b) => {
+      const nameA = a.user?.fullName?.toLowerCase() || ''
+      const nameB = b.user?.fullName?.toLowerCase() || ''
+      return nameA.localeCompare(nameB)
+    })
+
+    const startNumber = (page - 1) * 15 + 1
 
     logger.info('Jumlah Staf: ', Number(totalStaf?.$extras.total))
     return inertia.render('Staf/Index', {
@@ -49,7 +58,7 @@ export default class DataStafsController {
           stafPaginate.currentPage < stafPaginate.lastPage ? stafPaginate.currentPage + 1 : null,
         previousPage: stafPaginate.currentPage > 1 ? stafPaginate.currentPage - 1 : null,
       },
-      stafs: stafPaginate.all().map((item) => item.toJSON()),
+      stafs: sortedGuru.map((item, index) => ({ ...item.toJSON(), nomor: startNumber + index })),
       session: session.flashMessages.all(),
       searchQuery: search,
     })
@@ -111,7 +120,7 @@ export default class DataStafsController {
         status: 'success',
         message: 'Data staf berhasil ditambahkan.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data staf baru')
@@ -120,7 +129,7 @@ export default class DataStafsController {
         message: 'Gagal menyimpan data staf',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -163,7 +172,7 @@ export default class DataStafsController {
         status: 'success',
         message: 'Data staf berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update data staf NIP: ${id}`)
@@ -172,7 +181,7 @@ export default class DataStafsController {
         message: 'Gagal memperbarui data staf',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -203,7 +212,7 @@ export default class DataStafsController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   public async exportExcel({ response }: HttpContext) {
@@ -271,7 +280,7 @@ export default class DataStafsController {
         message: 'Data Excel wajib diunggah.',
       })
       console.log('❌ File Excel wajib diunggah')
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     const buffer = await fs.readFile(file.tmpPath!)
@@ -304,7 +313,7 @@ export default class DataStafsController {
 
       try {
         let emailUser = email.toLowerCase().trim()
-        if(typeof email == "object"){
+        if (typeof email == 'object') {
           emailUser = email.text.toLowerCase().trim()
         }
         // Cek apakah user sudah ada berdasarkan email atau nip
@@ -355,7 +364,7 @@ export default class DataStafsController {
       message: `Import selesai. Berhasil: ${berhasil}, Gagal: ${gagal}`,
     })
 
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   private async uploadFile(file: any, nip: string): Promise<string> {

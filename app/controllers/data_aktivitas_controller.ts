@@ -60,7 +60,7 @@ export default class DataAktivitasController {
         status: 'success',
         message: 'Aktivitas berhasil ditambahkan!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, 'Gagal menyimpan aktivitas')
       session.flash({
@@ -68,7 +68,7 @@ export default class DataAktivitasController {
         message: 'Gagal menyimpan aktivitas',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -114,7 +114,7 @@ export default class DataAktivitasController {
         status: 'success',
         message: 'Aktivitas berhasil diperbarui!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, `Gagal update aktivitas ${params.id}`)
       session.flash({
@@ -122,7 +122,7 @@ export default class DataAktivitasController {
         message: 'Gagal memperbarui aktivitas',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -149,7 +149,7 @@ export default class DataAktivitasController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   async indexPublic({ response }: HttpContext) {

@@ -110,7 +110,7 @@ export default class DataMapelsController {
         message: 'Gagal menyimpan data mata pelajaran',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -165,7 +165,7 @@ export default class DataMapelsController {
         message: 'Gagal memperbarui data mata pelajaran',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -187,6 +187,6 @@ export default class DataMapelsController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 }

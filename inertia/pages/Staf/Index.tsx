@@ -110,7 +110,9 @@ export default function Index({
 
       <DataTable
         data={data}
+        tabelName="Staf"
         columns={[
+          { header: 'No', accessor: 'nomor' as const },
           { header: 'NIY', accessor: 'nip' as const },
           { header: 'Nama', accessor: 'fullName' as const },
           { header: 'Email', accessor: 'email' as const },
@@ -142,7 +144,7 @@ export default function Index({
 
       <ModalView
         data={dataSelected}
-        exclude={['fullName', 'email', 'userId', '*id']}
+        exclude={['fullName', 'email', 'userId', '*id', 'nomor']}
         open={!!dataSelected}
         onClose={() => setDataSelected(null)}
       />

@@ -29,6 +29,7 @@ export default function Index({
   searchQuery?: string
 }) {
   const { props } = usePage()
+  const [cardMapel, setCardMapel] = useState(false)
 
   const [data, setData] = useState([])
   const [dataSelected, setDataSelected] = useState<any | null>()
@@ -103,6 +104,7 @@ export default function Index({
   }
 
   const columns = [
+    { header: 'No', accessor: 'nomor' as const },
     { header: 'NIY', accessor: 'nip' as const },
     { header: 'Nama', accessor: 'fullName' as const },
     { header: 'Email', accessor: 'email' as const },
@@ -146,9 +148,15 @@ export default function Index({
       {/* Kartu Mapel */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Pilih Mata Pelajaran
-          </h2>
+          <button
+            onClick={() => {
+              setCardMapel(!cardMapel)
+            }}
+            className="text-lg font-semibold flex items-center gap-2 text-gray-900 dark:text-white"
+          >
+            Pilih Mata Pelajaran{' '}
+            <i className={cardMapel ? 'fas fa-caret-up' : 'fas fa-caret-down'}></i>
+          </button>
           {selectedMapelState && (
             <button
               onClick={handleShowAll}
@@ -160,31 +168,32 @@ export default function Index({
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {mapelList.map((mapel) => (
-            <div
-              key={mapel.nama_mata_pelajaran}
-              onClick={() => handleSelectMapel(mapel.nama_mata_pelajaran)}
-              className={`p-4 rounded-lg shadow border transition-all duration-200 cursor-pointer
+          {cardMapel &&
+            mapelList.map((mapel) => (
+              <div
+                key={mapel.nama_mata_pelajaran}
+                onClick={() => handleSelectMapel(mapel.nama_mata_pelajaran)}
+                className={`p-4 rounded-lg shadow border transition-all duration-200 cursor-pointer
                 ${
                   selectedMapelState === mapel.nama_mata_pelajaran
                     ? 'border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800'
                     : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
                 }`}
-            >
-              <div className="flex justify-between items-center">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                  {mapel.nama_mata_pelajaran}
-                </h3>
-                <div className="text-lg">📘</div>
-              </div>
-              <div className="mt-2">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {mapel.jumlahGuru}
+              >
+                <div className="flex justify-between items-center">
+                  <h3 className="font-semibold text-gray-900 dark:text-white">
+                    {mapel.nama_mata_pelajaran}
+                  </h3>
+                  <div className="text-lg">📘</div>
                 </div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Guru</p>
+                <div className="mt-2">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {mapel.jumlahGuru}
+                  </div>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Guru</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
           {mapelList.length === 0 && (
             <div className="col-span-full text-center py-8 text-gray-500 dark:text-gray-400">
@@ -225,7 +234,7 @@ export default function Index({
       {/* Modal View Guru */}
       <ModalView
         data={dataSelected}
-        exclude={['fullName', 'email', 'userId', '*id', '*guruAmpu']}
+        exclude={['fullName', 'email', 'userId', '*id', '*guruAmpu', 'nomor']}
         open={!!dataSelected}
         onClose={() => setDataSelected(null)}
       />

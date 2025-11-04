@@ -299,7 +299,7 @@ export default class BankSoalsController {
                 status: 'success',
                 message: 'Bank soal berhasil ditambahkan.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -309,7 +309,7 @@ export default class BankSoalsController {
                 message: 'Gagal menyimpan bank soal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async update({ request, response, session, params }) {
@@ -334,7 +334,7 @@ export default class BankSoalsController {
                 status: 'success',
                 message: 'Bank soal berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -344,7 +344,7 @@ export default class BankSoalsController {
                 message: 'Gagal memperbarui bank soal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -365,7 +365,7 @@ export default class BankSoalsController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async getFileContent({ request, response }) {
         try {
@@ -450,7 +450,7 @@ export default class BankSoalsController {
                 status: 'success',
                 message: 'Konten soal berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, `Gagal update konten soal ${params.id}`);
@@ -465,7 +465,7 @@ export default class BankSoalsController {
                 message: 'Gagal memperbarui konten soal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async editSoal({ inertia, params, response, session }) {
@@ -498,7 +498,7 @@ export default class BankSoalsController {
                 message: 'Gagal memuat konten soal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async selectedSoal({ inertia, params, response, session }) {
@@ -531,7 +531,7 @@ export default class BankSoalsController {
                 message: 'Gagal memuat konten soal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
 }

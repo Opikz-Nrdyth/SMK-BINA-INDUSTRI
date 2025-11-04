@@ -395,6 +395,12 @@ export default function Index({
               value: siswaSearch,
               onChange: handleSiswaSearch,
             }}
+            serverPagination={{
+              currentPage,
+              lastPage,
+              total: kehadiranPaginate?.total || 0,
+              onPageChange: handlePageChange,
+            }}
           />
         </div>
       )}

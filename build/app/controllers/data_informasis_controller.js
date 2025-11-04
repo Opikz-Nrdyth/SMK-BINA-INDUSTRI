@@ -75,7 +75,7 @@ export default class DataInformasiController {
                 message: 'Gagal menyimpan data informasi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -120,7 +120,7 @@ export default class DataInformasiController {
                 message: 'Gagal memperbarui data informasi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -141,7 +141,7 @@ export default class DataInformasiController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
 }
 //# sourceMappingURL=data_informasis_controller.js.map

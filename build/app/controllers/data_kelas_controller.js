@@ -1,4 +1,5 @@
 import DataGuru from '#models/data_guru';
+import DataJurusan from '#models/data_jurusan';
 import DataKelas from '#models/data_kelas';
 import DataMapel from '#models/data_mapel';
 import DataSiswa from '#models/data_siswa';
@@ -143,7 +144,7 @@ export default class DataKelasController {
                 status: 'success',
                 message: 'Data kelas berhasil ditambahkan.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -153,7 +154,7 @@ export default class DataKelasController {
                 message: 'Gagal menyimpan data kelas',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -229,7 +230,7 @@ export default class DataKelasController {
                 status: 'success',
                 message: 'Data kelas berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -239,13 +240,24 @@ export default class DataKelasController {
                 message: 'Gagal memperbarui data kelas',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
         try {
             const { id } = params;
             const kelas = await DataKelas.findOrFail(id);
+            const dataJurusan = await DataJurusan.query();
+            for (const jurusan of dataJurusan) {
+                const jurusans = typeof jurusan.kelasId === 'string' ? [jurusan.kelasId] : jurusan.kelasId;
+                if (Array.isArray(jurusans)) {
+                    const filtered = jurusans.filter((id) => id !== kelas.id);
+                    if (filtered.length !== jurusans.length) {
+                        jurusan.kelasId = filtered;
+                        await jurusan.save();
+                    }
+                }
+            }
             await kelas.delete();
             session.flash({
                 status: 'success',
@@ -260,7 +272,7 @@ export default class DataKelasController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
 }
 //# sourceMappingURL=data_kelas_controller.js.map

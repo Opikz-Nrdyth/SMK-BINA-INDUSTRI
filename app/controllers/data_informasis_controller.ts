@@ -92,7 +92,7 @@ export default class DataInformasiController {
         message: 'Gagal menyimpan data informasi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -145,7 +145,7 @@ export default class DataInformasiController {
         message: 'Gagal memperbarui data informasi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -167,6 +167,6 @@ export default class DataInformasiController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 }

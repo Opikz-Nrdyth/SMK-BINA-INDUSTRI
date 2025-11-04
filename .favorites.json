@@ -1,0 +1,29 @@
+[
+    {
+        "type": "Directory",
+        "name": "g:\\Bank Project\\2026\\SMK-BINA-INDUSTRI\\inertia",
+        "parent_id": null,
+        "fsPath": "g:\\Bank Project\\2026\\SMK-BINA-INDUSTRI\\inertia",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "xzJejQKHAg61hstX"
+    },
+    {
+        "type": "Directory",
+        "name": "g:\\Bank Project\\2026\\SMK-BINA-INDUSTRI\\app\\controllers",
+        "parent_id": null,
+        "fsPath": "g:\\Bank Project\\2026\\SMK-BINA-INDUSTRI\\app\\controllers",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "9DBWzbIP5UQ63tfr"
+    },
+    {
+        "type": "File",
+        "name": "g:\\Bank Project\\2026\\SMK-BINA-INDUSTRI\\start\\routes.ts",
+        "parent_id": null,
+        "fsPath": "g:\\Bank Project\\2026\\SMK-BINA-INDUSTRI\\start\\routes.ts",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "UWtBHFTV3xn4GIRY"
+    }
+]

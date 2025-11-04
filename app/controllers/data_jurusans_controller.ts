@@ -1,3 +1,4 @@
+import BankSoal from '#models/bank_soal'
 import DataJurusan from '#models/data_jurusan'
 import DataKelas from '#models/data_kelas'
 import { jurusanValidator } from '#validators/data_jurusan'
@@ -71,7 +72,7 @@ export default class DataJurusansController {
         status: 'success',
         message: 'Data jurusan berhasil ditambahkan.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data jurusan baru')
@@ -80,7 +81,7 @@ export default class DataJurusansController {
         message: 'Gagal menyimpan data jurusan',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -113,7 +114,7 @@ export default class DataJurusansController {
         status: 'success',
         message: 'Data jurusan berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update data jurusan ID: ${id}`)
@@ -122,7 +123,7 @@ export default class DataJurusansController {
         message: 'Gagal memperbarui data jurusan',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -130,6 +131,19 @@ export default class DataJurusansController {
     try {
       const { id } = params
       const jurusan = await DataJurusan.findOrFail(id)
+      const dataBankSoal = await BankSoal.query()
+      for (const bankSoal of dataBankSoal) {
+        const jurusans: any[] =
+          typeof bankSoal.jurusan === 'string' ? [bankSoal.jurusan] : bankSoal.jurusan
+
+        if (Array.isArray(jurusans)) {
+          const filtered = jurusans.filter((id: any) => id !== jurusan.id)
+          if (filtered.length !== jurusans.length) {
+            bankSoal.jurusan = filtered
+            await bankSoal.save()
+          }
+        }
+      }
       await jurusan.delete()
 
       session.flash({
@@ -144,6 +158,6 @@ export default class DataJurusansController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 }

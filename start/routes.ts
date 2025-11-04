@@ -28,6 +28,7 @@ import SuperAdminController from '#controllers/data_super_admin'
 import WhatsAppController from '#controllers/whats_apps_controller'
 import DataSiswaPraRegistsController from '#controllers/data_siswa_pra_regists_controller'
 import ManifestController from '#controllers/manifest_controller'
+import DataPasswordsController from '#controllers/data_passwords_controller'
 
 router
   .group(() => {
@@ -102,6 +103,7 @@ router.post('/switch/:role', async ({ params, session, response }) => {
       return response.redirect().back()
   }
 })
+
 router
   .group(() => {
     router.get('/', [DashboardSasController, 'SuperAdmin']).as('superadmin.index')
@@ -291,6 +293,11 @@ router
         .put('bank-soal/:id/update-soal', [BankSoalsController, 'updateSoal'])
         .as('superadmin.bankSoal.updateSoal')
     })
+
+    router
+      .resource('bank-soal/data-password', DataPasswordsController)
+      .only(['index', 'store', 'update', 'destroy'])
+      .as('superadmin.dataPassword')
 
     // SA Kehadiran
     router.group(() => {

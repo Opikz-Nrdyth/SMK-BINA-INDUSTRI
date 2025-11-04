@@ -35,7 +35,10 @@ export default class DataSiswasController {
       DataSiswa.query().where('status', 'siswa').count('* as total').first(),
     ])
 
-    const query = DataSiswa.query().where('status', 'siswa').preload('user', (user)=>user.orderBy("full_name", "asc")).preload('dataWalis')
+    const query = DataSiswa.query()
+      .where('status', 'siswa')
+      .preload('user', (user) => user.orderBy('full_name', 'asc'))
+      .preload('dataWalis')
 
     if (search) {
       query.where((builder) => {
@@ -54,8 +57,10 @@ export default class DataSiswasController {
     const perPage = search ? Number(totalSiswa?.$extras.total) || 1 : 15
     const startNumber = (page - 1) * perPage + 1
 
-    const siswaPaginate = await query
-      .paginate(page, search ? Number(totalSiswa?.$extras.total) || 1 : 15)
+    const siswaPaginate = await query.paginate(
+      page,
+      search ? Number(totalSiswa?.$extras.total) || 1 : 15
+    )
 
     const siswas = siswaPaginate.all().map((siswa, index) => {
       const raw = siswa.toJSON()
@@ -85,7 +90,6 @@ export default class DataSiswasController {
           sorted[key] = value
         }
       }
-      
 
       return sorted
     })
@@ -149,7 +153,10 @@ export default class DataSiswasController {
     })
 
     // 3️⃣ Query semua siswa
-    let query = DataSiswa.query().where('status', 'siswa').preload('user', (user)=>user.orderBy("full_name", "asc")).preload('dataWalis')
+    let query = DataSiswa.query()
+      .where('status', 'siswa')
+      .preload('user', (user) => user.orderBy('full_name', 'asc'))
+      .preload('dataWalis')
 
     // Filter per kelas
     if (selectedKelas) {
@@ -299,7 +306,7 @@ export default class DataSiswasController {
 
     // BUILD QUERY - semua siswa dari kelas yang bisa diakses
     let query = DataSiswa.query()
-      .preload('user', (user)=>user.orderBy("full_name", "asc"))
+      .preload('user', (user) => user.orderBy('full_name', 'asc'))
       .where('status', 'siswa')
       .preload('dataWalis')
       .whereIn('nisn', Array.from(nisnDiampu.keys()))
@@ -425,7 +432,7 @@ export default class DataSiswasController {
         status: 'success',
         message: 'Berhasil Membuat Siswa Baru',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data siswa baru')
@@ -434,7 +441,7 @@ export default class DataSiswasController {
         message: 'Gagal Membuat Siswa Baru',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -515,7 +522,7 @@ export default class DataSiswasController {
         status: 'success',
         message: 'Berhasil Mengedit Siswa',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update data siswa NISN: ${id}`)
@@ -525,7 +532,7 @@ export default class DataSiswasController {
         message: 'Gagal Mengedit Siswa',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -536,6 +543,20 @@ export default class DataSiswasController {
       const siswa = await DataSiswa.query().where('nisn', id).firstOrFail()
 
       const user = await User.query().where('id', siswa.userId).firstOrFail()
+
+      const dataKelas: any[] = await DataKelas.query()
+      for (const kelas of dataKelas) {
+        const siswaList: any[] = typeof kelas.siswa === 'string' ? [kelas.siswa] : kelas.siswa
+
+        if (Array.isArray(siswaList)) {
+          const filtered = siswaList.filter((nisn: any) => nisn !== id)
+          if (filtered.length !== siswaList.length) {
+            kelas.siswa = JSON.stringify(filtered)
+            await kelas.save()
+          }
+        }
+      }
+
       await this.deleteFile(siswa.fileAkta)
       await this.deleteFile(siswa.fileFoto)
       await this.deleteFile(siswa.fileIjazah)
@@ -555,7 +576,7 @@ export default class DataSiswasController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   public async ppdbForm({ inertia, session }: HttpContext) {
@@ -591,7 +612,7 @@ export default class DataSiswasController {
           status: 'error',
           message: 'NISN Sudah Terdaftar',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Cek apakah email sudah digunakan
@@ -601,7 +622,7 @@ export default class DataSiswasController {
           status: 'error',
           message: 'Email Sudah Terdaftar',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Upload file dokumen
@@ -745,7 +766,7 @@ export default class DataSiswasController {
         error: error,
       })
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -776,9 +797,9 @@ export default class DataSiswasController {
 
   public async exportExcel({ response, request }: HttpContext) {
     try {
-      const search = request.input('search', '')
+      const { search, kelasQ } = request.qs()
 
-      // Query data dengan relasi
+      // Query data dengan relasi - TAPI JANGAN DI-EXECUTE DULU
       const query = DataSiswa.query().preload('user').preload('dataWalis')
 
       if (search) {
@@ -791,7 +812,63 @@ export default class DataSiswasController {
         })
       }
 
+      // Handle filter kelas di SQL query jika memungkinkan
+      if (kelasQ) {
+        const kelasData = await DataKelas.query().where('namaKelas', kelasQ).first()
+
+        if (!kelasData) {
+          return response.status(404).json({
+            status: 'error',
+            message: 'Kelas tidak ditemukan',
+          })
+        }
+
+        // Parse manual string JSON dari kolom siswa
+        let nisnArray: string[] = []
+        try {
+          nisnArray =
+            typeof kelasData.siswa == 'string'
+              ? JSON.parse(kelasData.siswa || '[]')
+              : kelasData.siswa
+        } catch (error) {
+          nisnArray = []
+        }
+
+        if (nisnArray.length === 0) {
+          return response.status(404).json({
+            status: 'error',
+            message: `Tidak ada siswa di kelas ${kelasQ}`,
+          })
+        }
+
+        query.whereIn('nisn', nisnArray)
+      }
+
+      // SEKARANG BARU EXECUTE QUERY setelah semua filter diterapkan
       const siswas = await query.orderBy('created_at', 'desc')
+
+      // Jika tidak ada data yang ditemukan
+      if (siswas.length === 0) {
+        const workbook = new ExcelJS.Workbook()
+        const worksheet = workbook.addWorksheet('Data Siswa')
+
+        worksheet.columns = [{ header: 'Keterangan', key: 'keterangan', width: 50 }]
+
+        worksheet.addRow({
+          keterangan: 'Tidak ada data siswa yang ditemukan',
+        })
+
+        const buffer = await workbook.xlsx.writeBuffer()
+        const fileName = `data_siswa_${new Date().toISOString().split('T')[0]}.xlsx`
+
+        response.header(
+          'Content-Type',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response.header('Content-Disposition', `attachment; filename=${fileName}`)
+
+        return response.send(buffer)
+      }
 
       // Create workbook
       const workbook = new ExcelJS.Workbook()
@@ -859,9 +936,11 @@ export default class DataSiswasController {
         const user = siswa.user
         const walis = siswa.dataWalis
 
-        const ayah = walis.find((w) => w.hubungan === 'Ayah Kandung')
-        const ibu = walis.find((w) => w.hubungan === 'Ibu Kandung')
-        const wali = walis.find((w) => !['Ayah Kandung', 'Ibu Kandung'].includes(w.hubungan))
+        const ayah = walis.find((w) => w.hubungan === 'Ayah Kandung' || w.hubungan === 'Ayah')
+        const ibu = walis.find((w) => w.hubungan === 'Ibu Kandung' || w.hubungan === 'Ibu')
+        const wali = walis.find(
+          (w) => !['Ayah Kandung', 'Ibu Kandung', 'Ayah', 'Ibu'].includes(w.hubungan)
+        )
 
         worksheet.addRow({
           nisn: siswa.nisn,
@@ -931,7 +1010,9 @@ export default class DataSiswasController {
       const buffer = await workbook.xlsx.writeBuffer()
 
       // Set response headers
-      const fileName = `data_siswa_${new Date().toISOString().split('T')[0]}.xlsx`
+      const fileName = kelasQ
+        ? `data_siswa_${kelasQ}_${new Date().toISOString().split('T')[0]}.xlsx`
+        : `data_siswa_${new Date().toISOString().split('T')[0]}.xlsx`
 
       response.header(
         'Content-Type',
@@ -959,7 +1040,7 @@ export default class DataSiswasController {
           status: 'error',
           message: 'File Excel tidak valid atau belum diupload',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       const tempPath = join(app.makePath('tmp'), `import_${Date.now()}.xlsx`)
@@ -977,7 +1058,7 @@ export default class DataSiswasController {
           status: 'error',
           message: 'Worksheet "Data Siswa" tidak ditemukan',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       let successCount = 0
@@ -1004,7 +1085,7 @@ export default class DataSiswasController {
 
       for (let i = 2; i <= worksheet.rowCount; i++) {
         const row = worksheet.getRow(i)
-        
+
         try {
           const nisn = row.getCell(1).value?.toString().trim()
           if (!nisn) {
@@ -1023,12 +1104,12 @@ export default class DataSiswasController {
 
           // Email
           let email = row.getCell(3).value as any
-          if(typeof email == "object"){
-            email= email.text.toString().trim() || `${nisn}@siswa.school`
-          }else{
+          if (typeof email == 'object') {
+            email = email.text.toString().trim() || `${nisn}@siswa.school`
+          } else {
             email = email?.toString().trim() || `${nisn}@siswa.school`
           }
-          
+
           const existingUser = await User.findBy('email', email, { client: trx })
           if (existingUser) {
             errorCount++
@@ -1055,7 +1136,7 @@ export default class DataSiswasController {
               nik: row.getCell(4).value?.toString(),
               noAktaLahir: row.getCell(5).value?.toString(),
               noKk: row.getCell(6).value?.toString(),
-              status:"siswa",
+              status: 'siswa',
               jenisKelamin:
                 normalize(row.getCell(7).value) === 'laki-laki' ? 'Laki-laki' : 'Perempuan',
               tempatLahir: normalizeCase(row.getCell(8).value),
@@ -1165,10 +1246,9 @@ export default class DataSiswasController {
         errors: errors.slice(0, 10),
       })
 
-      console.log(errors);
-      
+      console.log(errors)
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal import data siswa')
@@ -1177,7 +1257,7 @@ export default class DataSiswasController {
         message: 'Gagal import data siswa',
         error: error.message,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 }

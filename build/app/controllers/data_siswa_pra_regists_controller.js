@@ -35,13 +35,20 @@ export default class DataSiswaPraRegistsController {
         const siswaPaginate = await query
             .orderBy('created_at', 'desc')
             .paginate(page, search ? Number(totalSiswa?.$extras.total) || 1 : 15);
-        const siswas = siswaPaginate.all().map((siswa) => {
+        const sortedSiswa = siswaPaginate.all().sort((a, b) => {
+            const nameA = a.user?.fullName?.toLowerCase() || '';
+            const nameB = b.user?.fullName?.toLowerCase() || '';
+            return nameA.localeCompare(nameB);
+        });
+        const startNumber = (page - 1) * 15 + 1;
+        const siswas = sortedSiswa.map((siswa, index) => {
             const raw = siswa.toJSON();
             const namaKelas = mapNisnToKelas.get(siswa.nisn) || '-';
             const sorted = {};
             if (raw.user)
                 sorted.user = raw.user;
             sorted.nama_kelas = namaKelas;
+            sorted.nomor = startNumber + index;
             for (const [key, value] of Object.entries(raw)) {
                 if (typeof value === 'string' && key !== 'userId') {
                     sorted[key] = value;
@@ -75,20 +82,20 @@ export default class DataSiswaPraRegistsController {
             const siswa = await DataSiswa.findBy('nisn', nisn);
             if (!siswa) {
                 session.flash('error', 'Siswa tidak ditemukan');
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             if (!['praregist', 'daftarulang'].includes(siswa.status)) {
                 session.flash('error', 'Hanya siswa dengan status praregist atau daftarulang yang dapat diubah');
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             siswa.status = 'siswa';
             await siswa.save();
             session.flash('success', `Status siswa ${siswa.nisn} berhasil diubah menjadi siswa aktif`);
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             session.flash('error', 'Terjadi kesalahan saat mengubah status siswa');
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async updateToDaftarUlang({ params, response, session }) {
@@ -97,20 +104,20 @@ export default class DataSiswaPraRegistsController {
             const siswa = await DataSiswa.findBy('nisn', nisn);
             if (!siswa) {
                 session.flash('error', 'Siswa tidak ditemukan');
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             if (siswa.status !== 'praregist') {
                 session.flash('error', 'Hanya siswa dengan status praregist yang dapat diubah menjadi daftarulang');
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             siswa.status = 'siswa';
             await siswa.save();
             session.flash('success', `Status siswa ${siswa.nisn} berhasil diubah menjadi daftarulang`);
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             session.flash('error', 'Terjadi kesalahan saat mengubah status siswa');
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
 }

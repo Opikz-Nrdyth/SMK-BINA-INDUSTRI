@@ -12,6 +12,7 @@ import { join } from 'path'
 import app from '@adonisjs/core/services/app'
 import DataPembayaran from '#models/data_pembayaran'
 import DataWebsite from '#models/data_website'
+// import DataPassword from '#models/data_password'
 
 export default class UjiansController {
   public async jadwalUjian({ response, inertia, auth, session }: HttpContext) {
@@ -53,6 +54,8 @@ export default class UjiansController {
       .andWhereRaw('JSON_CONTAINS(jurusan, ?)', [`"${jurusanSiswa?.id}"`])
       .andWhereRaw('DATE(tanggal_ujian) = ?', [DateTime.now().toISODate()])
       .orderBy('tanggal_ujian', 'asc')
+
+    // const kodeUjian = await DataPassword.query()
 
     return inertia.render('SiswaPage/JadwalUjian', {
       bankSoal,
@@ -193,7 +196,7 @@ export default class UjiansController {
           status: 'error',
           message: 'Ujian belum dimulai',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Cek apakah ujian sudah berakhir
@@ -203,7 +206,7 @@ export default class UjiansController {
           status: 'error',
           message: 'Ujian sudah berakhir',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Baca file soal
@@ -298,7 +301,7 @@ export default class UjiansController {
         message: 'Gagal memulai ujian',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -318,7 +321,7 @@ export default class UjiansController {
       const encryptedContent = encryption.encrypt(jawaban)
       await writeFile(filePath, encryptedContent)
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, 'Gagal menyimpan jawaban')
       session.flash({
@@ -326,7 +329,7 @@ export default class UjiansController {
         message:
           'Jawaban gagal disimpan! Cek koneksi atau jika nanti mau simpan jawaban harus dalam keadaan online!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -397,7 +400,7 @@ export default class UjiansController {
         message: 'Gagal submit jawaban',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 

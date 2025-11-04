@@ -46,7 +46,15 @@ export default class DataSiswaPraRegistsController {
       .orderBy('created_at', 'desc')
       .paginate(page, search ? Number(totalSiswa?.$extras.total) || 1 : 15)
 
-    const siswas = siswaPaginate.all().map((siswa) => {
+    const sortedSiswa = siswaPaginate.all().sort((a, b) => {
+      const nameA = a.user?.fullName?.toLowerCase() || ''
+      const nameB = b.user?.fullName?.toLowerCase() || ''
+      return nameA.localeCompare(nameB)
+    })
+
+    const startNumber = (page - 1) * 15 + 1
+
+    const siswas = sortedSiswa.map((siswa, index) => {
       const raw = siswa.toJSON()
       const namaKelas = mapNisnToKelas.get(siswa.nisn) || '-'
 
@@ -58,6 +66,7 @@ export default class DataSiswaPraRegistsController {
 
       // nama kelas
       sorted.nama_kelas = namaKelas
+      sorted.nomor = startNumber + index
 
       // Semua string
       for (const [key, value] of Object.entries(raw)) {
@@ -102,7 +111,7 @@ export default class DataSiswaPraRegistsController {
 
       if (!siswa) {
         session.flash('error', 'Siswa tidak ditemukan')
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Pastikan hanya siswa dengan status praregist atau daftarulang yang bisa diubah
@@ -111,7 +120,7 @@ export default class DataSiswaPraRegistsController {
           'error',
           'Hanya siswa dengan status praregist atau daftarulang yang dapat diubah'
         )
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Ubah status menjadi 'siswa' (aktif)
@@ -119,10 +128,10 @@ export default class DataSiswaPraRegistsController {
       await siswa.save()
 
       session.flash('success', `Status siswa ${siswa.nisn} berhasil diubah menjadi siswa aktif`)
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       session.flash('error', 'Terjadi kesalahan saat mengubah status siswa')
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -134,7 +143,7 @@ export default class DataSiswaPraRegistsController {
 
       if (!siswa) {
         session.flash('error', 'Siswa tidak ditemukan')
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       if (siswa.status !== 'praregist') {
@@ -142,17 +151,17 @@ export default class DataSiswaPraRegistsController {
           'error',
           'Hanya siswa dengan status praregist yang dapat diubah menjadi daftarulang'
         )
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       siswa.status = 'siswa'
       await siswa.save()
 
       session.flash('success', `Status siswa ${siswa.nisn} berhasil diubah menjadi daftarulang`)
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       session.flash('error', 'Terjadi kesalahan saat mengubah status siswa')
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 }

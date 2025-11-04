@@ -7,14 +7,14 @@ export const userGuruValidator = vine.compile(vine.object({
     }),
     guru: vine.object({
         nip: vine.string(),
-        alamat: vine.string(),
-        noTelepon: vine.string(),
+        alamat: vine.string().optional(),
+        noTelepon: vine.string().optional(),
         gelarDepan: vine.string().optional(),
         gelarBelakang: vine.string().optional(),
-        jenisKelamin: vine.enum(['Laki-laki', 'Perempuan']),
-        tempatLahir: vine.string(),
-        tanggalLahir: vine.date(),
-        agama: vine.enum(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']),
+        jenisKelamin: vine.enum(['Laki-laki', 'Perempuan']).optional(),
+        tempatLahir: vine.string().optional(),
+        tanggalLahir: vine.date().optional(),
+        agama: vine.enum(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']).optional(),
     }),
 }));
 //# sourceMappingURL=data_guru.js.map

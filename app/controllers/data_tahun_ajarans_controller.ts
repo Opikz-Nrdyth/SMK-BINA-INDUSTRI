@@ -94,7 +94,7 @@ export default class DataTahunAjaransController {
         message: 'Gagal menyimpan data tahun ajaran',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -136,7 +136,7 @@ export default class DataTahunAjaransController {
         message: 'Gagal memperbarui data tahun ajaran',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -158,6 +158,6 @@ export default class DataTahunAjaransController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 }

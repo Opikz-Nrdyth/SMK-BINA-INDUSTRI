@@ -184,7 +184,7 @@ export default class UserAccountController {
         status: 'success',
         message: 'Profile Berhasil Diperbarui',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal update profile user')
@@ -193,7 +193,7 @@ export default class UserAccountController {
         message: 'Gagal Memperbarui Profile',
         error: error.message,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 }

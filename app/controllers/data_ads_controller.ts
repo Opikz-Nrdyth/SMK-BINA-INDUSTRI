@@ -67,7 +67,7 @@ export default class DataAdsController {
           status: 'error',
           message: 'Tanggal mulai dan selesai tidak valid',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       const overlappingAds = await DataAds.query()
@@ -91,7 +91,7 @@ export default class DataAdsController {
           status: 'error',
           message: `Maksimal hanya ${limit} iklan ${data.tipe} dalam rentang waktu yang sama`,
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       let fileName: any | null = null
@@ -118,7 +118,7 @@ export default class DataAdsController {
         status: 'success',
         message: 'Iklan berhasil ditambahkan!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, 'Gagal menyimpan iklan')
       session.flash({
@@ -126,7 +126,7 @@ export default class DataAdsController {
         message: 'Gagal menyimpan iklan',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -170,7 +170,7 @@ export default class DataAdsController {
         status: 'success',
         message: 'Iklan berhasil diperbarui!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, `Gagal update iklan ${params.id}`)
       session.flash({
@@ -178,7 +178,7 @@ export default class DataAdsController {
         message: 'Gagal memperbarui iklan',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -206,7 +206,7 @@ export default class DataAdsController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   public async publicIndex({ response }: HttpContext) {

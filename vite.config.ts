@@ -12,8 +12,14 @@ export default defineConfig({
   ],
 
   server: {
+    allowedHosts: ['projects.opikstudio.my.id'],
     host: '0.0.0.0',
     port: 2052,
+    cors: true,
+    hmr: {
+      host: 'localhost',
+      protocol: 'wss',
+    },
   },
 
   resolve: {

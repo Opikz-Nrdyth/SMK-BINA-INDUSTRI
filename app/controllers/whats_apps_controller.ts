@@ -65,7 +65,7 @@ export default class WhatsAppController {
         status: 'success',
         message: 'Berhasil initilasi',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error: any) {
       session.flash({
         status: 'error',
@@ -83,7 +83,7 @@ export default class WhatsAppController {
         status: 'error',
         message: 'Nomor dan Pesan Wajib Diisi!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     if (message.length > 1000) {
@@ -91,7 +91,7 @@ export default class WhatsAppController {
         status: 'error',
         message: 'Text Terlalu Panjang Maksimum 1000 Karakter',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     try {
@@ -101,14 +101,14 @@ export default class WhatsAppController {
         status: 'success',
         message: 'Pesan Berhasil Dikirim',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error: any) {
       session.flash({
         status: 'error',
         message: error.message ?? 'Gagal Mengirim Pesan',
       })
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -120,7 +120,7 @@ export default class WhatsAppController {
         status: 'error',
         message: 'Nomor Wajib Diisi!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     if (!message) {
@@ -128,7 +128,7 @@ export default class WhatsAppController {
         status: 'error',
         message: 'Pesan Wajib Diisi!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     // Limit jumlah nomor (optional)
@@ -137,7 +137,7 @@ export default class WhatsAppController {
         status: 'error',
         message: 'Maksimal 100 Nomor Per Request',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     try {
@@ -151,13 +151,13 @@ export default class WhatsAppController {
         status: 'success',
         message: `Bulk message completed: ${successCount} success, ${failedCount} failed`,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error: any) {
       session.flash({
         status: 'error',
         message: 'Gagal Mengirim Pesan!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 

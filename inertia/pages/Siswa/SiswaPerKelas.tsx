@@ -35,6 +35,7 @@ export default function SiswaPerKelas({
   const [lastPage, setLastPage] = useState(siswaPaginate?.lastPage || 1)
   const [search, setSearch] = useState(searchQuery)
   const [selectedKelasState, setSelectedKelasState] = useState(selectedKelas)
+  const [cardKelas, setCardKelas] = useState(false)
 
   useEffect(() => {
     if (!siswas) return
@@ -93,22 +94,40 @@ export default function SiswaPerKelas({
     { header: 'Kelas', accessor: 'nama_kelas' as const },
   ]
 
+  const path = String(props.pattern).split('/')
+
   return (
     <div className="max-w-7xl mx-auto lg:p-6">
       <Notification />
 
       {/* Header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Manajemen Data Siswa</h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">
-          Daftar seluruh siswa berdasarkan kelas di sekolah.
-        </p>
+      <div className="mb-6 flex justify-center md:justify-between items-center">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Manajemen Data Siswa</h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">
+            Daftar seluruh siswa berdasarkan kelas di sekolah.
+          </p>
+        </div>
+        <a
+          href={`/${path[1]}/${path[2]}/export?kelasQ=${selectedKelasState}`}
+          className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+        >
+          Export Siswa {selectedKelasState}
+        </a>
       </div>
 
       {/* Kartu Kelas */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Pilih Kelas</h2>
+          <button
+            type="button"
+            onClick={() => {
+              setCardKelas(!cardKelas)
+            }}
+            className="text-lg flex items-center gap-2 font-semibold text-gray-900 dark:text-white"
+          >
+            Pilih Kelas <i className={cardKelas ? 'fas fa-caret-up' : 'fas fa-caret-down'}></i>
+          </button>
           {selectedKelasState && (
             <button
               onClick={handleShowAllSiswa}
@@ -120,47 +139,48 @@ export default function SiswaPerKelas({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {kelasList.map((kelas) => (
-            <div
-              key={kelas.namaKelas}
-              className={`bg-white dark:bg-gray-800 rounded-lg shadow border p-4 cursor-pointer transition-all duration-200 ${
-                selectedKelasState === kelas.namaKelas
-                  ? 'border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800'
-                  : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
-              }`}
-              onClick={() => handleSelectKelas(kelas.namaKelas)}
-            >
-              <div className="flex items-center justify-between">
-                <h3 className="font-bold text-gray-900 dark:text-white">{kelas.namaKelas}</h3>
-                <div className="text-lg">🏫</div>
-              </div>
-
-              <div className="mt-2">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {kelas.jumlahSiswa}
+          {cardKelas &&
+            kelasList.map((kelas) => (
+              <div
+                key={kelas.namaKelas}
+                className={`bg-white dark:bg-gray-800 rounded-lg shadow border p-4 cursor-pointer transition-all duration-200 ${
+                  selectedKelasState === kelas.namaKelas
+                    ? 'border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800'
+                    : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
+                }`}
+                onClick={() => handleSelectKelas(kelas.namaKelas)}
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="font-bold text-gray-900 dark:text-white">{kelas.namaKelas}</h3>
+                  <div className="text-lg">🏫</div>
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">Siswa</div>
-              </div>
-              <div className="text-sm text-gray-700 dark:text-gray-100 mt-2">
-                Wali Kelas:{' '}
-                <span className="bg-yellow-600 rounded-full px-2 py-1 text-white">
-                  {kelas.waliKelas}
-                </span>
-              </div>
 
-              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                <div
-                  className={`text-sm font-medium ${
-                    selectedKelasState === kelas.namaKelas
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-400'
-                  }`}
-                >
-                  {selectedKelasState === kelas.namaKelas ? '✓ Sedang dipilih' : 'Pilih kelas →'}
+                <div className="mt-2">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {kelas.jumlahSiswa}
+                  </div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">Siswa</div>
+                </div>
+                <div className="text-sm text-gray-700 dark:text-gray-100 mt-2">
+                  Wali Kelas:{' '}
+                  <span className="bg-yellow-600 rounded-full px-2 py-1 text-white">
+                    {kelas.waliKelas}
+                  </span>
+                </div>
+
+                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div
+                    className={`text-sm font-medium ${
+                      selectedKelasState === kelas.namaKelas
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : 'text-gray-600 dark:text-gray-400'
+                    }`}
+                  >
+                    {selectedKelasState === kelas.namaKelas ? '✓ Sedang dipilih' : 'Pilih kelas →'}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         {/* Empty State */}

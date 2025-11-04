@@ -50,7 +50,7 @@ export default class DataAktivitasController {
                 status: 'success',
                 message: 'Aktivitas berhasil ditambahkan!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, 'Gagal menyimpan aktivitas');
@@ -59,7 +59,7 @@ export default class DataAktivitasController {
                 message: 'Gagal menyimpan aktivitas',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -99,7 +99,7 @@ export default class DataAktivitasController {
                 status: 'success',
                 message: 'Aktivitas berhasil diperbarui!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, `Gagal update aktivitas ${params.id}`);
@@ -108,7 +108,7 @@ export default class DataAktivitasController {
                 message: 'Gagal memperbarui aktivitas',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ params, response, session }) {
@@ -132,7 +132,7 @@ export default class DataAktivitasController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async indexPublic({ response }) {
         const aktivitas = await Aktivitas.query()

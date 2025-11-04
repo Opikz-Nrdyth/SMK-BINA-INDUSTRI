@@ -6,7 +6,6 @@ import { createRoot } from 'react-dom/client'
 import { createInertiaApp } from '@inertiajs/react'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import { NotificationProvider } from '~/Components/NotificationAlert'
-import SplashScreen from '~/pages/SpalshScreen'
 
 const appName = import.meta.env.VITE_APP_NAME || 'SMK BINA INDUSTRI'
 

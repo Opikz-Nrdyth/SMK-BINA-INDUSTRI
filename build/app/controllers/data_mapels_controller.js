@@ -88,7 +88,7 @@ export default class DataMapelsController {
                 message: 'Gagal menyimpan data mata pelajaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -132,7 +132,7 @@ export default class DataMapelsController {
                 message: 'Gagal memperbarui data mata pelajaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -153,7 +153,7 @@ export default class DataMapelsController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
 }
 //# sourceMappingURL=data_mapels_controller.js.map

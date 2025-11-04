@@ -59,7 +59,7 @@ export default class WhatsAppController {
                 status: 'success',
                 message: 'Berhasil initilasi',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             session.flash({
@@ -75,14 +75,14 @@ export default class WhatsAppController {
                 status: 'error',
                 message: 'Nomor dan Pesan Wajib Diisi!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         if (message.length > 1000) {
             session.flash({
                 status: 'error',
                 message: 'Text Terlalu Panjang Maksimum 1000 Karakter',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         try {
             await whatsAppService.sendMessage(number, message);
@@ -90,14 +90,14 @@ export default class WhatsAppController {
                 status: 'success',
                 message: 'Pesan Berhasil Dikirim',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             session.flash({
                 status: 'error',
                 message: error.message ?? 'Gagal Mengirim Pesan',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async bulkSendMessage({ request, response, session }) {
@@ -107,21 +107,21 @@ export default class WhatsAppController {
                 status: 'error',
                 message: 'Nomor Wajib Diisi!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         if (!message) {
             session.flash({
                 status: 'error',
                 message: 'Pesan Wajib Diisi!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         if (numbers.length > 100) {
             session.flash({
                 status: 'error',
                 message: 'Maksimal 100 Nomor Per Request',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         try {
             const delayMs = delay || 2000;
@@ -132,14 +132,14 @@ export default class WhatsAppController {
                 status: 'success',
                 message: `Bulk message completed: ${successCount} success, ${failedCount} failed`,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             session.flash({
                 status: 'error',
                 message: 'Gagal Mengirim Pesan!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async bulkCheckNumbers({ request, response }) {

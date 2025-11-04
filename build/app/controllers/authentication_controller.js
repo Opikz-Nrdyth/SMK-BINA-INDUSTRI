@@ -47,7 +47,7 @@ export default class AuthenticationController {
                         roleInput: true,
                         message: 'Pilih status login sebagai Guru atau Staf.',
                     });
-                    return response.redirect().back();
+                    return response.redirect().withQs().back();
                 }
                 session.put('role', role);
                 await auth.use('web').login(user);
@@ -80,7 +80,7 @@ export default class AuthenticationController {
                 message: 'Email atau password salah',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async register({ request, auth, response, session }) {
@@ -106,7 +106,7 @@ export default class AuthenticationController {
                 message: 'Registrasi gagal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ auth, response, session }) {
@@ -126,7 +126,7 @@ export default class AuthenticationController {
                 message: 'Logout gagal',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
 }

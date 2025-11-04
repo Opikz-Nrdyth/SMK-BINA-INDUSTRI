@@ -34,6 +34,7 @@ export default function DataSiswaGuru({
   const [lastPage, setLastPage] = useState(siswaPaginate?.lastPage || 1)
   const [search, setSearch] = useState(searchQuery)
   const [selectedKelasState, setSelectedKelasState] = useState(selectedKelas)
+  const [cardKelas, setCardKelas] = useState(false)
 
   useEffect(() => {
     if (!siswas) return
@@ -140,7 +141,15 @@ export default function DataSiswaGuru({
       {/* Card Kelas */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Pilih Kelas</h2>
+          <button
+            type="button"
+            onClick={() => {
+              setCardKelas(!cardKelas)
+            }}
+            className="text-lg font-semibold text-gray-900 dark:text-white"
+          >
+            Pilih Kelas <i className={cardKelas ? 'fas fa-caret-up' : 'fas fa-caret-down'}></i>
+          </button>
           {selectedKelasState && (
             <button
               onClick={handleShowAllSiswa}
@@ -152,48 +161,49 @@ export default function DataSiswaGuru({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {kelasList.map((kelas) => (
-            <div
-              key={kelas.namaKelas}
-              className={`bg-white dark:bg-gray-800 rounded-lg shadow border p-4 cursor-pointer transition-all duration-200 ${
-                selectedKelasState === kelas.namaKelas
-                  ? 'border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800'
-                  : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
-              }`}
-              onClick={() => handleSelectKelas(kelas.namaKelas)}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex gap-1">
-                  <h3 className="font-bold text-gray-900 dark:text-white">{kelas.namaKelas}</h3>
-                  {kelas.isWaliKelas && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
-                      Wali Kelas
-                    </span>
-                  )}
+          {cardKelas &&
+            kelasList.map((kelas) => (
+              <div
+                key={kelas.namaKelas}
+                className={`bg-white dark:bg-gray-800 rounded-lg shadow border p-4 cursor-pointer transition-all duration-200 ${
+                  selectedKelasState === kelas.namaKelas
+                    ? 'border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800'
+                    : 'border-gray-200 dark:border-gray-700 hover:shadow-md'
+                }`}
+                onClick={() => handleSelectKelas(kelas.namaKelas)}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-1">
+                    <h3 className="font-bold text-gray-900 dark:text-white">{kelas.namaKelas}</h3>
+                    {kelas.isWaliKelas && (
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                        Wali Kelas
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-lg">🏫</div>
                 </div>
-                <div className="text-lg">🏫</div>
-              </div>
 
-              <div className="mt-2">
-                <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {kelas.jumlahSiswa}
+                <div className="mt-2">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {kelas.jumlahSiswa}
+                  </div>
+                  <div className="text-sm text-gray-500 dark:text-gray-400">Siswa</div>
                 </div>
-                <div className="text-sm text-gray-500 dark:text-gray-400">Siswa</div>
-              </div>
 
-              <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-                <div
-                  className={`text-sm font-medium ${
-                    selectedKelasState === kelas.namaKelas
-                      ? 'text-blue-600 dark:text-blue-400'
-                      : 'text-gray-600 dark:text-gray-400'
-                  }`}
-                >
-                  {selectedKelasState === kelas.namaKelas ? '✓ Sedang dipilih' : 'Pilih kelas →'}
+                <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+                  <div
+                    className={`text-sm font-medium ${
+                      selectedKelasState === kelas.namaKelas
+                        ? 'text-blue-600 dark:text-blue-400'
+                        : 'text-gray-600 dark:text-gray-400'
+                    }`}
+                  >
+                    {selectedKelasState === kelas.namaKelas ? '✓ Sedang dipilih' : 'Pilih kelas →'}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         {/* Empty State */}

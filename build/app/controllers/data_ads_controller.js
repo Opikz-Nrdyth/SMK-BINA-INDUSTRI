@@ -53,7 +53,7 @@ export default class DataAdsController {
                     status: 'error',
                     message: 'Tanggal mulai dan selesai tidak valid',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const overlappingAds = await DataAds.query()
                 .where('tipe', data.tipe)
@@ -72,7 +72,7 @@ export default class DataAdsController {
                     status: 'error',
                     message: `Maksimal hanya ${limit} iklan ${data.tipe} dalam rentang waktu yang sama`,
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             let fileName = null;
             if (file && file.isValid) {
@@ -96,7 +96,7 @@ export default class DataAdsController {
                 status: 'success',
                 message: 'Iklan berhasil ditambahkan!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, 'Gagal menyimpan iklan');
@@ -105,7 +105,7 @@ export default class DataAdsController {
                 message: 'Gagal menyimpan iklan',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -143,7 +143,7 @@ export default class DataAdsController {
                 status: 'success',
                 message: 'Iklan berhasil diperbarui!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, `Gagal update iklan ${params.id}`);
@@ -152,7 +152,7 @@ export default class DataAdsController {
                 message: 'Gagal memperbarui iklan',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ params, response, session }) {
@@ -180,7 +180,7 @@ export default class DataAdsController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async publicIndex({ response }) {
         const today = new Date().toISOString().slice(0, 10);

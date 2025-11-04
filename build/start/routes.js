@@ -28,6 +28,7 @@ import SuperAdminController from '#controllers/data_super_admin';
 import WhatsAppController from '#controllers/whats_apps_controller';
 import DataSiswaPraRegistsController from '#controllers/data_siswa_pra_regists_controller';
 import ManifestController from '#controllers/manifest_controller';
+import DataPasswordsController from '#controllers/data_passwords_controller';
 router
     .group(() => {
     router.get('/', [LandingPageController, 'Dashboard']);
@@ -240,6 +241,10 @@ router
             .put('bank-soal/:id/update-soal', [BankSoalsController, 'updateSoal'])
             .as('superadmin.bankSoal.updateSoal');
     });
+    router
+        .resource('bank-soal/data-password', DataPasswordsController)
+        .only(['index', 'store', 'update', 'destroy'])
+        .as('superadmin.dataPassword');
     router.group(() => {
         router
             .get('/manajemen-kehadiran', [DataJawabansController, 'index'])

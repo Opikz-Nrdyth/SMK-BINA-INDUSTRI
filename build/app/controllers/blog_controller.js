@@ -90,7 +90,7 @@ export default class BlogController {
                     throw new Error('Gagal menyimpan file thumbnail');
                 }
             }
-            const tags = payload.tags?.split(", ").map(tag => tag.trim()) ?? [];
+            const tags = payload.tags?.split(', ').map((tag) => tag.trim()) ?? [];
             logger.info(auth.user?.id);
             const blogData = {
                 ...payload,
@@ -105,7 +105,7 @@ export default class BlogController {
                 status: 'success',
                 message: 'Blog berhasil ditambahkan.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -115,7 +115,7 @@ export default class BlogController {
                 message: 'Gagal menyimpan blog',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async show({ params, inertia }) {
@@ -186,7 +186,7 @@ export default class BlogController {
                 status: 'success',
                 message: 'Blog berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -196,7 +196,7 @@ export default class BlogController {
                 message: 'Gagal memperbarui blog',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params, auth }) {
@@ -229,7 +229,7 @@ export default class BlogController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async publicIndex({ request, inertia }) {
         const page = request.input('page', 1);

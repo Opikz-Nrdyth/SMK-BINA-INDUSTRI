@@ -12,7 +12,7 @@ export default class DataStafsController {
         const page = request.input('page', 1);
         const search = request.input('search', '');
         const [totalStaf] = await Promise.all([DataStaf.query().count('* as total').first()]);
-        const query = DataStaf.query().preload('user');
+        const query = DataStaf.query().preload('user', (user) => user.orderBy('fullName', 'asc'));
         if (search) {
             query.where((builder) => {
                 builder
@@ -27,9 +27,13 @@ export default class DataStafsController {
                     .orWhere('jabatan', 'LIKE', `%${search}%`);
             });
         }
-        const stafPaginate = await query
-            .orderBy('createdAt', 'desc')
-            .paginate(page, search ? Number(totalStaf?.$extras.total) || 1 : 15);
+        const stafPaginate = await query.paginate(page, search ? Number(totalStaf?.$extras.total) || 1 : 15);
+        const sortedGuru = stafPaginate.all().sort((a, b) => {
+            const nameA = a.user?.fullName?.toLowerCase() || '';
+            const nameB = b.user?.fullName?.toLowerCase() || '';
+            return nameA.localeCompare(nameB);
+        });
+        const startNumber = (page - 1) * 15 + 1;
         logger.info('Jumlah Staf: ', Number(totalStaf?.$extras.total));
         return inertia.render('Staf/Index', {
             stafPaginate: {
@@ -41,7 +45,7 @@ export default class DataStafsController {
                 nextPage: stafPaginate.currentPage < stafPaginate.lastPage ? stafPaginate.currentPage + 1 : null,
                 previousPage: stafPaginate.currentPage > 1 ? stafPaginate.currentPage - 1 : null,
             },
-            stafs: stafPaginate.all().map((item) => item.toJSON()),
+            stafs: sortedGuru.map((item, index) => ({ ...item.toJSON(), nomor: startNumber + index })),
             session: session.flashMessages.all(),
             searchQuery: search,
         });
@@ -94,7 +98,7 @@ export default class DataStafsController {
                 status: 'success',
                 message: 'Data staf berhasil ditambahkan.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -104,7 +108,7 @@ export default class DataStafsController {
                 message: 'Gagal menyimpan data staf',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -136,7 +140,7 @@ export default class DataStafsController {
                 status: 'success',
                 message: 'Data staf berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -146,7 +150,7 @@ export default class DataStafsController {
                 message: 'Gagal memperbarui data staf',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -176,7 +180,7 @@ export default class DataStafsController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async exportExcel({ response }) {
         const workbook = new ExcelJS.Workbook();
@@ -233,7 +237,7 @@ export default class DataStafsController {
                 message: 'Data Excel wajib diunggah.',
             });
             console.log('❌ File Excel wajib diunggah');
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         const buffer = await fs.readFile(file.tmpPath);
         const workbook = new ExcelJS.Workbook();
@@ -247,7 +251,7 @@ export default class DataStafsController {
                 continue;
             try {
                 let emailUser = email.toLowerCase().trim();
-                if (typeof email == "object") {
+                if (typeof email == 'object') {
                     emailUser = email.text.toLowerCase().trim();
                 }
                 const existingUser = await User.query()
@@ -290,7 +294,7 @@ export default class DataStafsController {
             status: 'success',
             message: `Import selesai. Berhasil: ${berhasil}, Gagal: ${gagal}`,
         });
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async uploadFile(file, nip) {
         const fileName = `${nip}_${Date.now()}.${file.extname}`;

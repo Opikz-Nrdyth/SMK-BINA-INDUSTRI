@@ -58,7 +58,7 @@ export default class AuthenticationController {
             roleInput: true,
             message: 'Pilih status login sebagai Guru atau Staf.',
           })
-          return response.redirect().back()
+          return response.redirect().withQs().back()
         }
 
         // Kalau sudah pilih role → simpan ke session
@@ -107,7 +107,7 @@ export default class AuthenticationController {
         error: error,
       })
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -138,7 +138,7 @@ export default class AuthenticationController {
         error: error,
       })
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -162,7 +162,7 @@ export default class AuthenticationController {
         error: error,
       })
 
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 }

@@ -8,6 +8,9 @@ import fs from 'fs/promises'
 import ExcelJS from 'exceljs'
 import { join } from 'path'
 import app from '@adonisjs/core/services/app'
+import DataKelas from '#models/data_kelas'
+import DataMapel from '#models/data_mapel'
+import BankSoal from '#models/bank_soal'
 
 export default class DataGurusController {
   public async index({ request, inertia, session }: HttpContext) {
@@ -44,20 +47,29 @@ export default class DataGurusController {
     // Pagination
     const guruPaginate = await baseQuery.orderBy('createdAt', 'desc').paginate(page, 15)
 
+    const sortedGuru = guruPaginate.all().sort((a, b) => {
+      const nameA = a.user?.fullName?.toLowerCase() || ''
+      const nameB = b.user?.fullName?.toLowerCase() || ''
+      return nameA.localeCompare(nameB)
+    })
+
+    const startNumber = (page - 1) * 15 + 1
+
     // Ambil data mapel unik untuk daftar kartu
     const mapelList = await db
       .from('data_mapels')
       .select('nama_mata_pelajaran')
-      .count('* as jumlahGuru')
+      .select(db.raw('SUM(COALESCE(JSON_LENGTH(guru_ampu), 0)) AS jumlahGuru'))
       .groupBy('nama_mata_pelajaran')
 
     // 🧩 Serialize guru
     const dataGuru = await Promise.all(
-      guruPaginate.all().map(async (item) => {
+      sortedGuru.map(async (item, index) => {
         const mapel = await item.mapelAmpuGuru()
 
         return {
           ...item.serialize(),
+          nomor: startNumber + index,
           mapel,
         }
       })
@@ -139,7 +151,7 @@ export default class DataGurusController {
         status: 'success',
         message: 'Data guru berhasil ditambahkan.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data guru baru')
@@ -148,7 +160,7 @@ export default class DataGurusController {
         message: 'Gagal menyimpan data guru',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -189,7 +201,7 @@ export default class DataGurusController {
         status: 'success',
         message: 'Data guru berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update data guru NIP: ${id}`)
@@ -198,7 +210,7 @@ export default class DataGurusController {
         message: 'Gagal memperbarui data guru',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -211,7 +223,53 @@ export default class DataGurusController {
         .preload('dataGuru')
         .preload('dataStaf')
         .firstOrFail()
-      await this.deleteFile(guru.fileFoto)
+
+      const dataKelas: any[] = await DataKelas.query()
+      for (const kelas of dataKelas) {
+        // ubah jadi array kalau masih string
+        const guruPengampu: any[] =
+          typeof kelas.guruPengampu === 'string' ? [kelas.guruPengampu] : kelas.guruPengampu
+
+        if (Array.isArray(guruPengampu)) {
+          const filtered = guruPengampu.filter((nip: any) => nip !== guru.nip)
+          if (filtered.length !== guruPengampu.length) {
+            kelas.guruPengampu = JSON.stringify(filtered)
+            await kelas.save()
+          }
+        }
+      }
+
+      const dataMapel: any[] = await DataMapel.query()
+      for (const mapel of dataMapel) {
+        const guruAmpu: any[] =
+          typeof mapel.guruAmpu === 'string' ? [mapel.guruAmpu] : mapel.guruAmpu
+
+        if (Array.isArray(guruAmpu)) {
+          const filtered = guruAmpu.filter((nip: any) => nip !== guru.nip)
+          if (filtered.length !== guruAmpu.length) {
+            mapel.guruAmpu = JSON.stringify(filtered)
+            await mapel.save()
+          }
+        }
+      }
+
+      const dataBankSoal = await BankSoal.query()
+      for (const bankSoal of dataBankSoal) {
+        const penulis: any[] =
+          typeof bankSoal.penulis === 'string' ? [bankSoal.penulis] : bankSoal.penulis
+
+        if (Array.isArray(penulis)) {
+          const filtered = penulis.filter((nip: any) => nip !== guru.nip)
+          if (filtered.length !== penulis.length) {
+            bankSoal.penulis = filtered
+            await bankSoal.save()
+          }
+        }
+      }
+
+      if (guru.fileFoto) {
+        await this.deleteFile(guru.fileFoto)
+      }
       await guru.delete()
       if (!user.dataStaf) {
         await user.delete()
@@ -228,7 +286,7 @@ export default class DataGurusController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   public async exportExcel({ response }: HttpContext) {
@@ -292,7 +350,7 @@ export default class DataGurusController {
         message: 'Data Excel wajib diunggah.',
       })
       console.log('❌ File Excel wajib diunggah')
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     const buffer = await fs.readFile(file.tmpPath!)
@@ -323,7 +381,7 @@ export default class DataGurusController {
 
       try {
         let emailUser = email.toLowerCase().trim()
-        if(typeof email == "object"){
+        if (typeof email == 'object') {
           emailUser = email.text.toLowerCase().trim()
         }
         // Cek apakah user sudah ada berdasarkan email atau nip
@@ -372,7 +430,7 @@ export default class DataGurusController {
       message: `Import selesai. Berhasil: ${berhasil}, Gagal: ${gagal}`,
     })
 
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   private async uploadFile(file: any, nip: string): Promise<string> {

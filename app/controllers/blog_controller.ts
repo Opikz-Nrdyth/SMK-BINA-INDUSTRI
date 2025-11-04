@@ -121,13 +121,13 @@ export default class BlogController {
         }
       }
 
-      const tags = payload.tags?.split(", ").map(tag => tag.trim()) ?? [];
+      const tags = payload.tags?.split(', ').map((tag) => tag.trim()) ?? []
 
       logger.info(auth.user?.id)
       const blogData = {
         ...payload,
         thumbnail: thumbnailFileName,
-        tags:JSON.stringify(tags),
+        tags: JSON.stringify(tags),
         penulisId: auth.user?.id,
         publishedAt: payload.status === 'published' ? DateTime.now() : null,
       }
@@ -140,7 +140,7 @@ export default class BlogController {
         status: 'success',
         message: 'Blog berhasil ditambahkan.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan blog baru')
@@ -149,7 +149,7 @@ export default class BlogController {
         message: 'Gagal menyimpan blog',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -250,7 +250,7 @@ export default class BlogController {
         status: 'success',
         message: 'Blog berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update blog ID: ${id}`)
@@ -259,7 +259,7 @@ export default class BlogController {
         message: 'Gagal memperbarui blog',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -296,7 +296,7 @@ export default class BlogController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   // API untuk public blog

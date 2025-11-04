@@ -234,7 +234,7 @@ export default class DataAbsensiController {
                     message: `Data absensi untuk ${duplicateNames} sudah ada pada tanggal tersebut.`,
                 });
                 logger.error(`Data absensi untuk ${duplicateNames} sudah ada pada tanggal tersebut.`);
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const isOnline = request.header('X-Online-Status') !== 'false';
             if (!isOnline) {
@@ -286,7 +286,7 @@ export default class DataAbsensiController {
                 message: 'Gagal menyimpan data absensi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async storeBulk({ request, response, session }) {
@@ -305,7 +305,7 @@ export default class DataAbsensiController {
                 status: 'success',
                 message: 'Berhasil Mensinkronkan data',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -315,7 +315,7 @@ export default class DataAbsensiController {
                 message: 'Gagal menyimpan data absensi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session, response, auth }) {
@@ -349,7 +349,7 @@ export default class DataAbsensiController {
                 status: 'error',
                 message: 'Anda tidak memiliki akses ke data absensi ini',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         await absensi.load('user', (query) => query.select(['id', 'fullName']));
         await absensi.load('mapel', (query) => query.select(['id', 'namaMataPelajaran']));
@@ -419,7 +419,7 @@ export default class DataAbsensiController {
                 message: 'Gagal memperbarui data absensi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, auth, params }) {
@@ -455,7 +455,7 @@ export default class DataAbsensiController {
                     status: 'error',
                     message: 'Anda tidak memiliki akses ke data absensi ini',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             absensi.useTransaction(trx);
             await absensi.delete();
@@ -474,7 +474,7 @@ export default class DataAbsensiController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async getOfflineStats({ response }) {
         try {

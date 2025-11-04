@@ -1,0 +1,4 @@
+Catatan:
+1. Buat untuk numbering dan sort untuk seluruh halaman
+2. temukan bug di landing page
+3. buat database password untuk penggunaan password secara menyeluruh ke beberapa ujian sekaligus

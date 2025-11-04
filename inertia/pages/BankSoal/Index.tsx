@@ -75,12 +75,20 @@ export default function Index({ bankSoals, bankSoalPaginate, searchQuery = '', a
       <Notification />
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Data Bank Soal</h1>
-        <Link
-          href={`${urlPage}/create`}
-          className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
-        >
-          Tambah Bank Soal
-        </Link>
+        <div className="flex gap-1 items-center">
+          <Link
+            href={`${urlPage}/create`}
+            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+          >
+            Tambah Bank Soal
+          </Link>
+          <Link
+            href={`${urlPage}/data-password`}
+            className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
+          >
+            Data Password
+          </Link>
+        </div>
       </div>
 
       <DataTable

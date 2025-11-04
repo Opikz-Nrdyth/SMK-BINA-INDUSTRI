@@ -365,7 +365,7 @@ export default class BankSoalsController {
         status: 'success',
         message: 'Bank soal berhasil ditambahkan.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan bank soal baru')
@@ -374,7 +374,7 @@ export default class BankSoalsController {
         message: 'Gagal menyimpan bank soal',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -405,7 +405,7 @@ export default class BankSoalsController {
         status: 'success',
         message: 'Bank soal berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update bank soal`)
@@ -414,7 +414,7 @@ export default class BankSoalsController {
         message: 'Gagal memperbarui bank soal',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -436,7 +436,7 @@ export default class BankSoalsController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   public async getFileContent({ request, response }: HttpContext) {
@@ -547,7 +547,7 @@ export default class BankSoalsController {
         status: 'success',
         message: 'Konten soal berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, `Gagal update konten soal ${params.id}`)
 
@@ -563,7 +563,7 @@ export default class BankSoalsController {
         message: 'Gagal memperbarui konten soal',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -599,7 +599,7 @@ export default class BankSoalsController {
         message: 'Gagal memuat konten soal',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -635,7 +635,7 @@ export default class BankSoalsController {
         message: 'Gagal memuat konten soal',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 }

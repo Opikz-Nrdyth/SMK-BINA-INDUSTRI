@@ -7,6 +7,9 @@ import fs from 'fs/promises';
 import ExcelJS from 'exceljs';
 import { join } from 'path';
 import app from '@adonisjs/core/services/app';
+import DataKelas from '#models/data_kelas';
+import DataMapel from '#models/data_mapel';
+import BankSoal from '#models/bank_soal';
 export default class DataGurusController {
     async index({ request, inertia, session }) {
         const page = request.input('page', 1);
@@ -34,15 +37,22 @@ export default class DataGurusController {
             });
         }
         const guruPaginate = await baseQuery.orderBy('createdAt', 'desc').paginate(page, 15);
+        const sortedGuru = guruPaginate.all().sort((a, b) => {
+            const nameA = a.user?.fullName?.toLowerCase() || '';
+            const nameB = b.user?.fullName?.toLowerCase() || '';
+            return nameA.localeCompare(nameB);
+        });
+        const startNumber = (page - 1) * 15 + 1;
         const mapelList = await db
             .from('data_mapels')
             .select('nama_mata_pelajaran')
-            .count('* as jumlahGuru')
+            .select(db.raw('SUM(COALESCE(JSON_LENGTH(guru_ampu), 0)) AS jumlahGuru'))
             .groupBy('nama_mata_pelajaran');
-        const dataGuru = await Promise.all(guruPaginate.all().map(async (item) => {
+        const dataGuru = await Promise.all(sortedGuru.map(async (item, index) => {
             const mapel = await item.mapelAmpuGuru();
             return {
                 ...item.serialize(),
+                nomor: startNumber + index,
                 mapel,
             };
         }));
@@ -112,7 +122,7 @@ export default class DataGurusController {
                 status: 'success',
                 message: 'Data guru berhasil ditambahkan.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -122,7 +132,7 @@ export default class DataGurusController {
                 message: 'Gagal menyimpan data guru',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session }) {
@@ -153,7 +163,7 @@ export default class DataGurusController {
                 status: 'success',
                 message: 'Data guru berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -163,7 +173,7 @@ export default class DataGurusController {
                 message: 'Gagal memperbarui data guru',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -175,7 +185,42 @@ export default class DataGurusController {
                 .preload('dataGuru')
                 .preload('dataStaf')
                 .firstOrFail();
-            await this.deleteFile(guru.fileFoto);
+            const dataKelas = await DataKelas.query();
+            for (const kelas of dataKelas) {
+                const guruPengampu = typeof kelas.guruPengampu === 'string' ? [kelas.guruPengampu] : kelas.guruPengampu;
+                if (Array.isArray(guruPengampu)) {
+                    const filtered = guruPengampu.filter((nip) => nip !== guru.nip);
+                    if (filtered.length !== guruPengampu.length) {
+                        kelas.guruPengampu = JSON.stringify(filtered);
+                        await kelas.save();
+                    }
+                }
+            }
+            const dataMapel = await DataMapel.query();
+            for (const mapel of dataMapel) {
+                const guruAmpu = typeof mapel.guruAmpu === 'string' ? [mapel.guruAmpu] : mapel.guruAmpu;
+                if (Array.isArray(guruAmpu)) {
+                    const filtered = guruAmpu.filter((nip) => nip !== guru.nip);
+                    if (filtered.length !== guruAmpu.length) {
+                        mapel.guruAmpu = JSON.stringify(filtered);
+                        await mapel.save();
+                    }
+                }
+            }
+            const dataBankSoal = await BankSoal.query();
+            for (const bankSoal of dataBankSoal) {
+                const penulis = typeof bankSoal.penulis === 'string' ? [bankSoal.penulis] : bankSoal.penulis;
+                if (Array.isArray(penulis)) {
+                    const filtered = penulis.filter((nip) => nip !== guru.nip);
+                    if (filtered.length !== penulis.length) {
+                        bankSoal.penulis = filtered;
+                        await bankSoal.save();
+                    }
+                }
+            }
+            if (guru.fileFoto) {
+                await this.deleteFile(guru.fileFoto);
+            }
             await guru.delete();
             if (!user.dataStaf) {
                 await user.delete();
@@ -193,7 +238,7 @@ export default class DataGurusController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async exportExcel({ response }) {
         const workbook = new ExcelJS.Workbook();
@@ -246,7 +291,7 @@ export default class DataGurusController {
                 message: 'Data Excel wajib diunggah.',
             });
             console.log('❌ File Excel wajib diunggah');
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         const buffer = await fs.readFile(file.tmpPath);
         const workbook = new ExcelJS.Workbook();
@@ -260,7 +305,7 @@ export default class DataGurusController {
                 continue;
             try {
                 let emailUser = email.toLowerCase().trim();
-                if (typeof email == "object") {
+                if (typeof email == 'object') {
                     emailUser = email.text.toLowerCase().trim();
                 }
                 const existingUser = await User.query()
@@ -301,7 +346,7 @@ export default class DataGurusController {
             status: 'success',
             message: `Import selesai. Berhasil: ${berhasil}, Gagal: ${gagal}`,
         });
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async uploadFile(file, nip) {
         const fileName = `${nip}_${Date.now()}.${file.extname}`;

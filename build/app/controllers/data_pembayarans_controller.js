@@ -265,7 +265,7 @@ export default class DataPembayaranController {
                     status: 'error',
                     message: 'Siswa sudah memiliki penetapan pembayaran untuk jenis ini.',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const pembayaranData = {
                 ...payload,
@@ -287,7 +287,7 @@ export default class DataPembayaranController {
                 message: 'Gagal menyimpan data pembayaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async checkExisting({ request, response }) {
@@ -379,7 +379,7 @@ export default class DataPembayaranController {
                 message: 'Gagal memperbarui data pembayaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async tambahPembayaran({ request, response, session, params }) {
@@ -441,7 +441,7 @@ export default class DataPembayaranController {
                 status: 'success',
                 message: message,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -451,7 +451,7 @@ export default class DataPembayaranController {
                 message: 'Gagal menambah pembayaran',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params }) {
@@ -472,7 +472,7 @@ export default class DataPembayaranController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async cetakInvoice({ params, response }) {
         try {
@@ -584,7 +584,7 @@ export default class DataPembayaranController {
                 status: 'error',
                 message: 'Gagal memuat data partisipasi ujian',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async updatePartisipasiUjian({ request, response, session }) {
@@ -600,7 +600,7 @@ export default class DataPembayaranController {
                 status: 'success',
                 message: `Status partisipasi ujian berhasil diupdate menjadi ${pembayaran.partisipasiUjian ? 'Diizinkan' : 'Tidak Diizinkan'}`,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -610,7 +610,7 @@ export default class DataPembayaranController {
                 message: 'Gagal update partisipasi ujian',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async bulkUpdatePartisipasiUjian({ request, response, session }) {
@@ -622,7 +622,7 @@ export default class DataPembayaranController {
                     status: 'error',
                     message: 'Tidak ada data yang dipilih',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const status = action === 'allow';
             await DataPembayaran.query()
@@ -634,7 +634,7 @@ export default class DataPembayaranController {
                 status: 'success',
                 message: `Berhasil mengupdate ${selectedIds.length} data partisipasi ujian`,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -644,7 +644,7 @@ export default class DataPembayaranController {
                 message: 'Gagal update partisipasi ujian',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
 }

@@ -168,7 +168,7 @@ export default class DataAbsensiWaliKelasController {
                     status: 'error',
                     message: `Data absensi untuk ${duplicateNames} sudah ada pada tanggal tersebut.`,
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const isOnline = request.header('X-Online-Status') !== 'false';
             if (!isOnline) {
@@ -202,7 +202,7 @@ export default class DataAbsensiWaliKelasController {
                     status: 'success',
                     message: `Data absensi berhasil disimpan untuk ${uniqueData.length} siswa.`,
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
         }
         catch (error) {
@@ -219,7 +219,7 @@ export default class DataAbsensiWaliKelasController {
                 message: 'Gagal menyimpan data absensi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async edit({ inertia, params, session, response, auth }) {
@@ -241,7 +241,7 @@ export default class DataAbsensiWaliKelasController {
                 status: 'error',
                 message: 'Anda tidak memiliki akses ke data absensi ini',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         await absensi.load('user', (query) => query.select(['id', 'fullName']));
         await absensi.load('kelas', (query) => query.select(['id', 'namaKelas']));
@@ -303,7 +303,7 @@ export default class DataAbsensiWaliKelasController {
                 status: 'success',
                 message: 'Data absensi berhasil diperbarui.',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -313,7 +313,7 @@ export default class DataAbsensiWaliKelasController {
                 message: 'Gagal memperbarui data absensi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async destroy({ response, session, params, auth }) {
@@ -353,7 +353,7 @@ export default class DataAbsensiWaliKelasController {
                 error: error,
             });
         }
-        return response.redirect().back();
+        return response.redirect().withQs().back();
     }
     async storeBulk({ request, response, session }) {
         const trx = await db.transaction();
@@ -371,7 +371,7 @@ export default class DataAbsensiWaliKelasController {
                 status: 'success',
                 message: 'Berhasil Mensinkronkan data absensi wali kelas',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             await trx.rollback();
@@ -381,7 +381,7 @@ export default class DataAbsensiWaliKelasController {
                 message: 'Gagal menyimpan data absensi',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async getOfflineStats({ response }) {

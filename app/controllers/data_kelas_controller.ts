@@ -1,4 +1,5 @@
 import DataGuru from '#models/data_guru'
+import DataJurusan from '#models/data_jurusan'
 import DataKelas from '#models/data_kelas'
 import DataMapel from '#models/data_mapel'
 import DataSiswa from '#models/data_siswa'
@@ -155,7 +156,7 @@ export default class DataKelasController {
 
     return inertia.render('Kelas/Create', {
       guruWithMapel,
-      dataSiswa:siswaBelumTerdaftar,
+      dataSiswa: siswaBelumTerdaftar,
       session: session.flashMessages.all(),
     })
   }
@@ -180,7 +181,7 @@ export default class DataKelasController {
         status: 'success',
         message: 'Data kelas berhasil ditambahkan.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data kelas baru')
@@ -189,7 +190,7 @@ export default class DataKelasController {
         message: 'Gagal menyimpan data kelas',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -281,7 +282,7 @@ export default class DataKelasController {
         status: 'success',
         message: 'Data kelas berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update data kelas ID: ${id}`)
@@ -290,7 +291,7 @@ export default class DataKelasController {
         message: 'Gagal memperbarui data kelas',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -298,6 +299,19 @@ export default class DataKelasController {
     try {
       const { id } = params
       const kelas = await DataKelas.findOrFail(id)
+      const dataJurusan = await DataJurusan.query()
+      for (const jurusan of dataJurusan) {
+        const jurusans: any[] =
+          typeof jurusan.kelasId === 'string' ? [jurusan.kelasId] : jurusan.kelasId
+
+        if (Array.isArray(jurusans)) {
+          const filtered = jurusans.filter((id: any) => id !== kelas.id)
+          if (filtered.length !== jurusans.length) {
+            jurusan.kelasId = filtered
+            await jurusan.save()
+          }
+        }
+      }
       await kelas.delete()
 
       session.flash({
@@ -312,6 +326,6 @@ export default class DataKelasController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 }

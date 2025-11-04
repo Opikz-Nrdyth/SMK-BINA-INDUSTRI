@@ -217,7 +217,7 @@ export default class DataAbsensiWaliKelasController {
           message: `Data absensi untuk ${duplicateNames} sudah ada pada tanggal tersebut.`,
         })
 
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Check if we should save to offline storage (if user is offline)
@@ -264,7 +264,7 @@ export default class DataAbsensiWaliKelasController {
           status: 'success',
           message: `Data absensi berhasil disimpan untuk ${uniqueData.length} siswa.`,
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
     } catch (error: any) {
       await trx.rollback()
@@ -283,7 +283,7 @@ export default class DataAbsensiWaliKelasController {
         message: 'Gagal menyimpan data absensi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -308,7 +308,7 @@ export default class DataAbsensiWaliKelasController {
         status: 'error',
         message: 'Anda tidak memiliki akses ke data absensi ini',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     // Load related data
@@ -384,7 +384,7 @@ export default class DataAbsensiWaliKelasController {
         status: 'success',
         message: 'Data absensi berhasil diperbarui.',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error: any) {
       await trx.rollback()
       logger.error({ err: error }, `Gagal update data absensi wali kelas ID: ${id}`)
@@ -393,7 +393,7 @@ export default class DataAbsensiWaliKelasController {
         message: 'Gagal memperbarui data absensi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -438,7 +438,7 @@ export default class DataAbsensiWaliKelasController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   public async storeBulk({ request, response, session }: HttpContext) {
@@ -462,7 +462,7 @@ export default class DataAbsensiWaliKelasController {
         status: 'success',
         message: 'Berhasil Mensinkronkan data absensi wali kelas',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error: any) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data absensi wali kelas bulk')
@@ -471,7 +471,7 @@ export default class DataAbsensiWaliKelasController {
         message: 'Gagal menyimpan data absensi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 

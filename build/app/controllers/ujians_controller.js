@@ -160,7 +160,7 @@ export default class UjiansController {
                     status: 'error',
                     message: 'Ujian belum dimulai',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const waktuSelesai = new Date(waktuUjian.getTime() + parseInt(bankSoal.waktu) * 60000);
             if (now > waktuSelesai) {
@@ -168,7 +168,7 @@ export default class UjiansController {
                     status: 'error',
                     message: 'Ujian sudah berakhir',
                 });
-                return response.redirect().back();
+                return response.redirect().withQs().back();
             }
             const soalFilePath = join(app.makePath('storage/soal_files'), bankSoal.soalFile);
             const encryptedSoalContent = await readFile(soalFilePath, 'utf-8');
@@ -249,7 +249,7 @@ export default class UjiansController {
                 message: 'Gagal memulai ujian',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async saveJawaban({ params, request, auth, response, session }) {
@@ -265,7 +265,7 @@ export default class UjiansController {
             const filePath = join(app.makePath('storage/jawaban'), existingKehadiran.jawabanFile);
             const encryptedContent = encryption.encrypt(jawaban);
             await writeFile(filePath, encryptedContent);
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
         catch (error) {
             logger.error({ err: error }, 'Gagal menyimpan jawaban');
@@ -273,7 +273,7 @@ export default class UjiansController {
                 status: 'error',
                 message: 'Jawaban gagal disimpan! Cek koneksi atau jika nanti mau simpan jawaban harus dalam keadaan online!',
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     async submitJawaban({ params, request, auth, response, session }) {
@@ -329,7 +329,7 @@ export default class UjiansController {
                 message: 'Gagal submit jawaban',
                 error: error,
             });
-            return response.redirect().back();
+            return response.redirect().withQs().back();
         }
     }
     safeJsonParse(jsonString) {

@@ -537,7 +537,7 @@ export default class DataJawabansController {
         .firstOrFail()
 
       if (!kehadiran.jawabanFile) {
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Read dan decrypt file jawaban siswa
@@ -582,7 +582,7 @@ export default class DataJawabansController {
       })
     } catch (error) {
       logger.error({ err: error }, `Gagal memuat jawaban siswa`)
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -646,7 +646,7 @@ export default class DataJawabansController {
           status: 'error',
           message: 'Anda sudah mengikuti ujian ini.',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       const bankSoal = await BankSoal.findOrFail(ujianId)
@@ -701,7 +701,7 @@ export default class DataJawabansController {
         status: 'success',
         message: 'Ujian berhasil dimulai!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, 'Gagal memulai ujian')
       session.flash({
@@ -709,7 +709,7 @@ export default class DataJawabansController {
         message: 'Gagal memulai ujian',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -761,7 +761,7 @@ export default class DataJawabansController {
         status: 'success',
         message: 'Jawaban berhasil disimpan!',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error) {
       logger.error({ err: error }, 'Gagal menyimpan jawaban')
       session.flash({
@@ -769,7 +769,7 @@ export default class DataJawabansController {
         message: 'Gagal menyimpan jawaban',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 

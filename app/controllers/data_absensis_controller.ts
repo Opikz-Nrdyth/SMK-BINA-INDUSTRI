@@ -304,7 +304,7 @@ export default class DataAbsensiController {
 
         logger.error(`Data absensi untuk ${duplicateNames} sudah ada pada tanggal tersebut.`)
 
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       // Check if we should save to offline storage (if user is offline)
@@ -371,7 +371,7 @@ export default class DataAbsensiController {
         message: 'Gagal menyimpan data absensi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -399,7 +399,7 @@ export default class DataAbsensiController {
         status: 'success',
         message: 'Berhasil Mensinkronkan data',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     } catch (error: any) {
       await trx.rollback()
       logger.error({ err: error }, 'Gagal menyimpan data absensi bulk')
@@ -408,7 +408,7 @@ export default class DataAbsensiController {
         message: 'Gagal menyimpan data absensi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -454,7 +454,7 @@ export default class DataAbsensiController {
         status: 'error',
         message: 'Anda tidak memiliki akses ke data absensi ini',
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
 
     // Load related data dengan preload
@@ -549,7 +549,7 @@ export default class DataAbsensiController {
         message: 'Gagal memperbarui data absensi',
         error: error,
       })
-      return response.redirect().back()
+      return response.redirect().withQs().back()
     }
   }
 
@@ -598,7 +598,7 @@ export default class DataAbsensiController {
           status: 'error',
           message: 'Anda tidak memiliki akses ke data absensi ini',
         })
-        return response.redirect().back()
+        return response.redirect().withQs().back()
       }
 
       absensi.useTransaction(trx)
@@ -618,7 +618,7 @@ export default class DataAbsensiController {
         error: error,
       })
     }
-    return response.redirect().back()
+    return response.redirect().withQs().back()
   }
 
   /**
