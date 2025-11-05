@@ -132,7 +132,7 @@ export default function Index({
           </p>
           <div className="ml-4 lg:mt-16">
             <h1 className="text-2xl mt-5 lg:mt-0 md:text-4xl font-bold text-gray-100 relative">
-              Selamat Datang bos, {user.fullName.split(' ')[0]}!
+              Selamat Datang, {user.fullName.split(' ')[0]}!
             </h1>
             <p className="text-purple-300 text-sm md:text-xl relative z-10">
               Selamat belajar dan raih prestasi terbaikmu!

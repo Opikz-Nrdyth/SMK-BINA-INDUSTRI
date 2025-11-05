@@ -67,14 +67,10 @@ export default function BankSoalForm({
   ]
 
   let jenisUjianOptions = [
-    { value: 'Ujian Sekolah', label: 'Ujian Sekolah' },
+    { value: 'PAS', label: 'PAS' },
+    { value: 'PAT', label: 'PAT' },
     { value: 'Ujian Mandiri', label: 'Ujian Mandiri' },
   ]
-
-  const userRole = props.url.split('/').filter((item) => item != '')?.[0]
-  if (userRole == 'guru') {
-    jenisUjianOptions = [{ value: 'Ujian Mandiri', label: 'Ujian Mandiri' }]
-  }
 
   const waktuOptions = [
     { value: '30', label: '30 menit' },

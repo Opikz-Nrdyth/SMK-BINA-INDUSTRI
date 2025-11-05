@@ -12,7 +12,7 @@ import { join } from 'path'
 import app from '@adonisjs/core/services/app'
 import DataPembayaran from '#models/data_pembayaran'
 import DataWebsite from '#models/data_website'
-// import DataPassword from '#models/data_password'
+import DataPassword from '#models/data_password'
 
 export default class UjiansController {
   public async jadwalUjian({ response, inertia, auth, session }: HttpContext) {
@@ -55,10 +55,27 @@ export default class UjiansController {
       .andWhereRaw('DATE(tanggal_ujian) = ?', [DateTime.now().toISODate()])
       .orderBy('tanggal_ujian', 'asc')
 
-    // const kodeUjian = await DataPassword.query()
+    const kodeUjian = await DataPassword.query()
+
+    const bankSoalDenganKode = bankSoal.map((soal) => {
+      const kodeTerbaru = kodeUjian.find((kode) => {
+        const ujianArray = typeof kode.ujian === 'string' ? JSON.parse(kode.ujian) : kode.ujian
+        return ujianArray.includes(soal.id)
+      })
+
+      if (kodeTerbaru) {
+        return {
+          ...soal.toJSON(),
+          kode: kodeTerbaru.kode || soal.kode || null,
+        }
+      }
+
+      return soal.toJSON()
+    })
 
     return inertia.render('SiswaPage/JadwalUjian', {
-      bankSoal,
+      bankSoal: bankSoalDenganKode,
+      kodeUjian,
       session: session.flashMessages.all(),
     })
   }

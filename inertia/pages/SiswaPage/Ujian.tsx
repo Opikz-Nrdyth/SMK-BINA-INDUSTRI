@@ -201,6 +201,14 @@ export default function Ujian({
 
     requestFullScreen()
 
+    if (localStorage?.pinalty) {
+      console.log(localStorage?.pinalty)
+      setCalculatePinalty(parseInt(localStorage?.pinalty))
+      setAFKTIME(parseInt(localStorage?.afkTime))
+
+      setShowPopup('afk')
+    }
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       document.removeEventListener('fullscreenchange', handleFullScreenChange)
@@ -208,15 +216,21 @@ export default function Ujian({
   }, [])
 
   useEffect(() => {
+    if (waktuSisa <= 0) {
+      setShowPopup('habis')
+      return
+    }
     if (afkTime > pinalti.setWaktu) {
       setShowPopup('afk')
       const pinalty = hitungPinalty(afkTime, pinalti.setWaktu, pinalti.setPinalti)
       setCalculatePinalty(pinalty)
+      localStorage.setItem('afkTime', String(afkTime))
+      localStorage.setItem('pinalty', String(pinalty))
       sendMessage(
         `Siswa Dengan Nama ${user.fullName} di ujian ${bankSoal.namaUjian} keluar selama ${formatTime(calculatePinalty)}`
       )
     }
-  }, [afkTime, pinalti])
+  }, [afkTime, pinalti, waktuSisa])
 
   useEffect(() => {
     if (waktuSisa <= 0) {
@@ -329,6 +343,10 @@ export default function Ujian({
               ...props,
               syncStatus: 'idle',
             }))
+            notify('Berhasil Menyimpan Jawaban', 'success', 500)
+          },
+          onError: (err) => {
+            notify('Gagal Menyimpan Jawaban ' + err)
           },
         })
       }
@@ -425,6 +443,7 @@ export default function Ujian({
 
       const sisa = Math.max(0, Math.floor((newEndTime.getTime() - Date.now()) / 1000))
       setWaktuSisa(sisa)
+      localStorage.removeItem('pinalty')
     }
 
     setShowPopup(null)

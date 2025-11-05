@@ -369,10 +369,14 @@ router
     })
 
     router.group(() => {
-      router.get('/manajemen-kehadiran', [DataJawabansController, 'indexGuru']).as('guru.kehadiran')
+      router.get('/manajemen-kehadiran', [DataJawabansController, 'index']).as('guru.kehadiran')
       router
         .get('/manajemen-kehadiran/:id/file', [DataJawabansController, 'getFileContent'])
         .as('guru.kehadiran.fileJawaban')
+
+      router.get('/laporan-nilai', [DataJawabansController, 'index']).as('guru.nilai')
+
+      router.get('/laporan-nilai/cetak', [DataJawabansController, 'export']).as('guru.nilai.cetak')
     })
 
     router.group(() => {

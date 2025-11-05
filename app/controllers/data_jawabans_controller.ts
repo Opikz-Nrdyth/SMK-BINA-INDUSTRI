@@ -9,12 +9,17 @@ import { DateTime } from 'luxon'
 import fs, { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import ExcelJS from 'exceljs'
+import DataGuru from '#models/data_guru'
+import DataSiswa from '#models/data_siswa'
+import DataMapel from '#models/data_mapel'
 
 export default class DataJawabansController {
   public async index({ request, inertia, session, auth }: HttpContext) {
     const page = request.input('page', 1)
     const search = request.input('search', '')
     const namaUjian = request.input('nama_ujian', '')
+
+    await auth.check()
 
     const path = request.parsedUrl.pathname
     const segments = path?.split('/').filter(Boolean)
@@ -111,9 +116,27 @@ export default class DataJawabansController {
       })
     )
 
-    const listUjian = await BankSoal.query().preload('mapel')
+    let listUjian = await BankSoal.query().preload('mapel')
 
-    await auth.check()
+    if (auth.user?.role == 'Guru') {
+      const dataGuru = await DataGuru.query()
+        .where('userId', auth.user.id)
+        .select(['nip'])
+        .preload('mapel')
+        .firstOrFail()
+      const mapelAmpu = await dataGuru.mapelAmpuGuru()
+
+      const mapelAmpuIds = mapelAmpu.map((mapel: any) => mapel.id)
+
+      // Filter listUjian berdasarkan mata pelajaran yang diampu
+      listUjian = await BankSoal.query()
+        .preload('mapel', (mapelQuery) => {
+          mapelQuery.whereIn('id', mapelAmpuIds)
+        })
+        .whereHas('mapel', (mapelQuery) => {
+          mapelQuery.whereIn('id', mapelAmpuIds)
+        })
+    }
 
     let renderFE = lastSegment == 'manajemen-kehadiran' ? 'Kehadiran/Index' : 'Nilai/Index'
 
@@ -154,39 +177,82 @@ export default class DataJawabansController {
       `"${nip}"`,
     ])
 
-    // Ambil semua NISN siswa dari kelas yang diampu
+    console.log('Jumlah Kelas Diampu:', dataKelas.length) // DEBUG
+    console.log(
+      'Data Kelas:',
+      dataKelas.map((k) => ({
+        id: k.id,
+        nama: k.namaKelas,
+        guruPengampu: k.guruPengampu,
+        siswa: k.siswa,
+      }))
+    ) // DEBUG
+
+    // PERBAIKAN 2: Gunakan method helper dari model
     const nisnDiampu: string[] = []
     dataKelas.forEach((kelas) => {
       try {
-        const siswaArray: string[] = JSON.parse(kelas.siswa || '[]')
+        const siswaArray = kelas.getSiswaArray() // Gunakan method helper
+        console.log(`Siswa untuk kelas ${kelas.namaKelas}:`, siswaArray) // DEBUG
         nisnDiampu.push(...siswaArray)
       } catch (error) {
+        console.error(`Error parsing siswa data for kelas ${kelas.id}:`, error)
         logger.error({ err: error }, `Error parsing siswa data for kelas ${kelas.id}`)
       }
     })
 
-    // Hitung total untuk pagination - PERBAIKAN QUERY
-    const totalQuery = ManajemenKehadiran.query().whereHas('user', (userQuery) => {
-      userQuery.whereHas('dataSiswa', (siswaQuery) => {
-        siswaQuery.whereIn('nisn', nisnDiampu)
-      })
-    })
+    // Hapus duplikat NISN
+    const uniqueNisnDiampu = [...new Set(nisnDiampu)]
 
+    console.log('Total NISN Diampu (unique):', uniqueNisnDiampu.length)
+    console.log('NISN Diampu:', uniqueNisnDiampu)
+
+    // PERBAIKAN 3: Jika tidak ada siswa yang diampu, return empty result
+    if (uniqueNisnDiampu.length === 0) {
+      console.log('Tidak ada siswa yang diampu oleh guru ini')
+      return inertia.render('Kehadiran/Index', {
+        kehadiranPaginate: {
+          currentPage: 1,
+          lastPage: 1,
+          total: 0,
+          perPage: 15,
+          firstPage: 1,
+          nextPage: null,
+          previousPage: null,
+        },
+        kehadirans: [],
+        session: session.flashMessages.all(),
+        searchQuery: '',
+        namaUjianFilter: '',
+        listUjian: [],
+        auth: auth.user,
+      })
+    }
+
+    // PERBAIKAN 4: Dapatkan user IDs dari NISN yang diampu
+    const siswaUsers = await DataSiswa.query().whereIn('nisn', uniqueNisnDiampu).select('userId')
+
+    const userIdsDiampu = siswaUsers.map((s) => s.userId)
+    console.log('User IDs Diampu:', userIdsDiampu)
+
+    if (userIdsDiampu.length === 0) {
+      console.log('Tidak ditemukan user IDs untuk NISN yang diampu')
+      // Return empty result seperti di atas
+    }
+
+    // Hitung total untuk pagination
+    const totalQuery = ManajemenKehadiran.query().whereIn('userId', userIdsDiampu)
     const [totalKehadiran] = await Promise.all([totalQuery.count('* as total').first()])
 
-    // Query hanya kehadiran siswa yang diampu - PERBAIKAN QUERY
+    // Query hanya kehadiran siswa yang diampu - PERBAIKAN 5: Gunakan whereIn
     const query = ManajemenKehadiran.query()
       .preload('user', (user) => {
-        user.preload('dataSiswa') // Preload dataSiswa melalui user
+        user.preload('dataSiswa')
       })
       .preload('ujian', (u) => {
         u.preload('mapel')
       })
-      .whereHas('user', (userQuery) => {
-        userQuery.whereHas('dataSiswa', (siswaQuery) => {
-          siswaQuery.whereIn('nisn', nisnDiampu)
-        })
-      })
+      .whereIn('userId', userIdsDiampu) // Lebih sederhana dan efisien
 
     if (search) {
       query.whereHas('user', (userQuery) => {
@@ -451,19 +517,57 @@ export default class DataJawabansController {
     })
   }
 
-  public async export({ response, request }: HttpContext) {
-    // Ambil semua data ujian dan kehadiran
-    const mapelFilter = request.input('mapel', '')
+  public async export({ response, request, auth, session }: HttpContext) {
+    await auth.check()
+    const user = auth.user!
 
-    const data = await ManajemenKehadiran.query()
+    // Ambil parameter filter mapel dari query string
+    const { mapel: mapelId } = request.qs() // mapelId adalah ID mapel yang dipilih
+
+    // Validasi: mapel harus dipilih
+    if (!mapelId) {
+      session.flash({
+        status: 'error',
+        message: 'Silakan pilih mata pelajaran terlebih dahulu',
+      })
+      return response.redirect().back()
+    }
+
+    // Query dasar
+    const query = ManajemenKehadiran.query()
       .preload('user', (q) => q.preload('dataSiswa'))
-      .preload('ujian', (q) =>
-        q.preload('mapel', (m) => {
-          if (mapelFilter) {
-            m.where('nama', 'LIKE', `%${mapelFilter}%`)
-          }
+      .preload('ujian', (q) => q.preload('mapel'))
+
+    // Filter berdasarkan mapel yang dipilih dari query string
+    query.whereHas('ujian', (ujianQuery) => {
+      ujianQuery.whereHas('mapel', (mapelQuery) => {
+        mapelQuery.where('namaMataPelajaran', mapelId)
+      })
+    })
+
+    // Untuk guru, pastikan mapel yang dipilih adalah mapel yang diampu
+    if (user.role === 'Guru') {
+      await user.load('dataGuru')
+      const dataGuru = user.dataGuru
+      const mapelAmpu = await dataGuru.mapelAmpuGuru()
+      const mapelAmpuIds = mapelAmpu.map((mapel: any) => mapel.namaMataPelajaran)
+
+      // Validasi: mapel yang dipilih harus termasuk mapel yang diampu
+      if (!mapelAmpuIds.includes(mapelId)) {
+        session.flash({
+          status: 'error',
+          message: 'Anda tidak memiliki akses ke mata pelajaran ini',
         })
-      )
+        return response.redirect().back()
+      }
+    }
+
+    const data = await query
+
+    // Dapatkan nama mapel untuk nama file
+    const mapelData = await DataMapel.query().where('namaMataPelajaran', mapelId).firstOrFail()
+    const mapelName = mapelData?.namaMataPelajaran || 'unknown'
+
     // Buat workbook dan worksheet
     const workbook = new ExcelJS.Workbook()
     const worksheet = workbook.addWorksheet('Rapor Nilai')
@@ -483,7 +587,7 @@ export default class DataJawabansController {
       const nisn = item.user?.dataSiswa?.nisn ?? '-'
       const mapel = item.ujian?.mapel?.namaMataPelajaran ?? '-'
 
-      // Hitung nilai (misal disimpan di field hasilJSON)
+      // Hitung nilai
       let nilai = 0
       try {
         nilai = parseInt(item.skor)
@@ -507,9 +611,10 @@ export default class DataJawabansController {
       'Content-Type',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
+
     response.header(
       'Content-Disposition',
-      `attachment; filename="rapor_${DateTime.now().toFormat('yyyyLLdd_HHmm')}.xlsx"`
+      `attachment; filename="rapor_${mapelName}_${DateTime.now().toFormat('yyyyLLdd_HHmm')}.xlsx"`
     )
 
     const buffer = await workbook.xlsx.writeBuffer()

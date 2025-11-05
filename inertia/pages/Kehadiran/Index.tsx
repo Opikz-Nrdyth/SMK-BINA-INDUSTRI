@@ -26,6 +26,8 @@ export default function Index({
 }) {
   const { props } = usePage()
 
+  const pattern = props.pattern
+
   const { notify } = useNotification()
 
   const socket = getSocket()
@@ -471,6 +473,7 @@ export default function Index({
               {
                 header: 'Tanggal Ujian',
                 accessor: 'tanggalUjian' as const,
+                isTime: { mode: 'date', withDay: true },
               },
             ]}
             pageSize={15}
@@ -554,18 +557,6 @@ export default function Index({
                 isTime: { mode: 'date', withDay: true },
                 accessor: 'createdAt' as const,
               },
-              {
-                header: 'File Jawaban',
-                accessor: 'jawabanFile' as const,
-                action: (row: any) => (
-                  <Link
-                    className="text-blue-600 font-bold hover:underline text-nowrap"
-                    href={`/SuperAdmin/manajemen-kehadiran/${row.id}/file`}
-                  >
-                    Lihat Jawaban
-                  </Link>
-                ),
-              },
             ]}
             pageSize={15}
             placeholder="Cari data..."
@@ -587,8 +578,21 @@ export default function Index({
       )}
 
       <ModalView
-        data={dataSelected}
-        exclude={['*id', 'userId', 'ujianId', 'user', 'ujian', 'mapelId', 'jawabanFile']}
+        data={{
+          ...dataSelected,
+          skor: parseInt(dataSelected?.skor).toFixed(1),
+          progress: `${dataSelected?.progress}%`,
+        }}
+        exclude={[
+          '*id',
+          'userId',
+          'ujianId',
+          'user',
+          'ujian',
+          'mapelId',
+          'jawabanFile',
+          'Perbandingan',
+        ]}
         open={!!dataSelected}
         onClose={() => setDataSelected(null)}
       />

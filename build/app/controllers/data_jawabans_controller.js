@@ -8,11 +8,15 @@ import { DateTime } from 'luxon';
 import fs, { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import ExcelJS from 'exceljs';
+import DataGuru from '#models/data_guru';
+import DataSiswa from '#models/data_siswa';
+import DataMapel from '#models/data_mapel';
 export default class DataJawabansController {
     async index({ request, inertia, session, auth }) {
         const page = request.input('page', 1);
         const search = request.input('search', '');
         const namaUjian = request.input('nama_ujian', '');
+        await auth.check();
         const path = request.parsedUrl.pathname;
         const segments = path?.split('/').filter(Boolean);
         const lastSegment = segments?.at(-1);
@@ -88,8 +92,23 @@ export default class DataJawabansController {
                 };
             }
         }));
-        const listUjian = await BankSoal.query().preload('mapel');
-        await auth.check();
+        let listUjian = await BankSoal.query().preload('mapel');
+        if (auth.user?.role == 'Guru') {
+            const dataGuru = await DataGuru.query()
+                .where('userId', auth.user.id)
+                .select(['nip'])
+                .preload('mapel')
+                .firstOrFail();
+            const mapelAmpu = await dataGuru.mapelAmpuGuru();
+            const mapelAmpuIds = mapelAmpu.map((mapel) => mapel.id);
+            listUjian = await BankSoal.query()
+                .preload('mapel', (mapelQuery) => {
+                mapelQuery.whereIn('id', mapelAmpuIds);
+            })
+                .whereHas('mapel', (mapelQuery) => {
+                mapelQuery.whereIn('id', mapelAmpuIds);
+            });
+        }
         let renderFE = lastSegment == 'manajemen-kehadiran' ? 'Kehadiran/Index' : 'Nilai/Index';
         return inertia.render(renderFE, {
             kehadiranPaginate: {
@@ -122,21 +141,55 @@ export default class DataJawabansController {
         const dataKelas = await DataKelas.query().whereRaw('JSON_CONTAINS(guru_pengampu, ?)', [
             `"${nip}"`,
         ]);
+        console.log('Jumlah Kelas Diampu:', dataKelas.length);
+        console.log('Data Kelas:', dataKelas.map((k) => ({
+            id: k.id,
+            nama: k.namaKelas,
+            guruPengampu: k.guruPengampu,
+            siswa: k.siswa,
+        })));
         const nisnDiampu = [];
         dataKelas.forEach((kelas) => {
             try {
-                const siswaArray = JSON.parse(kelas.siswa || '[]');
+                const siswaArray = kelas.getSiswaArray();
+                console.log(`Siswa untuk kelas ${kelas.namaKelas}:`, siswaArray);
                 nisnDiampu.push(...siswaArray);
             }
             catch (error) {
+                console.error(`Error parsing siswa data for kelas ${kelas.id}:`, error);
                 logger.error({ err: error }, `Error parsing siswa data for kelas ${kelas.id}`);
             }
         });
-        const totalQuery = ManajemenKehadiran.query().whereHas('user', (userQuery) => {
-            userQuery.whereHas('dataSiswa', (siswaQuery) => {
-                siswaQuery.whereIn('nisn', nisnDiampu);
+        const uniqueNisnDiampu = [...new Set(nisnDiampu)];
+        console.log('Total NISN Diampu (unique):', uniqueNisnDiampu.length);
+        console.log('NISN Diampu:', uniqueNisnDiampu);
+        if (uniqueNisnDiampu.length === 0) {
+            console.log('Tidak ada siswa yang diampu oleh guru ini');
+            return inertia.render('Kehadiran/Index', {
+                kehadiranPaginate: {
+                    currentPage: 1,
+                    lastPage: 1,
+                    total: 0,
+                    perPage: 15,
+                    firstPage: 1,
+                    nextPage: null,
+                    previousPage: null,
+                },
+                kehadirans: [],
+                session: session.flashMessages.all(),
+                searchQuery: '',
+                namaUjianFilter: '',
+                listUjian: [],
+                auth: auth.user,
             });
-        });
+        }
+        const siswaUsers = await DataSiswa.query().whereIn('nisn', uniqueNisnDiampu).select('userId');
+        const userIdsDiampu = siswaUsers.map((s) => s.userId);
+        console.log('User IDs Diampu:', userIdsDiampu);
+        if (userIdsDiampu.length === 0) {
+            console.log('Tidak ditemukan user IDs untuk NISN yang diampu');
+        }
+        const totalQuery = ManajemenKehadiran.query().whereIn('userId', userIdsDiampu);
         const [totalKehadiran] = await Promise.all([totalQuery.count('* as total').first()]);
         const query = ManajemenKehadiran.query()
             .preload('user', (user) => {
@@ -145,11 +198,7 @@ export default class DataJawabansController {
             .preload('ujian', (u) => {
             u.preload('mapel');
         })
-            .whereHas('user', (userQuery) => {
-            userQuery.whereHas('dataSiswa', (siswaQuery) => {
-                siswaQuery.whereIn('nisn', nisnDiampu);
-            });
-        });
+            .whereIn('userId', userIdsDiampu);
         if (search) {
             query.whereHas('user', (userQuery) => {
                 userQuery.where('full_name', 'LIKE', `%${search}%`);
@@ -353,15 +402,41 @@ export default class DataJawabansController {
             auth: auth.user,
         });
     }
-    async export({ response, request }) {
-        const mapelFilter = request.input('mapel', '');
-        const data = await ManajemenKehadiran.query()
+    async export({ response, request, auth, session }) {
+        await auth.check();
+        const user = auth.user;
+        const { mapel: mapelId } = request.qs();
+        if (!mapelId) {
+            session.flash({
+                status: 'error',
+                message: 'Silakan pilih mata pelajaran terlebih dahulu',
+            });
+            return response.redirect().back();
+        }
+        const query = ManajemenKehadiran.query()
             .preload('user', (q) => q.preload('dataSiswa'))
-            .preload('ujian', (q) => q.preload('mapel', (m) => {
-            if (mapelFilter) {
-                m.where('nama', 'LIKE', `%${mapelFilter}%`);
+            .preload('ujian', (q) => q.preload('mapel'));
+        query.whereHas('ujian', (ujianQuery) => {
+            ujianQuery.whereHas('mapel', (mapelQuery) => {
+                mapelQuery.where('namaMataPelajaran', mapelId);
+            });
+        });
+        if (user.role === 'Guru') {
+            await user.load('dataGuru');
+            const dataGuru = user.dataGuru;
+            const mapelAmpu = await dataGuru.mapelAmpuGuru();
+            const mapelAmpuIds = mapelAmpu.map((mapel) => mapel.namaMataPelajaran);
+            if (!mapelAmpuIds.includes(mapelId)) {
+                session.flash({
+                    status: 'error',
+                    message: 'Anda tidak memiliki akses ke mata pelajaran ini',
+                });
+                return response.redirect().back();
             }
-        }));
+        }
+        const data = await query;
+        const mapelData = await DataMapel.query().where('namaMataPelajaran', mapelId).firstOrFail();
+        const mapelName = mapelData?.namaMataPelajaran || 'unknown';
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Rapor Nilai');
         worksheet.columns = [
@@ -388,7 +463,7 @@ export default class DataJawabansController {
         worksheet.getRow(1).font = { bold: true };
         worksheet.getRow(1).alignment = { horizontal: 'center' };
         response.header('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        response.header('Content-Disposition', `attachment; filename="rapor_${DateTime.now().toFormat('yyyyLLdd_HHmm')}.xlsx"`);
+        response.header('Content-Disposition', `attachment; filename="rapor_${mapelName}_${DateTime.now().toFormat('yyyyLLdd_HHmm')}.xlsx"`);
         const buffer = await workbook.xlsx.writeBuffer();
         return response.send(buffer);
     }

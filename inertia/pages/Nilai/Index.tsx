@@ -8,6 +8,8 @@ import ModalView from '~/Components/ModalView'
 import { Nilai } from './types'
 import UniversalInput from '~/Components/UniversalInput'
 import StafLayout from '~/Layouts/StafLayouts'
+import GuruLayout from '~/Layouts/GuruLayouts'
+import { useNotification } from '~/Components/NotificationAlert'
 
 type ViewMode = 'mapel' | 'siswa' | 'detail'
 
@@ -24,7 +26,18 @@ export default function Index({
   namaUjianFilter?: string
   listUjian: any[]
 }) {
-  const { props } = usePage()
+  const { props } = usePage() as any
+
+  // const baseUrl = props?.session?.split('/')
+  // console.log(baseUrl)
+
+  const { notify } = useNotification()
+
+  useEffect(() => {
+    if (props?.session?.status) {
+      notify(props?.session?.message, props?.session?.status)
+    }
+  }, [props.session])
 
   const [data, setData] = useState([])
   const [dataSelected, setDataSelected] = useState<any | null>()
@@ -50,7 +63,7 @@ export default function Index({
     kehadirans.map((item: any) => {
       newData.push({
         ...item,
-        id: item.id,
+        id: item?.id,
         namaSiswa: item?.user?.fullName || '-',
         email: item?.user?.email || '-',
         nisn: item?.user?.dataSiswa?.nisn || '-',
@@ -66,12 +79,14 @@ export default function Index({
   // Group data by mapel
   const mapelData = listUjian.reduce((acc: any, ujian: any) => {
     const mapelName = ujian.mapel?.namaMataPelajaran || 'Tidak ada mapel'
+    const jenjang = ujian.mapel?.jenjang || 'Tidak ada mapel'
     const mapelId = ujian.mapel?.id || 'no-id'
 
     if (!acc[mapelId]) {
       acc[mapelId] = {
         id: mapelId,
         namaMapel: mapelName,
+        jenjang,
         jumlahUjian: 0,
         jumlahSiswa: 0,
         ujianList: [],
@@ -79,7 +94,7 @@ export default function Index({
     }
 
     // Hitung siswa untuk ujian ini
-    const siswaUjian = data.filter((item: any) => item.ujianId === ujian.id)
+    const siswaUjian = data.filter((item: any) => item?.ujianId === ujian.id)
     acc[mapelId].jumlahUjian += 1
     acc[mapelId].jumlahSiswa += siswaUjian.length
     acc[mapelId].ujianList.push({
@@ -137,8 +152,8 @@ export default function Index({
     ? Array.from(
         new Map(
           data
-            .filter((item: any) => item.mapelId === selectedMapel.id)
-            .map((item: any) => [item.userId, item])
+            .filter((item: any) => item?.mapelId === selectedMapel.id)
+            .map((item: any) => [item?.userId, item])
         ).values()
       )
     : []
@@ -146,21 +161,21 @@ export default function Index({
   // Data detail untuk view mode 'detail'
   const detailData = selectedSiswa
     ? data.filter(
-        (item: any) => item.userId === selectedSiswa.userId && item.mapelId === selectedMapel.id
+        (item: any) => item?.userId === selectedSiswa.userId && item?.mapelId === selectedMapel.id
       )
     : []
 
   // Hitung statistik untuk siswa
   const getSiswaStats = (siswa: any) => {
     const siswaUjian = data.filter(
-      (item: any) => item.userId === siswa.userId && item.mapelId === selectedMapel.id
+      (item: any) => item?.userId === siswa.userId && item?.mapelId === selectedMapel.id
     )
 
     const totalUjian = siswaUjian.length
     const rataRataSkor =
       totalUjian > 0
         ? (
-            siswaUjian.reduce((sum: number, item: any) => sum + parseFloat(item.skor || 0), 0) /
+            siswaUjian.reduce((sum: number, item: any) => sum + parseFloat(item?.skor || 0), 0) /
             totalUjian
           ).toFixed(2)
         : 0
@@ -169,13 +184,13 @@ export default function Index({
   }
 
   const optionUjian = listUjian.map((item: any) => ({
-    label: `${item.namaUjian}/${item.mapel.namaMataPelajaran}`,
-    value: item.id,
+    label: `${item?.namaUjian}/${item?.mapel?.namaMataPelajaran}`,
+    value: item?.id,
   }))
 
   const handlePageChange = (page: number) => {
     router.get(
-      `/SuperAdmin/manajemen-kehadiran`,
+      `/${baseUrl}/manajemen-kehadiran`,
       { page, search, nama_ujian: namaUjian },
       {
         preserveState: true,
@@ -188,7 +203,7 @@ export default function Index({
   const handleSearch = (searchTerm: string) => {
     setSearch(searchTerm)
     router.get(
-      `/SuperAdmin/manajemen-kehadiran`,
+      `/${baseUrl}/manajemen-kehadiran`,
       { page: 1, search: searchTerm, nama_ujian: namaUjian },
       {
         preserveState: true,
@@ -202,7 +217,7 @@ export default function Index({
   const handleNamaUjianFilter = (value: string) => {
     setNamaUjian(value)
     router.get(
-      `/SuperAdmin/manajemen-kehadiran`,
+      `/${baseUrl}/manajemen-kehadiran`,
       { page: 1, search, nama_ujian: value },
       {
         preserveState: true,
@@ -281,7 +296,7 @@ export default function Index({
         </div>
         {selectedMapel && (
           <a
-            href={`${props.pattern}/cetak`}
+            href={`${props.pattern}/cetak?mapel=${selectedMapel?.namaMapel}`}
             className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors duration-200"
           >
             <i className="fa-solid fa-file-excel"></i> Export Excell
@@ -314,7 +329,7 @@ export default function Index({
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  {mapel.namaMapel}
+                  {mapel.namaMapel} ({mapel.jenjang})
                 </h3>
                 <svg
                   className="w-5 h-5 text-purple-500"
@@ -475,6 +490,9 @@ Index.layout = (page: any) => {
   const activeRole = page.props.activeRole ?? page.props.user.role
   if (activeRole == 'Staf') {
     return <StafLayout>{page}</StafLayout>
+  }
+  if (activeRole == 'Guru') {
+    return <GuruLayout>{page}</GuruLayout>
   }
 
   return <SuperAdminLayout>{page}</SuperAdminLayout>

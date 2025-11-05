@@ -126,19 +126,13 @@ export default function Index({ bankSoals, bankSoalPaginate, searchQuery = '', a
         placeholder="Cari bank soal berdasarkan kode, nama ujian, jenjang, atau jenis ujian..."
         noDataText="Tidak ada data bank soal"
         disableConfig={{
-          canEdit: (row) => {
-            if (auth.role === 'Guru') {
-              return row.jenisUjian === 'Ujian Mandiri' && row.penulis == auth.fullName
-            }
+          canEdit: () => {
             return true
           },
-          canDelete: (row) => {
-            if (auth.role === 'Guru') {
-              return row.jenisUjian === 'Ujian Mandiri' && row.penulis == auth.fullName
-            }
+          canDelete: () => {
             return true
           },
-          canView: (row) => true,
+          canView: () => true,
           disabledMessage: 'Guru hanya dapat mengubah Ujian Mandiri yang dibuat sendiri',
         }}
         onRowClick={(value: any) =>

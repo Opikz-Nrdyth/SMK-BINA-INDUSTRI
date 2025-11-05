@@ -23,7 +23,13 @@ export type Ujian = {
   penulis: string[]
 }
 
-export default function JadwalUjian({ bankSoal }: { bankSoal: any[] }) {
+export default function JadwalUjian({
+  bankSoal,
+  kodeUjian,
+}: {
+  bankSoal: any[]
+  kodeUjian: any[]
+}) {
   const [ujianList, setUjianList] = useState<Ujian[]>([])
   const [ujianSelected, setUjianSelected] = useState<Ujian | null>(null)
   const [loading, setLoading] = useState(false)

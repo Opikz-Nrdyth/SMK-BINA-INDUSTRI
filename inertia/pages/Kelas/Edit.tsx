@@ -11,9 +11,10 @@ export default function Edit({ kelas, guruWithMapel, dataSiswa }: any) {
   const initialValues: Kelas = {
     jenjang: kelas.jenjang,
     namaKelas: kelas.namaKelas,
-    siswa: kelas.siswa,
+    siswa: typeof kelas.siswa == 'string' ? JSON.parse(kelas.siswa) : kelas.siswa,
     waliKelas: kelas.waliKelas,
-    guruPengampu: kelas.guruPengampu,
+    guruPengampu:
+      typeof kelas.guruPengampu == 'string' ? JSON.parse(kelas.guruPengampu) : kelas.guruPengampus,
   }
 
   const { props } = usePage()
@@ -36,14 +37,15 @@ export default function Edit({ kelas, guruWithMapel, dataSiswa }: any) {
   }, [dataSiswa])
 
   const { notify } = useNotification()
+
   const handleSubmit = (data: any) => {
     router.put(`${url}/${kelas.id}`, data, {
       onSuccess: ({ props }: any) => {
         if (props.session.status == 'success') {
           router.visit(url)
+        } else {
+          props.session.error.messages.map((m: any) => notify(m.message, 'error'))
         }
-
-        props.session.error.messages.map((m: any) => notify(m.message, 'error'))
       },
     })
   }

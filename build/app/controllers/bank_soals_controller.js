@@ -169,9 +169,9 @@ export default class BankSoalsController {
     async create({ inertia, session }) {
         try {
             const [jurusanList, usersList, mapelList] = await Promise.all([
-                DataJurusan.query().select('id', 'nama_jurusan'),
+                DataJurusan.query(),
                 User.query().select('id', 'full_name').where('role', 'Guru'),
-                DataMapel.query().select('id', 'namaMataPelajaran'),
+                DataMapel.query(),
             ]);
             return inertia.render('BankSoal/Create', {
                 jurusanList,
@@ -200,7 +200,7 @@ export default class BankSoalsController {
         const [jurusanList, usersList, mapelList] = await Promise.all([
             DataJurusan.query().select('id', 'nama_jurusan'),
             User.query().select('id', 'full_name'),
-            DataMapel.query().select('id', 'namaMataPelajaran'),
+            DataMapel.query(),
         ]);
         return inertia.render('BankSoal/Edit', {
             bankSoal,
@@ -222,9 +222,8 @@ export default class BankSoalsController {
             const kelasIds = dataKelas.map((kelas) => kelas.id);
             const jurusanList = await DataJurusan.query()
                 .whereRaw('JSON_OVERLAPS(kelas_id, ?)', [JSON.stringify(kelasIds)])
-                .select('id', 'nama_jurusan', 'kodeJurusan')
                 .orderBy('nama_jurusan', 'asc');
-            const mapelList = await DataMapel.query().select('id', 'namaMataPelajaran');
+            const mapelList = await DataMapel.query();
             return inertia.render('BankSoal/Create', {
                 jurusanList,
                 mapelList,
@@ -262,9 +261,8 @@ export default class BankSoalsController {
         const kelasIds = dataKelas.map((kelas) => kelas.id);
         const jurusanList = await DataJurusan.query()
             .whereRaw('JSON_OVERLAPS(kelas_id, ?)', [JSON.stringify(kelasIds)])
-            .select('id', 'nama_jurusan', 'kodeJurusan')
             .orderBy('nama_jurusan', 'asc');
-        const mapelList = await DataMapel.query().select('id', 'namaMataPelajaran');
+        const mapelList = await DataMapel.query();
         return inertia.render('BankSoal/Edit', {
             bankSoal,
             jurusanList,
@@ -424,7 +422,7 @@ export default class BankSoalsController {
                 if (bankSoal.jenisUjian === 'Ujian Mandiri') {
                     return { ...item, selected: true };
                 }
-                if (bankSoal.jenisUjian === 'Ujian Sekolah') {
+                if (bankSoal.jenisUjian === 'PAS' || bankSoal.jenisUjian === 'PAT') {
                     return { ...item, selected: !!item.selected };
                 }
                 return { ...item, selected: false };

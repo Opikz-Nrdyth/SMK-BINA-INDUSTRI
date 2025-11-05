@@ -26,7 +26,7 @@ export default class BankSoal extends BaseModel {
   declare kode: string
 
   @column()
-  declare jenisUjian: 'Ujian Sekolah' | 'Ujian Mandiri'
+  declare jenisUjian: 'PAS' | 'PAT' | 'Ujian Mandiri'
 
   @column()
   declare mapelId: number

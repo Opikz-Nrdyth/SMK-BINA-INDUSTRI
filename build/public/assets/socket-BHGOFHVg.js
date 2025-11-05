@@ -1,0 +1,1 @@
+import{l as e}from"./index-CA1CrNgP.js";let o;const c=()=>(o||(o=e("http://localhost:2026",{autoConnect:!0,transports:["websocket"],reconnectionAttempts:5,reconnectionDelay:1e3}),o.on("connect",()=>{console.log("✅ Connected global socket with ID:",o.id)}),o.on("disconnect",t=>{console.warn("🔌 Disconnected:",t)})),o);export{c as getSocket};

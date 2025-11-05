@@ -69,7 +69,6 @@ export default function PreviewJawaban({
     )
   }
 
-
   return (
     <SiswaLayout>
       <div className="min-h-screen bg-gray-50 py-8">
@@ -178,9 +177,10 @@ export default function PreviewJawaban({
 
                       {/* Pertanyaan */}
                       <div className="flex-1">
-                        <div className="text-gray-900 mb-4 leading-relaxed text-justify font-medium">
-                          {item.soal || `Soal ${item.id}`}
-                        </div>
+                        <div
+                          className="text-gray-900 mb-4 leading-relaxed text-justify font-medium"
+                          dangerouslySetInnerHTML={{ __html: item.soal || `Soal ${item.id}` }}
+                        ></div>
 
                         {/* Opsi Pilihan */}
                         {item.options && item.options.length > 0 ? (
@@ -191,10 +191,13 @@ export default function PreviewJawaban({
                               return (
                                 <div
                                   key={optIndex}
-                                  className={`text-sm ${isSelected ? 'text-gray-800 font-bold' : 'text-gray-700'}`}
+                                  className={`text-sm ${isSelected ? 'text-gray-800 font-bold flex items-start' : 'text-gray-700'}`}
                                 >
                                   <span className="font-bold mr-2">{labels[optIndex]}.</span>
-                                  {option}
+                                  <span
+                                    className="inline-block"
+                                    dangerouslySetInnerHTML={{ __html: option }}
+                                  ></span>
                                 </div>
                               )
                             })}

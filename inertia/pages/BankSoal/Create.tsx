@@ -20,7 +20,7 @@ export default function BankSoalCreate({ jurusanList, usersList, mapelList }: Cr
   })
 
   const mapelOptions = mapelList.map((item: any) => {
-    return { label: item.namaMataPelajaran, value: item.id }
+    return { label: `${item.namaMataPelajaran}(${item.jenjang})`, value: item.id }
   })
 
   const props = usePage()

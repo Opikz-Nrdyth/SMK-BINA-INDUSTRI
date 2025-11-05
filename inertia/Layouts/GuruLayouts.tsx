@@ -44,8 +44,12 @@ export default function GuruLayout({ title, children }: LayoutProps) {
           path: '/guru/bank-soal',
         },
         {
-          name: 'Manajemen Kehadiran',
+          name: 'Manajemen Jawaban',
           path: '/guru/manajemen-kehadiran',
+        },
+        {
+          name: 'Manajemen Nilai',
+          path: '/guru/laporan-nilai',
         },
       ],
     },
@@ -172,7 +176,6 @@ export default function GuruLayout({ title, children }: LayoutProps) {
         ))}
     </div>
   )
-  
 
   return (
     <section>

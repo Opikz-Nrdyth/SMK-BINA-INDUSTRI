@@ -35,6 +35,7 @@ export interface BankSoalFormData {
 export interface JurusanOption {
   id: string
   namaJurusan: string
+  jenjang: string
 }
 
 export interface UserOption {

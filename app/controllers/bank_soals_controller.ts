@@ -198,9 +198,9 @@ export default class BankSoalsController {
   public async create({ inertia, session }: HttpContext) {
     try {
       const [jurusanList, usersList, mapelList] = await Promise.all([
-        DataJurusan.query().select('id', 'nama_jurusan'),
+        DataJurusan.query(),
         User.query().select('id', 'full_name').where('role', 'Guru'),
-        DataMapel.query().select('id', 'namaMataPelajaran'),
+        DataMapel.query(),
       ])
 
       return inertia.render('BankSoal/Create', {
@@ -231,7 +231,7 @@ export default class BankSoalsController {
     const [jurusanList, usersList, mapelList] = await Promise.all([
       DataJurusan.query().select('id', 'nama_jurusan'),
       User.query().select('id', 'full_name'),
-      DataMapel.query().select('id', 'namaMataPelajaran'),
+      DataMapel.query(),
     ])
 
     return inertia.render('BankSoal/Edit', {
@@ -262,10 +262,9 @@ export default class BankSoalsController {
       // Get jurusan dari kelas yang diampu
       const jurusanList = await DataJurusan.query()
         .whereRaw('JSON_OVERLAPS(kelas_id, ?)', [JSON.stringify(kelasIds)])
-        .select('id', 'nama_jurusan', 'kodeJurusan')
         .orderBy('nama_jurusan', 'asc')
 
-      const mapelList = await DataMapel.query().select('id', 'namaMataPelajaran')
+      const mapelList = await DataMapel.query()
 
       return inertia.render('BankSoal/Create', {
         jurusanList,
@@ -312,10 +311,10 @@ export default class BankSoalsController {
     // Get jurusan dari kelas yang diampu
     const jurusanList = await DataJurusan.query()
       .whereRaw('JSON_OVERLAPS(kelas_id, ?)', [JSON.stringify(kelasIds)])
-      .select('id', 'nama_jurusan', 'kodeJurusan')
+
       .orderBy('nama_jurusan', 'asc')
 
-    const mapelList = await DataMapel.query().select('id', 'namaMataPelajaran')
+    const mapelList = await DataMapel.query()
 
     return inertia.render('BankSoal/Edit', {
       bankSoal,
@@ -348,7 +347,7 @@ export default class BankSoalsController {
           namaUjian: payload.namaUjian,
           jenjang: payload.jenjang,
           jurusan: payload.jurusan,
-          jenisUjian: payload.jenisUjian,
+          jenisUjian: payload.jenisUjian as any,
           penulis: payload.penulis,
           kode: payload.kode,
           mapelId: payload.mapel,
@@ -390,7 +389,7 @@ export default class BankSoalsController {
         jenjang: payload.jenjang,
         jurusan: payload.jurusan,
         kode: payload.kode,
-        jenisUjian: payload.jenisUjian,
+        jenisUjian: payload.jenisUjian as any,
         mapelId: payload.mapel,
         penulis: payload.penulis,
         waktu: payload.waktu,
@@ -510,7 +509,7 @@ export default class BankSoalsController {
         if (bankSoal.jenisUjian === 'Ujian Mandiri') {
           return { ...item, selected: true }
         }
-        if (bankSoal.jenisUjian === 'Ujian Sekolah') {
+        if (bankSoal.jenisUjian === 'PAS' || bankSoal.jenisUjian === 'PAT') {
           return { ...item, selected: !!item.selected }
         }
         return { ...item, selected: false }

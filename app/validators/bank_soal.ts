@@ -7,7 +7,7 @@ export const bankSoalValidator = vine.compile(
     jenjang: vine.string(),
     jurusan: vine.array(vine.string().uuid()).minLength(1),
     mapel: vine.number(),
-    jenisUjian: vine.enum(['Ujian Sekolah', 'Ujian Mandiri']),
+    jenisUjian: vine.enum(['PAS', 'PAT', 'Ujian Mandiri']),
     penulis: vine.array(vine.string().uuid()).minLength(1),
     waktu: vine.string(),
     kode: vine.string().optional(),
